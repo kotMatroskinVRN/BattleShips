@@ -1,0 +1,9 @@
+
+
+FieldGrid .label{
+    -fx-alignment: center;
+    -fx-max-width: Infinity;
+    -fx-padding: 5;
+    -fx-font-weight:bold;
+}
+
