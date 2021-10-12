@@ -61,7 +61,7 @@ public class FieldGrid extends GridPane implements PlayField {
 
                 if(c=='Й') continue;
                 int arrayNumber= getNumberFromChar(c);
-                System.out.println("defaultFill : " + arrayNumber);
+                //System.out.println("defaultFill : " + arrayNumber);
                 String letter = String.valueOf(c);
 
                 ImageView imageView = fieldData.getImage(letter , n);

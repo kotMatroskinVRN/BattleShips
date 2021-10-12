@@ -49,7 +49,7 @@ public class FieldData {
 
                 if(c=='Й') continue;
                 int arrayNumber= getNumberFromChar(c);
-                System.out.println("defaultFill : " + arrayNumber);
+                //System.out.println("defaultFill : " + arrayNumber);
                 String letter = String.valueOf(c);
                 FieldCell cell = new FieldCell(letter , i);
                 cells[i][arrayNumber] = cell;

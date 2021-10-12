@@ -24,7 +24,8 @@
       </SplitPane>
    </center>
    <bottom>
-      <Button fx:id="test_button" mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER">
+      <Button fx:id="test_button" mnemonicParsing="false" text="New Game" BorderPane.alignment="CENTER"
+              onAction="#newGame">
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin></Button>

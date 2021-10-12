@@ -8,7 +8,7 @@ import java.io.InputStream;
 public class FieldCell implements Comparable<FieldCell> {
 
 
-    private final ImageView SEA , HIT , MISS;
+    public final ImageView SEA , HIT , MISS , DECK ;
 
     private int number;
     private String letter;
@@ -23,11 +23,15 @@ public class FieldCell implements Comparable<FieldCell> {
         SEA  = setImage("images/sea.png");
         HIT  = setImage("images/hit.png");
         MISS = setImage("images/miss.png");
+        DECK = setImage("images/deck.png");
 
     }
 
     public void setImageSea(){
         imageView = SEA;
+    }
+    public void setImageDeck(){
+        imageView = DECK;
     }
     public void setImageHit(){
         imageView = HIT;
