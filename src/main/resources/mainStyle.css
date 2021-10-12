@@ -1,26 +1,26 @@
 
 
 FieldGrid .label{
-    -fx-font-family: monospace ;
+    -fx-font-family: serif ;
     -fx-alignment: center;
     -fx-max-width: Infinity;
     -fx-padding: 5;
     -fx-font-weight:bold;
 }
 
-FieldGrid .label:hover{
-    -fx-font-family: serif ;
+/*FieldGrid .label:hover{
+    -fx-font-family: monospace ;
     -fx-alignment: center;
     -fx-max-width: Infinity;
     -fx-padding: 5;
-}
+}*/
 
 .split-pane-divider {
   -fx-padding: 0 ;
 }
 
-ImageView:hover {
+/*ImageView:hover {
     -fx-rotate: 10;
-}
+}*/
 
 

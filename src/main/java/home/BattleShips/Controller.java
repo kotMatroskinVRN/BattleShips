@@ -56,7 +56,7 @@ public class Controller {
         for(Ship ship : game.getShipsCPU()){
             for(int l=1;l<FIELD_SIZE;l++) {
                 for (int n = 1; n < FIELD_SIZE; n++) {
-                    if(ship.getFootprint()[l][n]) {
+                    if( ship.hasCell(l,n) ) {
                         FieldCell cell = cpuField.getFieldData().getCells()[l][n];
                         cell.setImageDeck();
                         GridPane.setConstraints(cell.getImageView(), l, n);

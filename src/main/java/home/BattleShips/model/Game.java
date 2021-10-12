@@ -18,72 +18,8 @@ public class Game {
         shipsCPU    = randomSetOfShips() ;
         shipsPLAYER = randomSetOfShips() ;
 
+    }
 
-
-       // block  = createPlayground( 0   , 0 , true ) ;
-      //  rblock = createPlayground( 400 , 0 , false ) ;
-
-
-//        for( Ship elm: shipsPLAYER ){
-//            for(int y=1;y<FS-1;y++){ for(int x=1;x<FS-1;x++){
-//                if( elm.footprint[x][y] == true )	rblock[x][y].setIcon(deck) ;
-//            }}// for x , y
-//
-//        }
-
-		/*for( ship elm: shipsCPU ){
-				for(int y=1;y<FS-1;y++){ for(int x=1;x<FS-1;x++){
-					if( elm.footprint[x][y] == true )	block[x][y].setIcon(deck) ;
-				}}// for x , y
-
-			}*/
-
-
-    }// Main constructor
-
-
-   // JButton[][] createPlayground( int xi , int yi , boolean cpu ){
-      //  JButton[][] res = new JButton[FS][FS] ;
-
-       // JLabel[]	      a2j = new JLabel[FS] ;
-       // JLabel[]  	one2ten = new JLabel[FS] ;
-     //   char tmp;
-
-     //   for(int y=1;y<FS-1;y++){ for(int x=1;x<FS-1;x++){
-
-
-
-            //res[x][y] = new JButton(sea);
-            //res[x][y].setBounds( xi+pitch+x*cellSize , yi+pitch+y*cellSize , cellSize , cellSize );
-            //res[x][y].setFocusPainted(true);
-            //res[x][y].setOpaque(true);
-
-//            if( cpu ) {
-//                res[x][y].addActionListener(new ActionListener() {  // in case of disable try - res[x][y].removeActionListener
-//                    public void actionPerformed(ActionEvent e) {
-//                        JButton pressedButton = (JButton) e.getSource();
-//
-//                        int[] tmp = new int[2];
-//                        tmp = action(pressedButton); counter_action(tmp[0] , tmp[1]);
-//                    }
-//                });
-//
-//            } // if cpu
-//            else{ res[x][y].setFocusPainted(false);
-//                //res[x][y].setEnabled(false);
-//                res[x][y].setSelected(false) ;
-//                // System.out.println("enter the ELSE");
-//            }
-//
-//
-//            frm.add(res[x][y]); ///  FRM  ///
-
-
-      //  }} // for x , y
-
-
-    //    return res ;
-   // }
 
 
     public Ship[] getShipsCPU() {
@@ -101,59 +37,29 @@ public class Game {
         int y = cell.getNumber();
         int x = getNumberFromChar( cell.getLetter() );
 
-                for( Ship elm: shipsCPU ){
+            for( Ship ship: shipsCPU ){
+                if( ship.hasCell(x,y) )	{
+                    cell.setImageHit();
+                    ship.addHit(x ,y)  ;
 
+                    if( ship.isKilled()  ){
+                        //surroundShip(elm,block);
 
-                    if( elm.getFootprint()[x][y] == true )	{
+                        System.out.println(count_kills);
+                        if( count_kills == 10 ){
 
+                        }// if victory
+                    }// if kill
+                    else{
+                        count_kills++;
+                    }
+                }//if footprint
 
-                        cell.setImageHit();
+            }//foreach
 
-                        elm.hits[x][y] = true ;
-                        if( elm.countHits()  ){	/// bug - if click on killed -> count++ ; add check if alive
-                            //surroundShip(elm,block);
-
-                            if( elm.alive ) {	count_kills++;	elm.alive = false ; }
-                            System.out.println(count_kills);
-                            if( count_kills == 10 ){
-
-//                                for(int y1=1;y1<FS-1;y1++){ for(int x1=1;x1<FS-1;x1++){
-//                                    block[x1][y1].setEnabled(false);  /// BLOCK ///
-//                                    rblock[x1][y1].setEnabled(false); }} /// RBLOCK ///
-
-//                                JFrame You_Win = new JFrame("You Win!!!") ;
-//                                You_Win.setBounds( 50 , 50 , 450 , 338 );
-//
-//                                You_Win.setLayout(null);
-//                                JLabel victory = new JLabel(vict , JLabel.CENTER) ;
-//                                victory.setBounds( 0 , 0, 450 , 338 );
-//                                You_Win.add(victory);
-//                                You_Win.setVisible(true);
-                                // make inactive after closing congratulation vindow
-
-
-                                //JLabel victory = new JLabel( vict , JLabel.CENTER ) ;
-                                //victory.setBounds( 10 , 10, 450 , 338 );
-                                //victory.setOpaque(false);
-                                //frm.add(victory);
-
-                                //frm.setVisible(true);
-                                //frm.repaint();
-                                //System.out.println("enter the MATRIX");
-                            }// if victory
-                        }// if kill
-
-                    }//if footprint
-
-                }//foreach
-
-                if( cell.getImageView() == cell.SEA  ) {
-                    cell.setImageMiss();
-                }
-
-
-
-
+            if( cell.getImageView() == cell.SEA  ) {
+                cell.setImageMiss();
+            }
 
     }
 

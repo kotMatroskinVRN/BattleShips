@@ -1,16 +1,20 @@
 package home.BattleShips.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Ship{
 
 
     static final int   FS = Game.FS ;
 
 
-    private int size ;
-    private char dir;
-    private boolean[][] footprint = new boolean[FS][FS];
-    boolean[][]      hits = new boolean[FS][FS];
-    boolean 		alive  ;
+    private final int size ;
+
+    private final List<ShipCell> shipCellList = new ArrayList<>();
+    private final List<ShipCell> hitCells     = new ArrayList<>();
+
+    private boolean 		alive  ;
 
     Ship( int s , int li , int ni , char d ){
 
@@ -19,51 +23,74 @@ public class Ship{
         // split to 2 sections : start position and end position
         if (d == 'v') {
             for (int i = 0; i < s; i++) {
-                footprint[li][ni + i] = true;
+                shipCellList.add( new ShipCell(li,ni+i) );
             }
         } else {
             for (int i = 0; i < s; i++) {
-                footprint[li + i][ni] = true;
+                shipCellList.add( new ShipCell(li+i,ni) );
             }
         }
 
-        size = s; dir = d ; alive = true ;
+        size = s;
+        alive = true ;
     }
 
-    public boolean[][] getFootprint() {
-        return footprint;
+    public List<ShipCell> getShipCellList() {
+        return shipCellList;
+    }
+
+    public List<ShipCell> getHitCells() {
+        return hitCells;
+    }
+
+    public boolean hasCell(int l , int n){
+        for(ShipCell cell : shipCellList){
+            if(cell.getLetter() == l && cell.getNumber() == n) return true;
+        }
+        return false;
+    }
+
+    public boolean hasHit(int l , int n){
+        if(!hasCell(l,n)) return false;
+
+        for(ShipCell cell : hitCells){
+            if(cell.getLetter() == l && cell.getNumber() == n) return true;
+        }
+
+        return false;
+    }
+
+    public void addHit(int l , int n){
+        hitCells.add( new ShipCell(l , n) );
+    }
+
+    public boolean isKilled(){
+        return hitCells.size() >= size  ;
     }
 
     // check positions of THIS ship and given one
-    boolean check2Ships(Ship p ){
+    public boolean check2Ships(Ship p ){
         boolean flag = true ;
-        for(int n=1;n<FS-1;n++){for(int l=1;l<FS-1;l++){
 
-            if( this.footprint[l][n] && p.footprint[l][n] ){ flag = false ; }
+        for(ShipCell thisCell : shipCellList){
+            if(!flag) return flag;
+            for (ShipCell cell : p.getShipCellList()){
+                if(!flag) return flag;
 
-            for(int dl=-1;dl<=1;dl++){	for(int dn=-1;dn<=1;dn++){
-                if( dn!=0 || dl!=0 ) {
-                    if( footprint[l][n] && p.footprint[l+dl][n+dn] ){
-                        flag = false ;
-                    }}
-            }}// for surround : dl and dn
+                if(thisCell.isSamePlace(cell)) flag = false;
 
-        }}// for entire field
-        return flag ;
-    }//chsckShips
+                if(thisCell.isNeighbour(cell)) flag = false;
 
-
-
-
-    boolean countHits(){
-        int count = 0; boolean flag = false ;
-
-        for(int n=1;n<FS-1;n++){for(int l=1;l<FS-1;l++){if( this.hits[l][n] ) { count++; } }}// for entire field
-        if( count == this.size){ flag = true ;  }
-
-        return flag ;
+            }
+        }
+        return flag;
 
     }
+
+
+
+
+
 
 
 
