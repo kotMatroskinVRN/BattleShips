@@ -9,4 +9,5 @@ public interface PlayField {
 
 
     ImageView[][] getCells();
+    FieldData getFieldData();
 }

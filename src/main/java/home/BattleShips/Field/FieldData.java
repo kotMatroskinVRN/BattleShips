@@ -28,6 +28,8 @@ public class FieldData {
         return cells;
     }
 
+
+
     private FieldCell chooseCell(String letter , int number){
         for(int l=1;l<FIELD_SIZE;l++){
             for(int n=1;n<FIELD_SIZE;n++){

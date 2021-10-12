@@ -7,29 +7,34 @@ import java.io.InputStream;
 
 public class FieldCell implements Comparable<FieldCell> {
 
+
+    private final ImageView SEA , HIT , MISS;
+
     private int number;
     private String letter;
     private ImageView imageView;
 
-    public FieldCell(){
-        letter = "";
-        setDefaultImage();
-    }
 
     public FieldCell(String letter, int number) {
         this.letter = letter;
         this.number = number;
         setDefaultImage();
+
+        SEA  = setImage("images/sea.png");
+        HIT  = setImage("images/hit.png");
+        MISS = setImage("images/miss.png");
+
     }
 
-    public ImageView getImageView() {
-        return imageView;
+    public void setImageSea(){
+        imageView = SEA;
     }
-
-    private void setDefaultImage(){
-        InputStream is = ClassLoader.getSystemResourceAsStream("images/sea.png");
-        imageView = new ImageView( new Image( is ) );
-        imageView.onMouseClickedProperty();
+    public void setImageHit(){
+        imageView = HIT;
+    }
+    public void setImageMiss(){
+        imageView = MISS;
+        System.out.println(letter+number+" set as miss");
     }
 
     @Override
@@ -45,12 +50,23 @@ public class FieldCell implements Comparable<FieldCell> {
         return number;
     }
 
-    public ImageView imageViewProperty(){
+    public ImageView getImageView() {
         return imageView;
     }
 
-    public Integer numberProperty(){
-        return number;
+
+
+
+
+    private void setDefaultImage(){
+        InputStream is = ClassLoader.getSystemResourceAsStream("images/sea.png");
+        imageView = new ImageView( new Image( is ) );
+
+    }
+
+    private ImageView setImage(String resourceName){
+        InputStream is = ClassLoader.getSystemResourceAsStream(resourceName);
+        return new ImageView( new Image( is ) );
     }
 
 }

@@ -34,6 +34,10 @@ public class FieldGrid extends GridPane implements PlayField {
         return cells;
     }
 
+    public FieldData getFieldData() {
+        return fieldData;
+    }
+
     private void setLetters(){
         for(int l=1;l<FIELD_SIZE;l++){
             String letter = fieldData.getCells()[1][l].getLetter();

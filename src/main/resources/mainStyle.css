@@ -7,3 +7,6 @@ FieldGrid .label{
     -fx-font-weight:bold;
 }
 
+.split-pane-divider {
+  -fx-padding: 0 ;
+}
