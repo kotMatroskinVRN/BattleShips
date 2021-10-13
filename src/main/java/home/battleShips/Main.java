@@ -1,9 +1,10 @@
-package home.BattleShips;
+package home.battleShips;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -21,6 +22,7 @@ public class Main extends Application {
         Scene scene = new Scene(content);
 
         primaryStage.setScene(scene);
+        primaryStage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("icon/SeaBattle_32x32.PNG" )));
         primaryStage.show();
     }
 }

@@ -1,4 +1,4 @@
-package home.BattleShips.model;
+package home.battleShips.model;
 
 import java.util.ArrayList;
 import java.util.List;

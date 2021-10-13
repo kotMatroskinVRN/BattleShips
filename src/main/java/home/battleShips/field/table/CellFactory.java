@@ -1,4 +1,4 @@
-package home.BattleShips.Field.table;
+package home.battleShips.field.table;
 
 import javafx.beans.value.ObservableValue;
 import javafx.scene.image.ImageView;

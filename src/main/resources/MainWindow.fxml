@@ -5,10 +5,14 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.BorderPane?>
 
+<?import javafx.scene.image.Image?>
+
+
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="400.0" prefWidth="720.0"
             xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="home.BattleShips.Controller" stylesheets="mainStyle.css">
+            fx:controller="home.battleShips.Controller" stylesheets="mainStyle.css">
+
    <center>
       <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" visible="true" BorderPane.alignment="CENTER">
         <items>

@@ -1,8 +1,6 @@
-package home.BattleShips.Field.table;
+package home.battleShips.field.table;
 
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 public class CellFactoryNumber<FieldRow, String> extends PropertyValueFactory<FieldRow, String> {
 

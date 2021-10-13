@@ -19,8 +19,8 @@ FieldGrid .label:hover{
   -fx-padding: 0 ;
 }
 
-ImageView:hover {
+/*ImageView:hover {
     -fx-rotate: 10;
-}
+}*/
 
 

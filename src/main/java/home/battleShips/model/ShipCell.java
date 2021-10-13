@@ -1,4 +1,4 @@
-package home.BattleShips.model;
+package home.battleShips.model;
 
 public class ShipCell {
 

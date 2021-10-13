@@ -1,9 +1,9 @@
-package home.BattleShips;
+package home.battleShips;
 
-import home.BattleShips.Field.FieldCell;
-import home.BattleShips.Field.grid.FieldGrid;
-import home.BattleShips.model.Game;
-import home.BattleShips.model.Ship;
+import home.battleShips.field.FieldCell;
+import home.battleShips.field.grid.FieldGrid;
+import home.battleShips.model.Game;
+import home.battleShips.model.Ship;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -29,26 +29,44 @@ public class Controller {
 
     @FXML
     private void initialize(){
+
+        playerField = new FieldGrid();
+        cpuField    = new FieldGrid();
+
+
+
+        playerPane.setCenter( playerField);
+        computerPane.setCenter(  cpuField );
+
         newGame();
     }
 
 
     public void newGame() {
 
-        playerField = new FieldGrid();
-        cpuField    = new FieldGrid();
+        long start;
+        double time;
 
+//        System.out.println("\nInit Fields");
+//        start = System.currentTimeMillis();
         playerField.init();
         cpuField.init();
+//        time  = (System.currentTimeMillis() - start)/1000.0 ;
+//        System.out.printf( "run time : %f seconds\n" , time );
 
-        playerPane.setCenter( playerField);
-        computerPane.setCenter(  cpuField );
-
+//        System.out.println("\nsetup Listeners");
+//        start = System.currentTimeMillis();
         setListeners(  playerField);
+//        time  = (System.currentTimeMillis() - start)/1000.0 ;
+//        System.out.printf( "run time : %f seconds\n" , time );
 
         game = new Game();
 
+//        System.out.println("\nshow ships");
+//        start = System.currentTimeMillis();
         showPlayersShips();
+//        time  = (System.currentTimeMillis() - start)/1000.0 ;
+//        System.out.printf( "run time : %f seconds\n" , time );
     }
 
 

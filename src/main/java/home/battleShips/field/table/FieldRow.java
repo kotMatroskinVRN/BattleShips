@@ -1,6 +1,6 @@
-package home.BattleShips.Field.table;
+package home.battleShips.field.table;
 
-import home.BattleShips.Field.FieldCell;
+import home.battleShips.field.FieldCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 

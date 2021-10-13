@@ -1,4 +1,4 @@
-package home.BattleShips.Field;
+package home.battleShips.field;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,10 +11,19 @@ public class FieldData {
     private final int FIELD_SIZE = 11 ;
 
     private FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
-    private ObservableList<FieldCell[]> data = FXCollections.observableArrayList(); ;
+    //private ObservableList<FieldCell[]> data = FXCollections.observableArrayList(); ;
 
     public void init(){
+
+        long start;
+        double time;
+
+        System.out.println("\ndefault fill array");
+        start = System.currentTimeMillis();
         defaultFillArray();
+        time  = (System.currentTimeMillis() - start)/1000.0 ;
+        System.out.printf( "run time : %f seconds\n" , time );
+
     }
 
     public ImageView getImage(String letter , int number){
@@ -53,10 +62,11 @@ public class FieldData {
                 String letter = String.valueOf(c);
                 FieldCell cell = new FieldCell(letter , i);
                 cells[i][arrayNumber] = cell;
+
             }
         }
 
-        data.addAll(Arrays.asList(cells));
+        //data.addAll(Arrays.asList(cells));
     }
 
     private int getNumberFromChar(char c){

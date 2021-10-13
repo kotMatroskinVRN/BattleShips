@@ -1,7 +1,6 @@
-package home.BattleShips.Field;
+package home.battleShips.field;
 
 import javafx.scene.image.ImageView;
-import org.w3c.dom.Node;
 
 public interface PlayField {
 

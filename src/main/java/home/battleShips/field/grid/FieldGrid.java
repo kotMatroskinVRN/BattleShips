@@ -1,7 +1,7 @@
-package home.BattleShips.Field.grid;
+package home.battleShips.field.grid;
 
-import home.BattleShips.Field.FieldData;
-import home.BattleShips.Field.PlayField;
+import home.battleShips.field.FieldData;
+import home.battleShips.field.PlayField;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -24,9 +24,13 @@ public class FieldGrid extends GridPane implements PlayField {
 
     @Override
     public void init() {
-        fieldData.init();
-        defaultFill();
 
+        long start;
+        double time;
+
+        fieldData.init();
+
+        defaultFill();
 
     }
 

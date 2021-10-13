@@ -1,4 +1,4 @@
-package home.BattleShips.Field;
+package home.battleShips.field;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -8,36 +8,34 @@ import java.io.InputStream;
 public class FieldCell implements Comparable<FieldCell> {
 
 
-    public final ImageView SEA , HIT , MISS , DECK ;
+    public static final Image  SEA  = setImage("images/sea.png");
+    public static final Image  HIT  = setImage("images/hit.png");
+    public static final Image  MISS = setImage("images/miss.png");
+    public static final Image  DECK = setImage("images/deck.png");
 
     private int number;
     private String letter;
-    private ImageView imageView;
+    private ImageView imageView = new ImageView(SEA);
 
 
     public FieldCell(String letter, int number) {
         this.letter = letter;
         this.number = number;
-        setDefaultImage();
 
-        SEA  = setImage("images/sea.png");
-        HIT  = setImage("images/hit.png");
-        MISS = setImage("images/miss.png");
-        DECK = setImage("images/deck.png");
 
     }
 
     public void setImageSea(){
-        imageView = SEA;
+        imageView = new ImageView(SEA);
     }
     public void setImageDeck(){
-        imageView = DECK;
+        imageView = new ImageView(DECK);
     }
     public void setImageHit(){
-        imageView = HIT;
+        imageView = new ImageView(HIT);
     }
     public void setImageMiss(){
-        imageView = MISS;
+        imageView = new ImageView(MISS);
         System.out.println(letter+number+" set as miss");
     }
 
@@ -58,19 +56,9 @@ public class FieldCell implements Comparable<FieldCell> {
         return imageView;
     }
 
-
-
-
-
-    private void setDefaultImage(){
-        InputStream is = ClassLoader.getSystemResourceAsStream("images/sea.png");
-        imageView = new ImageView( new Image( is ) );
-
-    }
-
-    private ImageView setImage(String resourceName){
+    private static Image setImage(String resourceName){
         InputStream is = ClassLoader.getSystemResourceAsStream(resourceName);
-        return new ImageView( new Image( is ) );
+        return  new Image( is ) ;
     }
 
 }

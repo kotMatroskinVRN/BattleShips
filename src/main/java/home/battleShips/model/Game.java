@@ -1,6 +1,8 @@
-package home.BattleShips.model;
+package home.battleShips.model;
 
-import home.BattleShips.Field.FieldCell;
+import home.battleShips.field.FieldCell;
+
+import java.util.Date;
 
 public class Game {
 
@@ -14,9 +16,10 @@ public class Game {
 
 
     public Game() {
-
         shipsCPU    = randomSetOfShips() ;
         shipsPLAYER = randomSetOfShips() ;
+
+        System.out.println(new Date());
 
     }
 
@@ -57,9 +60,9 @@ public class Game {
 
             }//foreach
 
-            if( cell.getImageView() == cell.SEA  ) {
+            if( cell.getImageView().getImage() == cell.SEA  ) {
                 cell.setImageMiss();
-            }
+           }
 
     }
 
@@ -138,6 +141,8 @@ public class Game {
 
 
     private Ship[] randomSetOfShips() {
+        long start = System.currentTimeMillis();
+
         int size , n , l ;
         char  dc;
         char[] d = { 'h' , 'v' };
@@ -160,6 +165,8 @@ public class Game {
             }
             //System.out.printf("%d is O.K. \n" , size );
         }// for ships array
+
+
 
         return rShips ;
     }//randomSetOfShips

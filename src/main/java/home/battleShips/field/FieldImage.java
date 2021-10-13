@@ -1,4 +1,4 @@
-package home.BattleShips.Field;
+package home.battleShips.field;
 
 import java.awt.*;
 import javax.swing.*;
