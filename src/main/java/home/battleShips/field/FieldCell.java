@@ -1,42 +1,34 @@
 package home.battleShips.field;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.io.InputStream;
 
 public class FieldCell implements Comparable<FieldCell> {
 
 
-    public static final Image  SEA  = setImage("images/sea.png");
-    public static final Image  HIT  = setImage("images/hit.png");
-    public static final Image  MISS = setImage("images/miss.png");
-    public static final Image  DECK = setImage("images/deck.png");
 
     private int number;
     private String letter;
-    private ImageView imageView = new ImageView(SEA);
+    private ImageView imageView = new ImageView(FielPicture.SEA.getImage());
+    //private FielPicture picture ;
 
 
     public FieldCell(String letter, int number) {
         this.letter = letter;
         this.number = number;
-
-
     }
 
-    public void setImageSea(){
-        imageView = new ImageView(SEA);
+    public void setImage(FielPicture picture){
+        imageView = new ImageView(picture.getImage());
     }
-    public void setImageDeck(){
-        imageView = new ImageView(DECK);
+
+    public String getLetter() {
+        return letter;
     }
-    public void setImageHit(){
-        imageView = new ImageView(HIT);
+    public int getNumber() {
+        return number;
     }
-    public void setImageMiss(){
-        imageView = new ImageView(MISS);
-        System.out.println(letter+number+" set as miss");
+    public ImageView getImageView() {
+        return imageView;
     }
 
     @Override
@@ -44,21 +36,8 @@ public class FieldCell implements Comparable<FieldCell> {
         return this.getLetter().compareTo( o.getLetter() );
     }
 
-    public String getLetter() {
-        return letter;
-    }
 
-    public int getNumber() {
-        return number;
-    }
 
-    public ImageView getImageView() {
-        return imageView;
-    }
 
-    private static Image setImage(String resourceName){
-        InputStream is = ClassLoader.getSystemResourceAsStream(resourceName);
-        return  new Image( is ) ;
-    }
 
 }

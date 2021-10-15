@@ -1,5 +1,6 @@
 package home.battleShips.model;
 
+import home.battleShips.field.FielPicture;
 import home.battleShips.field.FieldCell;
 
 import java.util.Date;
@@ -42,7 +43,7 @@ public class Game {
 
             for( Ship ship: shipsCPU ){
                 if( ship.hasCell(x,y) )	{
-                    cell.setImageHit();
+                    cell.setImage(FielPicture.HIT);
                     ship.addHit(x ,y)  ;
 
                     if( ship.isKilled()  ){
@@ -60,8 +61,8 @@ public class Game {
 
             }//foreach
 
-            if( cell.getImageView().getImage() == cell.SEA  ) {
-                cell.setImageMiss();
+            if( cell.getImageView().getImage() == FielPicture.SEA.getImage()  ) {
+                cell.setImage(FielPicture.MISS);
            }
 
     }

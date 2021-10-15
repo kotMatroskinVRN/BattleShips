@@ -1,5 +1,6 @@
 package home.battleShips;
 
+import home.battleShips.field.FielPicture;
 import home.battleShips.field.FieldCell;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.Game;
@@ -76,7 +77,7 @@ public class Controller {
                 for (int n = 1; n < FIELD_SIZE; n++) {
                     if( ship.hasCell(l,n) ) {
                         FieldCell cell = cpuField.getFieldData().getCells()[l][n];
-                        cell.setImageDeck();
+                        cell.setImage(FielPicture.DECK);
                         GridPane.setConstraints(cell.getImageView(), l, n);
                         cpuField.getChildren().add(cell.getImageView());
                     }
@@ -103,7 +104,7 @@ public class Controller {
 
 
 
-        cell.setImageMiss();
+        cell.setImage(FielPicture.MISS);
         GridPane.setConstraints(cell.getImageView() , getNumberFromChar(letter), number );
         playField.getChildren().add(cell.getImageView());
 
