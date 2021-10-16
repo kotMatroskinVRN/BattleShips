@@ -22,7 +22,7 @@ public class Main extends Application {
         Scene scene = new Scene(content);
 
         primaryStage.setScene(scene);
-        //primaryStage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("icon/SeaBattle_32x32.PNG" )));
+        primaryStage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("icon/SeaBattle_32x32.PNG" )));
         primaryStage.show();
     }
 }
