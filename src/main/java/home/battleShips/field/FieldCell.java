@@ -6,11 +6,9 @@ public class FieldCell implements Comparable<FieldCell> {
 
 
 
-    private int number;
-    private String letter;
+    private final int number;
+    private final String letter;
     private ImageView imageView = new ImageView(FielPicture.SEA.getIMAGE());
-    //private FielPicture picture ;
-
 
     public FieldCell(String letter, int number) {
         this.letter = letter;

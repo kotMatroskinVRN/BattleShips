@@ -1,14 +1,13 @@
 package home.battleShips.field.grid;
 
 import home.battleShips.field.FieldData;
-import home.battleShips.field.PlayField;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-public class FieldGrid extends GridPane implements PlayField {
+public class FieldGrid extends GridPane {
 
     private final int FIELD_SIZE = 11 ;
 
@@ -22,7 +21,7 @@ public class FieldGrid extends GridPane implements PlayField {
 
     }
 
-    @Override
+
     public void init() {
 
         long start;

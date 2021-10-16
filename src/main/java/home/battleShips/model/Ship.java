@@ -16,7 +16,7 @@ public class Ship{
 
     private boolean 		alive  ;
 
-    Ship( int s , int li , int ni , char d ){
+    public Ship( int s , int li , int ni , char d ){
 
         if(s<1){ System.out.printf("Ship %2d %c%d position is out of range of size \n" , s , li , ni );	 }
 
