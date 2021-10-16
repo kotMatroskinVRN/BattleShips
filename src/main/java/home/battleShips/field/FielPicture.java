@@ -3,6 +3,7 @@ package home.battleShips.field;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
+import java.util.Objects;
 
 public enum FielPicture {
 
@@ -12,19 +13,19 @@ public enum FielPicture {
     DECK("images/deck.png"){},
     ;
 
-    Image image;
+    private final Image IMAGE;
 
     FielPicture(String png){
-        image = setImage(png);
+        IMAGE = setImage(png);
     }
 
-    public Image getImage() {
-        return image;
+    public Image getIMAGE() {
+        return IMAGE;
     }
 
     private static Image setImage(String resourceName){
         InputStream is = ClassLoader.getSystemResourceAsStream(resourceName);
-        return  new Image( is ) ;
+        return  new Image(Objects.requireNonNull(is)) ;
     }
 
 

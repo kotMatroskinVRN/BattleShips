@@ -61,7 +61,7 @@ public class Game {
 
             }//foreach
 
-            if( cell.getImageView().getImage() == FielPicture.SEA.getImage()  ) {
+            if( cell.getImageView().getImage() == FielPicture.SEA.getIMAGE()  ) {
                 cell.setImage(FielPicture.MISS);
            }
 
@@ -142,7 +142,7 @@ public class Game {
 
 
     private Ship[] randomSetOfShips() {
-        long start = System.currentTimeMillis();
+
 
         int size , n , l ;
         char  dc;

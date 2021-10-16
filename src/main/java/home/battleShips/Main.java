@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class Main extends Application {
 
     public static void main(String[] args) {
@@ -22,7 +24,13 @@ public class Main extends Application {
         Scene scene = new Scene(content);
 
         primaryStage.setScene(scene);
-        primaryStage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("icon/SeaBattle_32x32.PNG" )));
+        primaryStage.getIcons().add(
+                new Image(
+                        Objects.requireNonNull(
+                                ClassLoader.getSystemResourceAsStream("icon/SeaBattle_32x32.PNG")
+                        )
+                )
+        );
         primaryStage.show();
     }
 }

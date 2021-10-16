@@ -8,7 +8,7 @@ public class FieldCell implements Comparable<FieldCell> {
 
     private int number;
     private String letter;
-    private ImageView imageView = new ImageView(FielPicture.SEA.getImage());
+    private ImageView imageView = new ImageView(FielPicture.SEA.getIMAGE());
     //private FielPicture picture ;
 
 
@@ -18,7 +18,7 @@ public class FieldCell implements Comparable<FieldCell> {
     }
 
     public void setImage(FielPicture picture){
-        imageView = new ImageView(picture.getImage());
+        imageView = new ImageView(picture.getIMAGE());
     }
 
     public String getLetter() {
