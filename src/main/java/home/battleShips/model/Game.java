@@ -189,4 +189,7 @@ public class Game {
         throw new IndexOutOfBoundsException("Letter is out of Battle Field : " + c );
     }
 
+    public void killShip() {
+
+    }
 }

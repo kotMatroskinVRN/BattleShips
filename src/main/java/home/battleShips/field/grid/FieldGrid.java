@@ -43,7 +43,7 @@ public class FieldGrid extends GridPane {
 
     private void setLetters(){
         for(int l=1;l<FIELD_SIZE;l++){
-            String letter = fieldData.getCells()[1][l].getLetter();
+            String letter = fieldData.getCells()[l][1].getLetter();
             Node label = new Label(letter);
             setConstraints(label , l, 0);
             getChildren().add(label);
@@ -51,7 +51,7 @@ public class FieldGrid extends GridPane {
     }
     private void setNumbers(){
         for(int n=1;n<FIELD_SIZE;n++){
-            int number = fieldData.getCells()[n][1].getNumber();
+            int number = fieldData.getCells()[1][n].getNumber();
             Node label = new Label(String.valueOf(number));
             setConstraints(label , 0, n );
             getChildren().add(label);

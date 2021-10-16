@@ -2,8 +2,8 @@ package home.battleShips.model;
 
 public class ShipCell {
 
-    private int letter;
-    private int number;
+    private final int letter;
+    private final int number;
 
     public ShipCell(int letter, int number) {
         this.letter = letter;

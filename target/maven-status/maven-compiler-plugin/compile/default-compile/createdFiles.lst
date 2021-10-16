@@ -1,2 +1,4 @@
+home\BattleShips\field\FieldImage.class
 home\BattleShips\Main.class
 home\BattleShips\Controller.class
+home\BattleShips\field\table\CellFactoryNumber.class

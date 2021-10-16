@@ -8,8 +8,6 @@ import home.battleShips.model.Ship;
 import home.battleShips.model.ShipCell;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
@@ -99,6 +97,7 @@ public class Controller {
                 setImageToGridCell(playField, cell, FielPicture.HIT);
                 if(ship.isKilled()){
                     surroundShip(playField ,ship);
+                    game.killShip();
                 }
                 break;
             }
@@ -119,12 +118,10 @@ public class Controller {
                     try {
 
                         if(!ship.hasCell(letter,number)){
-                            FieldCell cell = playField.getFieldData().getCells()[number][letter];
+                            FieldCell cell = playField.getFieldData().getCells()[letter][number];
                             setImageToGridCell(playField,cell,FielPicture.MISS);
                         }
-                    } catch (NullPointerException  | ArrayIndexOutOfBoundsException e){
-                        continue;
-                    }
+                    } catch (NullPointerException  | ArrayIndexOutOfBoundsException ignored){}
 
                 }
             }
@@ -137,6 +134,8 @@ public class Controller {
         cell.setImage(picture);
         GridPane.setConstraints(cell.getImageView(), letter, number);
         playField.getChildren().add(cell.getImageView());
+
+
     }
 
     private int getNumberFromChar(String string){

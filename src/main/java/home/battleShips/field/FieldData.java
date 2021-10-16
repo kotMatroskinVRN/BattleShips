@@ -1,17 +1,12 @@
 package home.battleShips.field;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
-
-import java.util.Arrays;
 
 public class FieldData {
 
     private final int FIELD_SIZE = 11 ;
 
-    private FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
-    //private ObservableList<FieldCell[]> data = FXCollections.observableArrayList(); ;
+    private final FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
 
     public void init(){
 
@@ -29,10 +24,6 @@ public class FieldData {
     public ImageView getImage(String letter , int number){
         return chooseCell(letter,number).getImageView();
     }
-    public String getLetter(String letter , int number){
-        return chooseCell(letter,number).getLetter();    }
-
-
     public FieldCell[][] getCells() {
         return cells;
     }
@@ -61,12 +52,10 @@ public class FieldData {
                 //System.out.println("defaultFill : " + arrayNumber);
                 String letter = String.valueOf(c);
                 FieldCell cell = new FieldCell(letter , i);
-                cells[i][arrayNumber] = cell;
+                cells[arrayNumber][i] = cell;
 
             }
         }
-
-        //data.addAll(Arrays.asList(cells));
     }
 
     private int getNumberFromChar(char c){
