@@ -1,5 +1,9 @@
 package home.battleShips.model;
 
+import home.battleShips.field.FielPicture;
+import home.battleShips.field.FieldCell;
+import home.battleShips.field.grid.FieldGrid;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +91,24 @@ public class Ship{
 
     }
 
+    public void surroundShip(FieldGrid playField ) {
+        for(ShipCell shipCell : getShipCellList()){
+            for(int dl=-1;dl<=1;dl++) {
+                for (int dn = -1; dn <= 1; dn++) {
+                    int letter = shipCell.getLetter()+dl;
+                    int number = shipCell.getNumber()+dn;
+                    try {
 
+                        if(!hasCell(letter,number)){
+                            FieldCell cell = playField.getFieldData().getCells()[letter][number];
+                            playField.setImageToGridCell(cell, FielPicture.MISS);
+                        }
+                    } catch (NullPointerException  | ArrayIndexOutOfBoundsException ignored){}
+
+                }
+            }
+        }
+    }
 
 
 

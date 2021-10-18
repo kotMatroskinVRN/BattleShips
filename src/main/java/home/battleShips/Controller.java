@@ -6,6 +6,7 @@ import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.Game;
 import home.battleShips.model.Ship;
 import home.battleShips.model.ShipCell;
+import home.battleShips.utils.StaticUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -82,7 +83,7 @@ public class Controller {
     }
 
     private void turn(FieldGrid playField , FieldCell cell) {
-        int letter = getNumberFromChar(cell.getLetter());
+        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
         int number = cell.getNumber();
         System.out.println(cell.getLetter()+number);
 
@@ -94,9 +95,9 @@ public class Controller {
             if( ship.hasCell(letter,number )){
                 hit = true;
                 ship.addHit(letter,number);
-                setImageToGridCell(playField, cell, FielPicture.HIT);
+                playField.setImageToGridCell( cell, FielPicture.HIT);
                 if(ship.isKilled()){
-                    surroundShip(playField ,ship);
+                    ship.surroundShip(playField );
                     game.killShip();
                 }
                 break;
@@ -104,45 +105,15 @@ public class Controller {
         }
 
         if(!hit){
-            setImageToGridCell(playField, cell, FielPicture.MISS);
+            playField.setImageToGridCell( cell, FielPicture.MISS);
         }
 
     }
 
-    private void surroundShip(FieldGrid playField ,Ship ship) {
-        for(ShipCell shipCell : ship.getShipCellList()){
-            for(int dl=-1;dl<=1;dl++) {
-                for (int dn = -1; dn <= 1; dn++) {
-                    int letter = shipCell.getLetter()+dl;
-                    int number = shipCell.getNumber()+dn;
-                    try {
-
-                        if(!ship.hasCell(letter,number)){
-                            FieldCell cell = playField.getFieldData().getCells()[letter][number];
-                            setImageToGridCell(playField,cell,FielPicture.MISS);
-                        }
-                    } catch (NullPointerException  | ArrayIndexOutOfBoundsException ignored){}
-
-                }
-            }
-        }
-    }
-
-    private void setImageToGridCell(FieldGrid playField, FieldCell cell, FielPicture picture) {
-        int letter = getNumberFromChar(cell.getLetter());
-        int number = cell.getNumber();
-        cell.setImage(picture);
-        GridPane.setConstraints(cell.getImageView(), letter, number);
-        playField.getChildren().add(cell.getImageView());
 
 
-    }
 
-    private int getNumberFromChar(String string){
-        char c = string.charAt(0);
-        if(c<'Й') return c-'А'+1;
-        if(c>'Й') return c-'А';
-        throw new IndexOutOfBoundsException("Letter is out of Battle Field : " + c );
-    }
+
+
 
 }

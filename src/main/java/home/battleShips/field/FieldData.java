@@ -1,5 +1,6 @@
 package home.battleShips.field;
 
+import home.battleShips.utils.StaticUtils;
 import javafx.scene.image.ImageView;
 
 public class FieldData {
@@ -48,7 +49,7 @@ public class FieldData {
             for(int i=1; i<FIELD_SIZE; i++){
 
                 if(c=='Й') continue;
-                int arrayNumber= getNumberFromChar(c);
+                int arrayNumber= StaticUtils.getNumberFromChar(c);
                 //System.out.println("defaultFill : " + arrayNumber);
                 String letter = String.valueOf(c);
                 FieldCell cell = new FieldCell(letter , i);
@@ -58,9 +59,4 @@ public class FieldData {
         }
     }
 
-    private int getNumberFromChar(char c){
-        if(c<'Й') return c-'А'+1;
-        if(c>'Й') return c-'А';
-        throw new IndexOutOfBoundsException("Letter is out of Battle Field : " + c );
-    }
 }

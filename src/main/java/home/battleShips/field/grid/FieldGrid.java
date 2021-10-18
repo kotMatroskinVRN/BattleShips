@@ -1,6 +1,9 @@
 package home.battleShips.field.grid;
 
+import home.battleShips.field.FielPicture;
+import home.battleShips.field.FieldCell;
 import home.battleShips.field.FieldData;
+import home.battleShips.utils.StaticUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -41,6 +44,18 @@ public class FieldGrid extends GridPane {
         return fieldData;
     }
 
+    public void setImageToGridCell( FieldCell cell, FielPicture picture) {
+        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
+        int number = cell.getNumber();
+        cell.setImage(picture);
+        GridPane.setConstraints(cell.getImageView(), letter, number);
+        getChildren().add(cell.getImageView());
+
+
+    }
+
+
+
     private void setLetters(){
         for(int l=1;l<FIELD_SIZE;l++){
             String letter = fieldData.getCells()[l][1].getLetter();
@@ -63,7 +78,7 @@ public class FieldGrid extends GridPane {
             for(int n=1; n<FIELD_SIZE; n++){
 
                 if(c=='Й') continue;
-                int arrayNumber= getNumberFromChar(c);
+                int arrayNumber= StaticUtils.getNumberFromChar(c);
                 //System.out.println("defaultFill : " + arrayNumber);
                 String letter = String.valueOf(c);
 
@@ -81,10 +96,6 @@ public class FieldGrid extends GridPane {
         setNumbers();
     }
 
-    private int getNumberFromChar(char c){
-        if(c<'Й') return c-'А'+1;
-        if(c>'Й') return c-'А';
-        throw new IndexOutOfBoundsException("Letter is out of Battle Field : " + c );
-    }
+
 
 }
