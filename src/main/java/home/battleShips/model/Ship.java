@@ -1,6 +1,6 @@
 package home.battleShips.model;
 
-import home.battleShips.field.FielPicture;
+import home.battleShips.field.FieldPicture;
 import home.battleShips.field.FieldCell;
 import home.battleShips.field.grid.FieldGrid;
 
@@ -101,7 +101,7 @@ public class Ship{
 
                         if(!hasCell(letter,number)){
                             FieldCell cell = playField.getFieldData().getCells()[letter][number];
-                            playField.setImageToGridCell(cell, FielPicture.MISS);
+                            playField.setImageToGridCell(cell, FieldPicture.MISS);
                         }
                     } catch (NullPointerException  | ArrayIndexOutOfBoundsException ignored){}
 

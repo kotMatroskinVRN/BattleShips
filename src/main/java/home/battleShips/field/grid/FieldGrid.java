@@ -1,6 +1,6 @@
 package home.battleShips.field.grid;
 
-import home.battleShips.field.FielPicture;
+import home.battleShips.field.FieldPicture;
 import home.battleShips.field.FieldCell;
 import home.battleShips.field.FieldData;
 import home.battleShips.utils.StaticUtils;
@@ -44,7 +44,7 @@ public class FieldGrid extends GridPane {
         return fieldData;
     }
 
-    public void setImageToGridCell( FieldCell cell, FielPicture picture) {
+    public void setImageToGridCell( FieldCell cell, FieldPicture picture) {
         int letter = StaticUtils.getNumberFromChar(cell.getLetter());
         int number = cell.getNumber();
         cell.setImage(picture);

@@ -1,30 +1,58 @@
 package home.battleShips.model;
 
-import home.battleShips.field.FielPicture;
+import home.battleShips.field.FieldPicture;
 import home.battleShips.field.FieldCell;
+import home.battleShips.field.grid.FieldGrid;
+import home.battleShips.utils.StaticUtils;
+import javafx.scene.layout.GridPane;
 
 import java.util.Date;
+import java.util.Stack;
 
 public class Game {
 
-
+    private final int FIELD_SIZE = 11 ;
     static final int FS        = 12 ;
     static int count_kills     = 0;
     static int count_kills_cpu = 0;
-    private Ship[] shipsCPU      ;
-    private Ship[] shipsPLAYER   ;
+    private final Ship[] shipsCPU      ;
+    private final Ship[] shipsPLAYER   ;
+    private final Stack<Turn> playersTurns;
+    private final Stack<Turn> cpusTurns;
 
 
+    private final FieldGrid playerField;
+    private final FieldGrid cpuField;
 
     public Game() {
+        playersTurns = new Stack<>();
+        cpusTurns    = new Stack<>();
+
+        playerField = new FieldGrid();
+        cpuField    = new FieldGrid();
+
+        playerField.init();
+        cpuField.init();
+
         shipsCPU    = randomSetOfShips() ;
         shipsPLAYER = randomSetOfShips() ;
 
+        showPlayersShips();
+
         System.out.println(new Date());
+
+        setListeners();
 
     }
 
 
+    public FieldGrid getPlayerField() {
+        return playerField;
+    }
+
+    public FieldGrid getCpuField() {
+        return cpuField;
+    }
 
     public Ship[] getShipsCPU() {
         return shipsCPU;
@@ -34,38 +62,41 @@ public class Game {
         return shipsPLAYER;
     }
 
-    public void action(FieldCell cell){ // uses global - block (.. , boolean[] iblock , boolean[] irblock????)
 
-        System.out.println("Game action");
+    private void turn( FieldCell cell) {
 
-        int y = cell.getNumber();
-        int x = getNumberFromChar( cell.getLetter() );
 
-            for( Ship ship: shipsCPU ){
-                if( ship.hasCell(x,y) )	{
-                    cell.setImage(FielPicture.HIT);
-                    ship.addHit(x ,y)  ;
 
-                    if( ship.isKilled()  ){
-                        //surroundShip(elm,block);
+        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
+        int number = cell.getNumber();
+        System.out.println(cell.getLetter()+number);
 
-                        System.out.println(count_kills);
-                        if( count_kills == 10 ){
 
-                        }// if victory
-                    }// if kill
-                    else{
-                        count_kills++;
-                    }
-                }//if footprint
+        Turn turn = new Turn(cell);
 
-            }//foreach
+        //boolean hit = false;
+        for(Ship ship : shipsPLAYER){
+            if( ship.hasCell(letter,number )){
+                turn.setStatus(TurnStatus.HIT);
+                ship.addHit(letter,number);
+                playerField.setImageToGridCell( cell, FieldPicture.HIT);
+                if(ship.isKilled()){
+                    turn.setStatus(TurnStatus.KILL);
+                    killShip(ship);
+                }
+                break;
+            }
+        }
 
-            if( cell.getImageView().getImage() == FielPicture.SEA.getIMAGE()  ) {
-                cell.setImage(FielPicture.MISS);
-           }
+        if(turn.getStatus()==TurnStatus.MISS){
+            playerField.setImageToGridCell( cell, FieldPicture.MISS);
+        }
 
+        if(count_kills==10){
+            System.out.println("victory");
+        }
     }
+
 
 //    void counter_action(int xi , int yi){ // uses global - block ; do action when clicked to already shooted block(
 //
@@ -141,6 +172,31 @@ public class Game {
 //    }//surround ship
 
 
+    private void setListeners() {
+        for(int l=1;l<FIELD_SIZE;l++){
+            for(int n=1;n<FIELD_SIZE;n++){
+                FieldCell cell = playerField.getFieldData().getCells()[l][n];
+                cell.getImageView().onMouseClickedProperty().set( ae -> turn( cell ) );
+
+            }
+        }
+    }
+
+    private void showPlayersShips() {
+        for(Ship ship : getShipsCPU()){
+
+            for(ShipCell shipCell : ship.getShipCellList()){
+                int l = shipCell.getLetter();
+                int n = shipCell.getNumber();
+                FieldCell cell = cpuField.getFieldData().getCells()[l][n];
+                cell.setImage(FieldPicture.DECK);
+                GridPane.setConstraints(cell.getImageView(), l, n);
+                cpuField.getChildren().add(cell.getImageView());
+            }
+        }
+    }
+
+
     private Ship[] randomSetOfShips() {
 
 
@@ -182,14 +238,9 @@ public class Game {
         return flag ;
     }//checkShipsArray
 
-    private int getNumberFromChar(String string){
-        char c = string.charAt(0);
-        if(c<'Й') return c-'А'+1;
-        if(c>'Й') return c-'А';
-        throw new IndexOutOfBoundsException("Letter is out of Battle Field : " + c );
-    }
 
-    public void killShip() {
-
+    private void killShip(Ship ship) {
+        ship.surroundShip(playerField );
+        count_kills++;
     }
 }

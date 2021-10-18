@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.io.InputStream;
 import java.util.Objects;
 
-public enum FielPicture {
+public enum FieldPicture {
 
     SEA("images/sea.png"){},
     HIT("images/hit.png"){},
@@ -15,7 +15,7 @@ public enum FielPicture {
 
     private final Image IMAGE;
 
-    FielPicture(String png){
+    FieldPicture(String png){
         IMAGE = setImage(png);
     }
 

@@ -8,14 +8,14 @@ public class FieldCell implements Comparable<FieldCell> {
 
     private final int number;
     private final String letter;
-    private ImageView imageView = new ImageView(FielPicture.SEA.getIMAGE());
+    private ImageView imageView = new ImageView(FieldPicture.SEA.getIMAGE());
 
     public FieldCell(String letter, int number) {
         this.letter = letter;
         this.number = number;
     }
 
-    public void setImage(FielPicture picture){
+    public void setImage(FieldPicture picture){
         imageView = new ImageView(picture.getIMAGE());
     }
 
