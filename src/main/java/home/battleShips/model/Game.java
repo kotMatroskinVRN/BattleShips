@@ -1,9 +1,12 @@
 package home.battleShips.model;
 
+import home.battleShips.Controller;
 import home.battleShips.field.FieldPicture;
 import home.battleShips.field.FieldCell;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.utils.StaticUtils;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 
 import java.util.Date;
@@ -13,8 +16,6 @@ public class Game {
 
     private final int FIELD_SIZE = 11 ;
     static final int FS        = 12 ;
-    static int count_kills     = 0;
-    static int count_kills_cpu = 0;
     private final Ship[] shipsCPU      ;
     private final Ship[] shipsPLAYER   ;
     private final Stack<Turn> playersTurns;
@@ -23,8 +24,11 @@ public class Game {
 
     private final FieldGrid playerField;
     private final FieldGrid cpuField;
+    private final  Controller controller;
 
-    public Game() {
+    public Game(Controller controller) {
+        this.controller = controller;
+
         playersTurns = new Stack<>();
         cpusTurns    = new Stack<>();
 
@@ -34,8 +38,8 @@ public class Game {
         playerField.init();
         cpuField.init();
 
-        shipsCPU    = randomSetOfShips() ;
-        shipsPLAYER = randomSetOfShips() ;
+        shipsCPU    = Ship.randomSetOfShips() ;
+        shipsPLAYER = Ship.randomSetOfShips() ;
 
         showPlayersShips();
 
@@ -82,19 +86,51 @@ public class Game {
                 playerField.setImageToGridCell( cell, FieldPicture.HIT);
                 if(ship.isKilled()){
                     turn.setStatus(TurnStatus.KILL);
-                    killShip(ship);
+                    killShip(ship,playerField);
+                }
+                break;
+            }
+        }
+
+
+        if(turn.getStatus()==TurnStatus.MISS){
+            playerField.setImageToGridCell( cell, FieldPicture.MISS);
+            counterAction();
+        }
+
+
+
+
+    }
+
+    private void counterAction() {
+        Turn turn = new Turn(cpuField);
+
+        FieldCell cell = turn.getCell();
+        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
+        int number = cell.getNumber();
+        System.out.println("cpu:" + cell.getLetter()+number);
+
+        for(Ship ship : shipsCPU){
+            if( ship.hasCell(letter,number )){
+                turn.setStatus(TurnStatus.HIT);
+                ship.addHit(letter,number);
+                cpuField.setImageToGridCell( cell, FieldPicture.HIT);
+                if(ship.isKilled()){
+                    turn.setStatus(TurnStatus.KILL);
+                    killShip(ship , cpuField);
                 }
                 break;
             }
         }
 
         if(turn.getStatus()==TurnStatus.MISS){
-            playerField.setImageToGridCell( cell, FieldPicture.MISS);
+            cpuField.setImageToGridCell( cell, FieldPicture.MISS);
+
+        }else{
+            counterAction();
         }
 
-        if(count_kills==10){
-            System.out.println("victory");
-        }
     }
 
 
@@ -197,50 +233,19 @@ public class Game {
     }
 
 
-    private Ship[] randomSetOfShips() {
-
-
-        int size , n , l ;
-        char  dc;
-        char[] d = { 'h' , 'v' };
-        Ship[] rShips = new Ship[FS-2] ;
-
-        for(int i = 0 ; i<FS-2 ; i++ ){
-            size = (int)( 12 - 1.5*i )/4 + 1 ;
-            l  = (int)( Math.random()*(FS-1-size) ) +1  ;
-            n  = (int)( Math.random()*(FS-1-size) ) +1  ; // fs-1????
-            dc = d[(int)( Math.random()*2)] ;
-
-            rShips[i] = new Ship( size , l  , n , dc );
-
-
-            while( i>0 && !( checkShipsArray( rShips , i ) ) ){
-                l  = (int)( Math.random()*(FS-1-size) ) +1  ;
-                n  = (int)( Math.random()*(FS-1-size) ) +1  ;
-                dc = d[(int)( Math.random()*2)] ;
-                rShips[i] = new Ship( size , l  , n , dc );
-            }
-            //System.out.printf("%d is O.K. \n" , size );
-        }// for ships array
 
 
 
-        return rShips ;
-    }//randomSetOfShips
+    private void killShip(Ship ship , FieldGrid fieldGrid) {
+        ship.surroundShip(fieldGrid);
+        fieldGrid.addKill();
 
-    private boolean checkShipsArray(Ship[] pa , int size){
-        boolean flag = true ;
+        if(fieldGrid.getCount_kills()==1){
+            System.out.println(fieldGrid + "victory");
+            controller.showVictory();
 
-        for( int i=0;i<=size;i++ ){ for( int j=0;j<=size;j++ ){
-            if( i!=j && !( pa[i].check2Ships(pa[j]) ) ){ flag = false; }
-        }}
+        }
 
-        return flag ;
-    }//checkShipsArray
-
-
-    private void killShip(Ship ship) {
-        ship.surroundShip(playerField );
-        count_kills++;
     }
+
 }

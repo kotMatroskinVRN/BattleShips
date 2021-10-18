@@ -1,16 +1,12 @@
 package home.battleShips;
 
-import home.battleShips.field.FieldPicture;
-import home.battleShips.field.FieldCell;
-import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.Game;
-import home.battleShips.model.Ship;
-import home.battleShips.model.ShipCell;
-import home.battleShips.utils.StaticUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+
+
 
 
 public class Controller {
@@ -33,10 +29,14 @@ public class Controller {
 
 
     public void newGame() {
-        game = new Game();
+        game = new Game(this);
 
         playerPane.setCenter(    game.getPlayerField());
         computerPane.setCenter(  game.getCpuField()   );
     }
 
+    public void showVictory() {
+
+        playerPane.setCenter( new Label("V-I-C-T-O-R-Y"));
+    }
 }

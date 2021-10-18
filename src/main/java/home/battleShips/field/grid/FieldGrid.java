@@ -17,6 +17,8 @@ public class FieldGrid extends GridPane {
     private ImageView[][] cells = new ImageView[FIELD_SIZE][FIELD_SIZE];
     private FieldData fieldData;
 
+    private int count_kills     = 0;
+
     public FieldGrid(){
         super();
         fieldData = new FieldData();
@@ -54,7 +56,13 @@ public class FieldGrid extends GridPane {
 
     }
 
+    public int getCount_kills() {
+        return count_kills;
+    }
 
+    public void addKill(){
+        count_kills++;
+    }
 
     private void setLetters(){
         for(int l=1;l<FIELD_SIZE;l++){

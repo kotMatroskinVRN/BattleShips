@@ -20,6 +20,39 @@ public class Ship{
 
     private boolean 		alive  ;
 
+    public static Ship[] randomSetOfShips() {
+
+
+        int size , n , l ;
+        char  dc;
+        char[] d = { 'h' , 'v' };
+        Ship[] rShips = new Ship[FS-2] ;
+
+        for(int i = 0 ; i<FS-2 ; i++ ){
+            size = (int)( 12 - 1.5*i )/4 + 1 ;
+            l  = (int)( Math.random()*(FS-1-size) ) +1  ;
+            n  = (int)( Math.random()*(FS-1-size) ) +1  ; // fs-1????
+            dc = d[(int)( Math.random()*2)] ;
+
+            rShips[i] = new Ship( size , l  , n , dc );
+
+
+            while( i>0 && !( checkShipsArray( rShips , i ) ) ){
+                l  = (int)( Math.random()*(FS-1-size) ) +1  ;
+                n  = (int)( Math.random()*(FS-1-size) ) +1  ;
+                dc = d[(int)( Math.random()*2)] ;
+                rShips[i] = new Ship( size , l  , n , dc );
+            }
+            //System.out.printf("%d is O.K. \n" , size );
+        }// for ships array
+
+
+
+        return rShips ;
+    }//randomSetOfShips
+
+
+
     public Ship( int s , int li , int ni , char d ){
 
         if(s<1){ System.out.printf("Ship %2d %c%d position is out of range of size \n" , s , li , ni );	 }
@@ -74,20 +107,20 @@ public class Ship{
 
     // check positions of THIS ship and given one
     public boolean check2Ships(Ship p ){
-        boolean flag = true ;
+        //boolean flag = true ;
 
         for(ShipCell thisCell : shipCellList){
-            if(!flag) return flag;
+            //if(!flag) return flag;
             for (ShipCell cell : p.getShipCellList()){
-                if(!flag) return flag;
-
-                if(thisCell.isSamePlace(cell)) flag = false;
-
-                if(thisCell.isNeighbour(cell)) flag = false;
-
+                //if(!flag) return flag;
+//                if(thisCell.isSamePlace(cell)) flag = false;
+//                if(thisCell.isNeighbour(cell)) flag = false;
+                if(thisCell.isSamePlace(cell)) return false;
+                if(thisCell.isNeighbour(cell)) return false;
             }
         }
-        return flag;
+        //return flag;
+        return true;
 
     }
 
@@ -111,6 +144,16 @@ public class Ship{
     }
 
 
+
+    private static boolean checkShipsArray(Ship[] pa , int size){
+        boolean flag = true ;
+
+        for( int i=0;i<=size;i++ ){ for( int j=0;j<=size;j++ ){
+            if( i!=j && !( pa[i].check2Ships(pa[j]) ) ){ flag = false; }
+        }}
+
+        return flag ;
+    }//checkShipsArray
 
 
 

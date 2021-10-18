@@ -11,6 +11,7 @@ public enum FieldPicture {
     HIT("images/hit.png"){},
     MISS("images/miss.png"){},
     DECK("images/deck.png"){},
+    VICTORY("images/loss.gif"),
     ;
 
     private final Image IMAGE;

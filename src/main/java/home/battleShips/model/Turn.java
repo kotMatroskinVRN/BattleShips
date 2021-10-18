@@ -1,15 +1,37 @@
 package home.battleShips.model;
 
 import home.battleShips.field.FieldCell;
+import home.battleShips.field.FieldPicture;
+import home.battleShips.field.grid.FieldGrid;
+import home.battleShips.utils.StaticUtils;
 
 public class Turn {
 
-    private final FieldCell cell;
-    private TurnStatus status   ;
+    private final int FIELD_SIZE = 11 ;
+
+    private FieldCell cell;
+    private TurnStatus status = TurnStatus.MISS;
+
+    Turn(FieldGrid fieldGrid){
+        randomTurn(fieldGrid);
+    }
 
     Turn(FieldCell cell){
         this.cell = cell;
-        status = TurnStatus.MISS;
+    }
+
+    public void randomTurn(FieldGrid fieldGrid){
+        int letter = (int)( Math.random()*(FIELD_SIZE-1) ) +1;
+        int number = (int)( Math.random()*(FIELD_SIZE-1) ) +1;
+
+        if(fieldGrid.getCells()[letter][number].getImage() == FieldPicture.SEA.getIMAGE()){
+            cell = fieldGrid.getFieldData().getCells()[letter][number];
+        }else{
+            randomTurn(fieldGrid);
+        }
+
+
+
     }
 
     public FieldCell getCell() {
