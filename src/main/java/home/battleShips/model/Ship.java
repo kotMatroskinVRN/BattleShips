@@ -107,19 +107,13 @@ public class Ship{
 
     // check positions of THIS ship and given one
     public boolean check2Ships(Ship p ){
-        //boolean flag = true ;
 
         for(ShipCell thisCell : shipCellList){
-            //if(!flag) return flag;
             for (ShipCell cell : p.getShipCellList()){
-                //if(!flag) return flag;
-//                if(thisCell.isSamePlace(cell)) flag = false;
-//                if(thisCell.isNeighbour(cell)) flag = false;
                 if(thisCell.isSamePlace(cell)) return false;
                 if(thisCell.isNeighbour(cell)) return false;
             }
         }
-        //return flag;
         return true;
 
     }
@@ -145,14 +139,17 @@ public class Ship{
 
 
 
-    private static boolean checkShipsArray(Ship[] pa , int size){
-        boolean flag = true ;
+    private static boolean checkShipsArray(Ship[] ships , int size){
 
-        for( int i=0;i<=size;i++ ){ for( int j=0;j<=size;j++ ){
-            if( i!=j && !( pa[i].check2Ships(pa[j]) ) ){ flag = false; }
-        }}
+        for( int i=0;i<=size;i++ ){
+            for( int j=0;j<=size;j++ ){
+                if( i!=j && !( ships[i].check2Ships(ships[j]) ) ){
+                    return false;
+                }
+            }
+        }
 
-        return flag ;
+        return true ;
     }//checkShipsArray
 
 

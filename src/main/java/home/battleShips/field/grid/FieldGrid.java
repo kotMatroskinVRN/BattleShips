@@ -14,8 +14,8 @@ public class FieldGrid extends GridPane {
 
     private final int FIELD_SIZE = 11 ;
 
-    private ImageView[][] cells = new ImageView[FIELD_SIZE][FIELD_SIZE];
-    private FieldData fieldData;
+    private final ImageView[][] cells = new ImageView[FIELD_SIZE][FIELD_SIZE];
+    private final FieldData fieldData;
 
     private int count_kills     = 0;
 
@@ -28,14 +28,8 @@ public class FieldGrid extends GridPane {
 
 
     public void init() {
-
-        long start;
-        double time;
-
         fieldData.init();
-
         defaultFill();
-
     }
 
     public ImageView[][] getCells() {
@@ -52,7 +46,7 @@ public class FieldGrid extends GridPane {
         cell.setImage(picture);
         GridPane.setConstraints(cell.getImageView(), letter, number);
         getChildren().add(cell.getImageView());
-
+        System.out.println("fieldgrid" + Thread.currentThread());
 
     }
 
@@ -87,7 +81,6 @@ public class FieldGrid extends GridPane {
 
                 if(c=='Й') continue;
                 int arrayNumber= StaticUtils.getNumberFromChar(c);
-                //System.out.println("defaultFill : " + arrayNumber);
                 String letter = String.valueOf(c);
 
                 ImageView imageView = fieldData.getImage(letter , n);
@@ -99,7 +92,6 @@ public class FieldGrid extends GridPane {
             }
         }
 
-        //data.addAll(Arrays.asList(cells));
         setLetters();
         setNumbers();
     }

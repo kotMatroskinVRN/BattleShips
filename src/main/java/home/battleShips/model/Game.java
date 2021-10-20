@@ -5,6 +5,8 @@ import home.battleShips.field.FieldPicture;
 import home.battleShips.field.FieldCell;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.utils.StaticUtils;
+import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
@@ -58,18 +60,7 @@ public class Game {
         return cpuField;
     }
 
-    public Ship[] getShipsCPU() {
-        return shipsCPU;
-    }
-
-    public Ship[] getShipsPLAYER() {
-        return shipsPLAYER;
-    }
-
-
     private void turn( FieldCell cell) {
-
-
 
         int letter = StaticUtils.getNumberFromChar(cell.getLetter());
         int number = cell.getNumber();
@@ -78,12 +69,14 @@ public class Game {
 
         Turn turn = new Turn(cell);
 
-        //boolean hit = false;
         for(Ship ship : shipsPLAYER){
             if( ship.hasCell(letter,number )){
                 turn.setStatus(TurnStatus.HIT);
                 ship.addHit(letter,number);
+
                 playerField.setImageToGridCell( cell, FieldPicture.HIT);
+//                setHit(playerField,cell);
+
                 if(ship.isKilled()){
                     turn.setStatus(TurnStatus.KILL);
                     killShip(ship,playerField);
@@ -115,7 +108,10 @@ public class Game {
             if( ship.hasCell(letter,number )){
                 turn.setStatus(TurnStatus.HIT);
                 ship.addHit(letter,number);
+
                 cpuField.setImageToGridCell( cell, FieldPicture.HIT);
+//                setHit(cpuField,cell);
+
                 if(ship.isKilled()){
                     turn.setStatus(TurnStatus.KILL);
                     killShip(ship , cpuField);
@@ -134,78 +130,6 @@ public class Game {
     }
 
 
-//    void counter_action(int xi , int yi){ // uses global - block ; do action when clicked to already shooted block(
-//
-//
-//        int x  , y  ;
-//        if( !(y_shot[xi][yi]) && block[xi][yi].getIcon() != hit  ){
-//            if( xi != 1 || yi != 1 )y_shot[xi][yi] = true ;
-//
-//            System.out.println("counter_action");
-//
-//            x = (int)( Math.random()*(FS-2) ) +1  ;
-//            y = (int)( Math.random()*(FS-2) ) +1  ;
-//
-//            while( c_shot[x][y] || x==0 ||  x>10 || y==0 || y>10 ){
-//                x = (int)( Math.random()*(FS-2) ) +1  ;
-//                y = (int)( Math.random()*(FS-2) ) +1  ;
-//            }
-//
-//            c_shot[x][y] = true ;
-//
-//
-//            for( Ship elm: shipsPLAYER ){
-//                if( elm.footprint[x][y] == true )	{
-//
-//                    rblock[x][y].setIcon(hit) ;
-//
-//                    elm.hits[x][y] = true ;
-//                    if( elm.countHits()  ){	/// bug - if click on killed -> count++ ; add check if alive
-//                        surroundShip(elm,rblock);
-//
-//                        if( elm.alive ) {	count_kills_cpu++;	elm.alive = false ; }
-//
-//                        if( count_kills_cpu == 10 ){
-//
-//                            for(int y1=1;y1<FS-1;y1++){ for(int x1=1;x1<FS-1;x1++){
-//                                block[x1][y1].setEnabled(false);
-//                                rblock[x1][y1].setEnabled(false); }}
-//
-//                            JFrame You_loose = new JFrame("Game Over") ;
-//                            You_loose.setBounds( 50 , 50 , 848 , 480 );
-//
-//                            You_loose.setLayout(null);
-//                            JLabel game_over = new JLabel(loss , JLabel.CENTER) ;
-//                            game_over.setBounds( 0 , 0, 848 , 480 );
-//                            You_loose.add(game_over);
-//                            You_loose.setVisible(true);
-//                        }// if victory
-//                    }// if kill
-//
-//                }//if footprint
-//
-//            }//foreach
-//
-//            if( rblock[x][y].getIcon() == sea  ) rblock[x][y].setIcon(miss) ;
-//
-//            if( rblock[x][y].getIcon() == hit  ) counter_action(1,1) ;
-//        } // if did not shoot on cpu board
-//
-//    }
-
-//    void surroundShip (Ship s , JButton[][] iBlock ){
-//        for(int y=1;y<FS-1;y++){ for(int x=1;x<FS-1;x++){
-//            if( s.footprint[x][y] ) {
-//                for(int dl=-1;dl<=1;dl++){	for(int dn=-1;dn<=1;dn++){
-//                    if( !(s.footprint[x+dl][y+dn]) && x+dl>0 && x+dl<11 && y+dn>0 && y+dn<11 ) {
-//                        iBlock[x+dl][y+dn].setIcon(miss) ;
-//                        y_shot[x+dl][y+dn] = true ;//set shoot
-//                    }
-//                }}// for surround : dl and dn
-//            }// if footprint
-//
-//        }}// for entire field
-//    }//surround ship
 
 
     private void setListeners() {
@@ -219,7 +143,7 @@ public class Game {
     }
 
     private void showPlayersShips() {
-        for(Ship ship : getShipsCPU()){
+        for(Ship ship : shipsCPU){
 
             for(ShipCell shipCell : ship.getShipCellList()){
                 int l = shipCell.getLetter();
@@ -240,11 +164,26 @@ public class Game {
         ship.surroundShip(fieldGrid);
         fieldGrid.addKill();
 
-        if(fieldGrid.getCount_kills()==1){
-            System.out.println(fieldGrid + "victory");
-            controller.showVictory();
+        if(fieldGrid.getCount_kills()==1) gameOver(fieldGrid);
 
-        }
+    }
+
+    private void gameOver(FieldGrid fieldGrid){
+        Platform.runLater(() -> {
+            if(fieldGrid==playerField) controller.showVictory();
+            if(fieldGrid==cpuField)    controller.showDefeat();
+        });
+    }
+
+    private void setHit(FieldGrid fieldGrid , FieldCell fieldCell){
+        AnimationTimer animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                fieldGrid.setImageToGridCell( fieldCell, FieldPicture.HIT);
+            }
+        };
+        animationTimer.start();
+
 
     }
 

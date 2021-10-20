@@ -11,14 +11,8 @@ public class FieldData {
 
     public void init(){
 
-        long start;
-        double time;
-
         System.out.println("\ndefault fill array");
-        start = System.currentTimeMillis();
         defaultFillArray();
-        time  = (System.currentTimeMillis() - start)/1000.0 ;
-        System.out.printf( "run time : %f seconds\n" , time );
 
     }
 
@@ -31,18 +25,12 @@ public class FieldData {
 
 
 
-    private FieldCell chooseCell(String letter , int number){
-        for(int l=1;l<FIELD_SIZE;l++){
-            for(int n=1;n<FIELD_SIZE;n++){
-                FieldCell cell = cells[l][n];
-                if(cell.getLetter().equals(letter) && cell.getNumber() == number){
-                    return cell;
-                }
-            }
-        }
-        throw new IndexOutOfBoundsException("Outside BattleShip Field : " + letter + number);
 
+
+    private FieldCell chooseCell(String letter , int number){
+        return cells[StaticUtils.getNumberFromChar(letter)][number];
     }
+
 
     private void defaultFillArray() {
         for(char c='А'; c <= 'К' ;c++ ){

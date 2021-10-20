@@ -4,8 +4,6 @@ import javafx.scene.image.ImageView;
 
 public class FieldCell implements Comparable<FieldCell> {
 
-
-
     private final int number;
     private final String letter;
     private ImageView imageView = new ImageView(FieldPicture.SEA.getIMAGE());

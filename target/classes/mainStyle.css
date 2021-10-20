@@ -8,19 +8,25 @@ FieldGrid .label{
     -fx-font-weight:bold;
 }
 
-FieldGrid .label:hover{
+/*FieldGrid .label:hover{
     -fx-font-family: serif ;
     -fx-alignment: center;
     -fx-max-width: Infinity;
     -fx-padding: 5;
+}*/
+
+BorderPane .label{
+    -fx-alignment: center;
+    -fx-max-width: Infinity;
+    -fx-font-weight:bold;
 }
 
 .split-pane-divider {
   -fx-padding: 0 ;
 }
 
-/*ImageView:hover {
-    -fx-rotate: 10;
-}*/
+ImageView:hover {
+    -fx-rotate: 5;
+}
 
 
