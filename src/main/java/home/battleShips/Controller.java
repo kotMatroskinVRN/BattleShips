@@ -2,22 +2,15 @@ package home.battleShips;
 
 import home.battleShips.field.FieldPicture;
 import home.battleShips.model.Game;
-import home.battleShips.utils.StaticUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Enumeration;
 
 
 public class Controller {
@@ -67,8 +60,9 @@ public class Controller {
         Media media = new Media( url.toString() );
 
         MediaPlayer player = new MediaPlayer(media);
+        //player.setStartTime( Duration.INDEFINITE);
         player.setAutoPlay(true);
-        player.setCycleCount(Integer.MAX_VALUE);
+        player.setCycleCount( MediaPlayer.INDEFINITE );
 
         MediaView mediaView = new MediaView(player);
         mediaView.setFitWidth(350);
