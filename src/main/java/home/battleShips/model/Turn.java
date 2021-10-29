@@ -12,11 +12,11 @@ public class Turn {
     private FieldCell cell;
     private TurnStatus status = TurnStatus.MISS;
 
-    Turn(FieldGrid fieldGrid){
+    public Turn(FieldGrid fieldGrid){
         randomTurn(fieldGrid);
     }
 
-    Turn(FieldCell cell){
+    public Turn(FieldCell cell){
         this.cell = cell;
     }
 

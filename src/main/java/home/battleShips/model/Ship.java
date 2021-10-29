@@ -1,7 +1,7 @@
 package home.battleShips.model;
 
-import home.battleShips.field.FieldPicture;
 import home.battleShips.field.FieldCell;
+import home.battleShips.field.FieldPicture;
 import home.battleShips.field.grid.FieldGrid;
 
 import java.util.ArrayList;
@@ -19,6 +19,25 @@ public class Ship{
     private final List<ShipCell> hitCells     = new ArrayList<>();
 
     private boolean 		alive  ;
+
+    public Ship( int s , int li , int ni , char d ){
+
+        if(s<1){ System.out.printf("Ship %2d %c%d position is out of range of size \n" , s , li , ni );	 }
+
+        // split to 2 sections : start position and end position
+        if (d == 'v') {
+            for (int i = 0; i < s; i++) {
+                shipCellList.add( new ShipCell(li,ni+i) );
+            }
+        } else {
+            for (int i = 0; i < s; i++) {
+                shipCellList.add( new ShipCell(li+i,ni) );
+            }
+        }
+
+        size = s;
+        alive = true ;
+    }
 
     public static Ship[] randomSetOfShips() {
 
@@ -53,24 +72,7 @@ public class Ship{
 
 
 
-    public Ship( int s , int li , int ni , char d ){
 
-        if(s<1){ System.out.printf("Ship %2d %c%d position is out of range of size \n" , s , li , ni );	 }
-
-        // split to 2 sections : start position and end position
-        if (d == 'v') {
-            for (int i = 0; i < s; i++) {
-                shipCellList.add( new ShipCell(li,ni+i) );
-            }
-        } else {
-            for (int i = 0; i < s; i++) {
-                shipCellList.add( new ShipCell(li+i,ni) );
-            }
-        }
-
-        size = s;
-        alive = true ;
-    }
 
     public List<ShipCell> getShipCellList() {
         return shipCellList;
@@ -98,7 +100,10 @@ public class Ship{
     }
 
     public void addHit(int l , int n){
-        hitCells.add( new ShipCell(l , n) );
+        if(hasCell(l,n)){
+            hitCells.add( new ShipCell(l , n) );
+        }
+        else throw new IndexOutOfBoundsException();
     }
 
     public boolean isKilled(){

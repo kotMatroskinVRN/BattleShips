@@ -1,27 +1,24 @@
 package home.battleShips.model;
 
 import home.battleShips.Controller;
-import home.battleShips.field.FieldPicture;
 import home.battleShips.field.FieldCell;
+import home.battleShips.field.FieldPicture;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.utils.StaticUtils;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 
 import java.util.Date;
-import java.util.Stack;
 
 public class Game {
 
     private final int FIELD_SIZE = 11 ;
     static final int FS        = 12 ;
-    private final Ship[] shipsCPU      ;
-    private final Ship[] shipsPLAYER   ;
-    private final Stack<Turn> playersTurns;
-    private final Stack<Turn> cpusTurns;
+//    private final Ship[] shipsCPU      ;
+//    private final Ship[] shipsPLAYER   ;
+//    private final Stack<Turn> playersTurns;
+//    private final Stack<Turn> cpusTurns;
 
 
     private final FieldGrid playerField;
@@ -31,8 +28,8 @@ public class Game {
     public Game(Controller controller) {
         this.controller = controller;
 
-        playersTurns = new Stack<>();
-        cpusTurns    = new Stack<>();
+//        playersTurns = new Stack<>();
+//        cpusTurns    = new Stack<>();
 
         playerField = new FieldGrid();
         cpuField    = new FieldGrid();
@@ -40,8 +37,8 @@ public class Game {
         playerField.init();
         cpuField.init();
 
-        shipsCPU    = Ship.randomSetOfShips() ;
-        shipsPLAYER = Ship.randomSetOfShips() ;
+//        shipsCPU    = Ship.randomSetOfShips() ;
+//        shipsPLAYER = Ship.randomSetOfShips() ;
 
         showPlayersShips();
 
@@ -59,6 +56,12 @@ public class Game {
     public FieldGrid getCpuField() {
         return cpuField;
     }
+//    public Ship[] getShipsCPU() {
+//        return shipsCPU;
+//    }
+//    public Ship[] getShipsPLAYER() {
+//        return shipsPLAYER;
+//    }
 
     private void turn( FieldCell cell) {
 
@@ -69,7 +72,7 @@ public class Game {
 
         Turn turn = new Turn(cell);
 
-        for(Ship ship : shipsPLAYER){
+        for(Ship ship : playerField.getFieldData().getShips()){
             if( ship.hasCell(letter,number )){
                 turn.setStatus(TurnStatus.HIT);
                 ship.addHit(letter,number);
@@ -104,7 +107,7 @@ public class Game {
         int number = cell.getNumber();
         System.out.println("cpu:" + cell.getLetter()+number);
 
-        for(Ship ship : shipsCPU){
+        for(Ship ship : cpuField.getFieldData().getShips()){
             if( ship.hasCell(letter,number )){
                 turn.setStatus(TurnStatus.HIT);
                 ship.addHit(letter,number);
@@ -143,8 +146,8 @@ public class Game {
     }
 
     private void showPlayersShips() {
-        for(Ship ship : shipsCPU){
-
+        for(Ship ship : cpuField.getFieldData().getShips()){
+            System.out.println(ship);
             for(ShipCell shipCell : ship.getShipCellList()){
                 int l = shipCell.getLetter();
                 int n = shipCell.getNumber();
@@ -160,7 +163,7 @@ public class Game {
 
 
 
-    private void killShip(Ship ship , FieldGrid fieldGrid) {
+    public void killShip(Ship ship , FieldGrid fieldGrid) {
         ship.surroundShip(fieldGrid);
         fieldGrid.addKill();
 
@@ -168,7 +171,7 @@ public class Game {
 
     }
 
-    private void gameOver(FieldGrid fieldGrid){
+    public void gameOver(FieldGrid fieldGrid){
         Platform.runLater(() -> {
             if(fieldGrid==playerField) controller.showVictory();
             if(fieldGrid==cpuField)    controller.showDefeat();
@@ -186,5 +189,6 @@ public class Game {
 
 
     }
+
 
 }

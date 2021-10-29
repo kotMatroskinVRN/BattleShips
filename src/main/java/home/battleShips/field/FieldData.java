@@ -1,18 +1,25 @@
 package home.battleShips.field;
 
+import home.battleShips.model.Ship;
+import home.battleShips.model.Turn;
 import home.battleShips.utils.StaticUtils;
 import javafx.scene.image.ImageView;
+
+import java.util.Stack;
 
 public class FieldData {
 
     private final int FIELD_SIZE = 11 ;
 
     private final FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
+    private Ship[] ships ;
+    private final Stack<Turn> cpusTurns = new Stack<>();
 
     public void init(){
 
         System.out.println("\ndefault fill array");
         defaultFillArray();
+        ships =  Ship.randomSetOfShips() ;
 
     }
 
@@ -47,4 +54,7 @@ public class FieldData {
         }
     }
 
+    public Ship[] getShips() {
+        return ships;
+    }
 }
