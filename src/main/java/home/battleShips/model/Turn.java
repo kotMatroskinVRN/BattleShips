@@ -1,5 +1,6 @@
 package home.battleShips.model;
 
+import home.battleShips.field.CSSpicture;
 import home.battleShips.field.FieldCell;
 import home.battleShips.field.FieldPicture;
 import home.battleShips.field.grid.FieldGrid;
@@ -24,7 +25,7 @@ public class Turn {
         int letter = (int)( Math.random()*(FIELD_SIZE-1) ) +1;
         int number = (int)( Math.random()*(FIELD_SIZE-1) ) +1;
 
-        if(fieldGrid.getCells()[letter][number].getImage() == FieldPicture.SEA.getIMAGE()){
+        if(fieldGrid.getFieldData().getCells()[letter][number].getPicture()== CSSpicture.SEA){
             cell = fieldGrid.getFieldData().getCells()[letter][number];
         }else{
             randomTurn(fieldGrid);

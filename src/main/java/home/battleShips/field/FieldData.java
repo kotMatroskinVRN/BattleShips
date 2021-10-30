@@ -3,7 +3,7 @@ package home.battleShips.field;
 import home.battleShips.model.Ship;
 import home.battleShips.model.Turn;
 import home.battleShips.utils.StaticUtils;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
 
 import java.util.Stack;
 
@@ -23,8 +23,8 @@ public class FieldData {
 
     }
 
-    public ImageView getImage(String letter , int number){
-        return chooseCell(letter,number).getImageView();
+    public Button getImage(String letter , int number){
+        return chooseCell(letter,number).getButton();
     }
 //    public CSSpicture getImage(String letter , int number){
 //        return chooseCell(letter,number).getPicture();

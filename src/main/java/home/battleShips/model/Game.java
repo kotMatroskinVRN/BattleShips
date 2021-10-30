@@ -140,7 +140,7 @@ public class Game {
         for(int l=1;l<FIELD_SIZE;l++){
             for(int n=1;n<FIELD_SIZE;n++){
                 FieldCell cell = playerField.getFieldData().getCells()[l][n];
-                cell.getImageView().onMouseClickedProperty().set( ae -> turn( cell ) );
+                cell.getButton().onMouseClickedProperty().set( ae -> turn( cell ) );
 
             }
         }
@@ -155,8 +155,8 @@ public class Game {
                 FieldCell cell = cpuField.getFieldData().getCells()[l][n];
 //                cell.setImage(FieldPicture.DECK);
                 cell.setStyle(CSSpicture.DECK);
-                GridPane.setConstraints(cell.getImageView(), l, n);
-                cpuField.getChildren().add(cell.getImageView());
+                GridPane.setConstraints(cell.getButton(), l, n);
+                cpuField.getChildren().add(cell.getButton());
             }
         }
     }
@@ -174,10 +174,17 @@ public class Game {
     }
 
     public void gameOver(FieldGrid fieldGrid){
+
+        removelisteners();
+
         Platform.runLater(() -> {
             if(fieldGrid==playerField) controller.showVictory();
             if(fieldGrid==cpuField)    controller.showDefeat();
         });
+    }
+
+    private void removelisteners() {
+
     }
 
     private void setHit(FieldGrid fieldGrid , FieldCell fieldCell){

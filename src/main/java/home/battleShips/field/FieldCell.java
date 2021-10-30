@@ -1,6 +1,6 @@
 package home.battleShips.field;
 
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
 
 public class FieldCell implements Comparable<FieldCell> {
 
@@ -8,11 +8,12 @@ public class FieldCell implements Comparable<FieldCell> {
     private final String letter;
     private CSSpicture picture = CSSpicture.SEA;
 //    private ImageView imageView = new ImageView(FieldPicture.SEA.getIMAGE());
-    private ImageView imageView = new ImageView();
+    private Button button ;
 
     public FieldCell(String letter, int number) {
         this.letter = letter;
         this.number = number;
+        setStyle(CSSpicture.SEA);
     }
 
 //    public void setImage(FieldPicture picture){
@@ -20,10 +21,8 @@ public class FieldCell implements Comparable<FieldCell> {
 //    }
 
     public void setStyle(CSSpicture picture){
-        imageView = new ImageView();
-        imageView.setFitWidth(30);
-        imageView.setFitHeight(30);
-        imageView.setId(picture.toString());
+        button = new Button();
+        button.setId(picture.toString());
 //        imageView.setStyle("    -fx-pref-width:  30px; -fx-pref-height: 30px;");
     }
 
@@ -35,8 +34,8 @@ public class FieldCell implements Comparable<FieldCell> {
     public int getNumber() {
         return number;
     }
-    public ImageView getImageView() {
-        return imageView;
+    public Button getButton() {
+        return button;
     }
     public CSSpicture getPicture() {
         return picture;

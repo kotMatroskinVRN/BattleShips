@@ -15,10 +15,10 @@ import java.util.Objects;
 
 public enum FieldPicture {
 
-    SEA("images/sea.png"){},
-    HIT("images/hit.png"){},
-    MISS("images/miss.png"){},
-    DECK("images/deck.png"){},
+//    SEA("images/sea.png"){},
+//    HIT("images/hit.png"){},
+//    MISS("images/miss.png"){},
+//    DECK("images/deck.png"){},
     VICTORY("images/win.mp4"){},
     LOSS("images/loss.mp4"){},
 

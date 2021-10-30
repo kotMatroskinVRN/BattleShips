@@ -7,6 +7,7 @@ import home.battleShips.field.FieldData;
 import home.battleShips.utils.StaticUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -15,7 +16,7 @@ public class FieldGrid extends GridPane {
 
     private final int FIELD_SIZE = 11 ;
 
-    private final ImageView[][] cells = new ImageView[FIELD_SIZE][FIELD_SIZE];
+    private final Button[][] cells = new Button[FIELD_SIZE][FIELD_SIZE];
     private final FieldData fieldData;
 
     private int count_kills     = 0;
@@ -34,7 +35,7 @@ public class FieldGrid extends GridPane {
 //        setR
     }
 
-    public ImageView[][] getCells() {
+    public Button[][] getCells() {
         return cells;
     }
 
@@ -56,8 +57,8 @@ public class FieldGrid extends GridPane {
         int letter = StaticUtils.getNumberFromChar(cell.getLetter());
         int number = cell.getNumber();
         cell.setStyle(picture);
-        GridPane.setConstraints(cell.getImageView(), letter, number);
-        getChildren().add(cell.getImageView());
+        GridPane.setConstraints(cell.getButton(), letter, number);
+        getChildren().add(cell.getButton());
         System.out.println("fieldgrid" + Thread.currentThread());
 
     }
@@ -95,12 +96,12 @@ public class FieldGrid extends GridPane {
                 int arrayNumber= StaticUtils.getNumberFromChar(c);
                 String letter = String.valueOf(c);
 
-                ImageView imageView = fieldData.getImage(letter , n);
+                Button button = fieldData.getImage(letter , n);
 
-                setConstraints(imageView , arrayNumber, n);
-                getChildren().add(imageView);
+                setConstraints(button , arrayNumber, n);
+                getChildren().add(button);
 
-                cells[n][arrayNumber] = imageView;
+                cells[n][arrayNumber] = button;
             }
         }
 
