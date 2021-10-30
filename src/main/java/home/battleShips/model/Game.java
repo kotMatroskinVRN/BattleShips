@@ -1,6 +1,7 @@
 package home.battleShips.model;
 
 import home.battleShips.Controller;
+import home.battleShips.field.CSSpicture;
 import home.battleShips.field.FieldCell;
 import home.battleShips.field.FieldPicture;
 import home.battleShips.field.grid.FieldGrid;
@@ -77,7 +78,7 @@ public class Game {
                 turn.setStatus(TurnStatus.HIT);
                 ship.addHit(letter,number);
 
-                playerField.setImageToGridCell( cell, FieldPicture.HIT);
+                playerField.setImageToGridCell( cell, CSSpicture.HIT);
 //                setHit(playerField,cell);
 
                 if(ship.isKilled()){
@@ -90,7 +91,7 @@ public class Game {
 
 
         if(turn.getStatus()==TurnStatus.MISS){
-            playerField.setImageToGridCell( cell, FieldPicture.MISS);
+            playerField.setImageToGridCell( cell, CSSpicture.MISS);
             counterAction();
         }
 
@@ -112,7 +113,7 @@ public class Game {
                 turn.setStatus(TurnStatus.HIT);
                 ship.addHit(letter,number);
 
-                cpuField.setImageToGridCell( cell, FieldPicture.HIT);
+                cpuField.setImageToGridCell( cell, CSSpicture.HIT);
 //                setHit(cpuField,cell);
 
                 if(ship.isKilled()){
@@ -124,7 +125,7 @@ public class Game {
         }
 
         if(turn.getStatus()==TurnStatus.MISS){
-            cpuField.setImageToGridCell( cell, FieldPicture.MISS);
+            cpuField.setImageToGridCell( cell, CSSpicture.MISS);
 
         }else{
             counterAction();
@@ -152,7 +153,8 @@ public class Game {
                 int l = shipCell.getLetter();
                 int n = shipCell.getNumber();
                 FieldCell cell = cpuField.getFieldData().getCells()[l][n];
-                cell.setImage(FieldPicture.DECK);
+//                cell.setImage(FieldPicture.DECK);
+                cell.setStyle(CSSpicture.DECK);
                 GridPane.setConstraints(cell.getImageView(), l, n);
                 cpuField.getChildren().add(cell.getImageView());
             }
@@ -182,7 +184,7 @@ public class Game {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                fieldGrid.setImageToGridCell( fieldCell, FieldPicture.HIT);
+                fieldGrid.setImageToGridCell( fieldCell, CSSpicture.HIT);
             }
         };
         animationTimer.start();

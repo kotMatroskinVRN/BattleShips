@@ -30,6 +30,7 @@ public class Controller {
     private void initialize(){
         newGame();
 //        showVictory();
+//        newGame.setId("sea");
     }
 
 

@@ -6,7 +6,22 @@ FieldGrid .label{
     -fx-max-width: Infinity;
     -fx-padding: 5;
     -fx-font-weight:bold;
+    /*-fx-background-image: url("images/sea.png");*/
 }
+
+#deck{
+    -fx-background-image: url("images/deck.png");
+}
+#sea{
+    -fx-background-image: url("images/sea.png");
+}
+#hit{
+    -fx-background-image: url("images/hit.png");
+}
+#miss{
+    -fx-background-image: url("images/miss.png");
+}
+
 
 /*FieldGrid .label:hover{
     -fx-font-family: serif ;
@@ -26,7 +41,17 @@ BorderPane .label{
 }
 
 ImageView:hover {
-    -fx-rotate: 5;
+    /*-fx-rotate: 5;*/
+  /*-fx-graphic-size: 25;*/
+  -fx-background-size: 92% 92%;
+}
+
+ImageView {
+    -fx-background-image: url("images/sea.png");
+    -/*fx-background-size: 30px 30px;
+    -fx-graphic-size: 30px;*/
+    -fx-pref-width:  30px;
+    -fx-pref-height: 30px;
 }
 
 

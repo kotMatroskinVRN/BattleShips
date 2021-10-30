@@ -1,5 +1,6 @@
 package home.battleShips.model.cpu;
 
+import home.battleShips.field.CSSpicture;
 import home.battleShips.field.FieldCell;
 import home.battleShips.field.FieldPicture;
 import home.battleShips.field.grid.FieldGrid;
@@ -25,7 +26,7 @@ public class Easy implements Logic {
                 turn.setStatus(TurnStatus.HIT);
                 ship.addHit(letter,number);
 
-                cpuField.setImageToGridCell( cell, FieldPicture.HIT);
+                cpuField.setImageToGridCell( cell, CSSpicture.HIT);
 //                setHit(cpuField,cell);
 
                 if(ship.isKilled()){
@@ -37,7 +38,7 @@ public class Easy implements Logic {
         }
 
         if(turn.getStatus()==TurnStatus.MISS){
-            cpuField.setImageToGridCell( cell, FieldPicture.MISS);
+            cpuField.setImageToGridCell( cell, CSSpicture.MISS);
 
         }else{
             makeShot(game);

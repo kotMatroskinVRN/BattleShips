@@ -26,6 +26,9 @@ public class FieldData {
     public ImageView getImage(String letter , int number){
         return chooseCell(letter,number).getImageView();
     }
+//    public CSSpicture getImage(String letter , int number){
+//        return chooseCell(letter,number).getPicture();
+//    }
     public FieldCell[][] getCells() {
         return cells;
     }

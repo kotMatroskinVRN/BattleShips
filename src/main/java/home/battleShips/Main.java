@@ -34,3 +34,8 @@ public class Main extends Application {
         primaryStage.show();
     }
 }
+
+
+//TODO
+// Do graphics usign CSS
+// in Code and FXML only markUp!!!!
