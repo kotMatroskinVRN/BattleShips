@@ -36,7 +36,12 @@ public class Game {
         cpuField    = new FieldGrid();
 
         playerField.init();
-        cpuField.init();
+           cpuField.init();
+
+//        playerField.getStyleClass().add("player");
+//           cpuField.getStyleClass().add("cpu");
+
+        System.out.println( playerField.getStyleClass() );
 
 //        shipsCPU    = Ship.randomSetOfShips() ;
 //        shipsPLAYER = Ship.randomSetOfShips() ;
@@ -141,7 +146,7 @@ public class Game {
             for(int n=1;n<FIELD_SIZE;n++){
                 FieldCell cell = playerField.getFieldData().getCells()[l][n];
                 cell.getButton().onMouseClickedProperty().set( ae -> turn( cell ) );
-
+                cell.getButton().getStyleClass().add("player");
             }
         }
     }
@@ -169,7 +174,7 @@ public class Game {
         ship.surroundShip(fieldGrid);
         fieldGrid.addKill();
 
-        if(fieldGrid.getCount_kills()==1) gameOver(fieldGrid);
+        if(fieldGrid.getCount_kills()==10) gameOver(fieldGrid);
 
     }
 
@@ -184,7 +189,14 @@ public class Game {
     }
 
     private void removelisteners() {
+        for(int l=1;l<FIELD_SIZE;l++){
+            for(int n=1;n<FIELD_SIZE;n++){
+                FieldCell cell = playerField.getFieldData().getCells()[l][n];
+                cell.getButton().onMouseClickedProperty().set( null );
+                cell.getButton().getStyleClass().removeAll();
 
+            }
+        }
     }
 
     private void setHit(FieldGrid fieldGrid , FieldCell fieldCell){
