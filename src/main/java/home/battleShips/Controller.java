@@ -1,8 +1,12 @@
 package home.battleShips;
 
 import home.battleShips.field.FieldPicture;
+import home.battleShips.field.Skin;
 import home.battleShips.model.Game;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -11,6 +15,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Controller {
@@ -31,6 +38,9 @@ public class Controller {
         newGame();
 //        showVictory();
 //        newGame.setId("sea");
+
+
+
     }
 
 
@@ -42,7 +52,13 @@ public class Controller {
 
         playerPane.setBottom(null);
         computerPane.setBottom(null);
+
+//        setCSS(Skin.yuraStyle);
+        setRandomCSS();
+
     }
+
+
 
     public void showVictory() {
         MediaView mediaView = getMediaView(FieldPicture.VICTORY);
@@ -72,4 +88,26 @@ public class Controller {
 
         return mediaView;
     }
+
+    private void setCSS(Skin skin){
+
+        Parent parent = newGame.getParent();
+        parent.getStylesheets().clear();
+        parent.getStylesheets().add(skin.getFileName().toString());
+        System.out.println( parent.getStylesheets() );
+    }
+
+    private void setRandomCSS(){
+
+        List<Skin> skins = Arrays.asList(Skin.values());
+        int number = (int) Math.round( Math.random()*(skins.size()-1));
+        Skin skin = skins.get(number);
+
+        Parent parent = newGame.getParent();
+
+        parent.getStylesheets().clear();
+        parent.getStylesheets().add(skin.getFileName().toString());
+        System.out.println( parent.getStylesheets() );
+    }
+
 }
