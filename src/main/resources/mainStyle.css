@@ -65,6 +65,7 @@ FieldGrid .button{
 }
 
 .player.button:hover{
-    -fx-background-size: 90% ;
+    -fx-graphic: url("images/yura_cross.png");
+    -fx-padding:0;
 }
 

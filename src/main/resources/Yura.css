@@ -1,0 +1,71 @@
+FieldGrid .label{
+    -fx-font-family: monospace ;
+    -fx-alignment: center;
+    -fx-max-width: Infinity;
+    -fx-padding: 5;
+    -fx-font-weight:bold;
+}
+
+#deck{
+    -fx-background-image: url("images/yura_deck.png");
+}
+#sea{
+    -fx-background-image: url("images/yura_sea.png");
+}
+#hit{
+    -fx-background-image: url("images/yura_hit.png");
+}
+#miss{
+    -fx-background-image: url("images/yura_miss.png");
+}
+
+
+/*FieldGrid .label:hover{
+    -fx-font-family: serif ;
+    -fx-alignment: center;
+    -fx-max-width: Infinity;
+    -fx-padding: 5;
+}*/
+
+BorderPane .label{
+    -fx-alignment: center;
+    -fx-max-width: Infinity;
+    -fx-font-weight:bold;
+}
+
+.split-pane-divider {
+  -fx-padding: 0 ;
+}
+
+ImageView:hover {
+    /*-fx-rotate: 5;*/
+  /*-fx-graphic-size: 25;*/
+  -fx-background-size: 92% 92%;
+}
+
+/*ImageView {
+    -fx-background-image: url("images/sea.png");
+    -fx-background-size: 30px 30px;
+    -fx-graphic-size: 30px;
+    -fx-pref-width:  30px;
+    -fx-pref-height: 30px;
+}*/
+
+ImageView {
+    -fx-graphic: url("images/sea.png");
+}
+
+FieldGrid .button{
+    -fx-pref-width:  30px;
+    -fx-pref-height: 30px;
+    -fx-background-size: 100% 100%;
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.player.button:hover{
+    -fx-graphic: url("images/yura_cross.png");
+    -fx-padding:0;
+}
+

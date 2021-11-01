@@ -11,15 +11,24 @@ import java.util.Objects;
 
 public class Main extends Application {
 
+    private static String[] args;
+
     public static void main(String[] args) {
+
+        Main.args = args;
+
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        String fxml = "MainWindow.fxml";
+
+        if(args.length>0 && args[0].equals("-yura")) fxml = "Yura.fxml";
+
         FXMLLoader loader = new FXMLLoader();
-        Parent content = loader.load( ClassLoader.getSystemResourceAsStream("MainWindow.fxml") );
+        Parent content = loader.load( ClassLoader.getSystemResourceAsStream(fxml) );
 
         Scene scene = new Scene(content);
 
@@ -37,5 +46,5 @@ public class Main extends Application {
 
 
 //TODO
-// Do graphics usign CSS
+// Do graphics using CSS
 // in Code and FXML only markUp!!!!

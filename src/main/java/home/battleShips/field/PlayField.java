@@ -1,12 +1,12 @@
 package home.battleShips.field;
 
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
 
 public interface PlayField {
 
     void init();
 
 
-    ImageView[][] getCells();
+    Button[][] getCells();
     FieldData getFieldData();
 }

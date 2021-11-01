@@ -1,0 +1,1 @@
+java --module-path ./lib --add-modules javafx.controls,javafx.fxml,javafx.media -jar ./SymbolCount-1.0.jar
