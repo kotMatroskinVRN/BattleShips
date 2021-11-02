@@ -1,4 +1,4 @@
-package home.battleShips.field;
+package home.battleShips.field.grid;
 
 import javafx.scene.control.Button;
 

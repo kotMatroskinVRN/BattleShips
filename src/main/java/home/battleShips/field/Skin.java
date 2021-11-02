@@ -3,19 +3,37 @@ package home.battleShips.field;
 import java.net.URL;
 
 public enum Skin {
-    defaultStyle("mainStyle.css"){},
-    yuraStyle("Yura.css"){},
+    defaultStyle("Основной"){},
+    yuraStyle("Юра"){
+        @Override
+        public URL getFileName() {
+            return getCSS("style/Yura.css");
+        }
+    },
+    paperStyle("Бумага"){
+        @Override
+        public URL getFileName() {
+            return getCSS("style/paper.css");
+        }
+    },
     ;
 
-    private String fileName;
+    private String description;
 
-    Skin(String fileName){
-        this.fileName = fileName;
+    Skin(String description){
+        this.description = description;
     }
 
     public URL getFileName() {
-        return ClassLoader.getSystemResource(fileName);
-//        return getClass().getResource(fileName).toExternalForm();
+        return getCSS("style/mainStyle.css");
+    }
 
+    @Override
+    public String toString() {
+        return this.description;
+    }
+
+    URL getCSS(String fileName){
+        return ClassLoader.getSystemResource(fileName);
     }
 }

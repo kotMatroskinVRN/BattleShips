@@ -6,17 +6,20 @@ FieldGrid .label{
     -fx-font-weight:bold;
 }
 
+
+
 #deck{
-    -fx-background-image: url("images/yura_deck.png");
+    -fx-background-image: url("../images/style_default/deck.png");
 }
 #sea{
-    -fx-background-image: url("images/yura_sea.png");
+    -fx-background-image: url("../images/style_default/sea.png");
+    -fx-transition-duration : 2s;
 }
 #hit{
-    -fx-background-image: url("images/yura_hit.png");
+    -fx-background-image: url("../images/style_default/hit.png");
 }
 #miss{
-    -fx-background-image: url("images/yura_miss.png");
+    -fx-background-image: url("../images/style_default/miss.png");
 }
 
 
@@ -52,7 +55,7 @@ ImageView:hover {
 }*/
 
 ImageView {
-    -fx-graphic: url("images/sea.png");
+    -fx-graphic: url("../images/style_default/sea.png");
 }
 
 FieldGrid .button{
@@ -65,7 +68,9 @@ FieldGrid .button{
 }
 
 .player.button:hover{
-    -fx-graphic: url("images/yura_cross.png");
+    -fx-graphic: url("../images/style_default/cross.png");
     -fx-padding:0;
+    -fx-border-radius: 15px;
+    -fx-transition-duration : 2s;
 }
 

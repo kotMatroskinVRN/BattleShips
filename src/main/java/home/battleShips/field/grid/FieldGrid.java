@@ -1,20 +1,21 @@
 package home.battleShips.field.grid;
 
 import home.battleShips.field.CSSpicture;
-import home.battleShips.field.FieldPicture;
-import home.battleShips.field.FieldCell;
-import home.battleShips.field.FieldData;
 import home.battleShips.utils.StaticUtils;
+import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 public class FieldGrid extends GridPane {
 
     private final int FIELD_SIZE = 11 ;
+    static final int FS        = 12 ;
+
 
     private final Button[][] cells = new Button[FIELD_SIZE][FIELD_SIZE];
     private final FieldData fieldData;
@@ -25,14 +26,12 @@ public class FieldGrid extends GridPane {
         super();
         fieldData = new FieldData();
         setAlignment(Pos.CENTER);
-
     }
 
 
     public void init() {
         fieldData.init();
         defaultFill();
-//        setR
     }
 
     public Button[][] getCells() {
@@ -43,23 +42,8 @@ public class FieldGrid extends GridPane {
         return fieldData;
     }
 
-//    public void setImageToGridCell( FieldCell cell, FieldPicture picture) {
-//        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
-//        int number = cell.getNumber();
-//        cell.setImage(picture);
-//        GridPane.setConstraints(cell.getImageView(), letter, number);
-//        getChildren().add(cell.getImageView());
-//        System.out.println("fieldgrid" + Thread.currentThread());
-//
-//    }
-
-    public void setImageToGridCell( FieldCell cell, CSSpicture picture) {
-        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
-        int number = cell.getNumber();
+    public void setGridCellStyle(FieldCell cell, CSSpicture picture) {
         cell.setStyle(picture);
-        GridPane.setConstraints(cell.getButton(), letter, number);
-        getChildren().add(cell.getButton());
-        System.out.println("fieldgrid" + Thread.currentThread());
 
     }
 
@@ -96,7 +80,7 @@ public class FieldGrid extends GridPane {
                 int arrayNumber= StaticUtils.getNumberFromChar(c);
                 String letter = String.valueOf(c);
 
-                Button button = fieldData.getImage(letter , n);
+                Button button = fieldData.getButton(letter , n);
 
                 setConstraints(button , arrayNumber, n);
                 getChildren().add(button);
@@ -108,6 +92,7 @@ public class FieldGrid extends GridPane {
         setLetters();
         setNumbers();
     }
+
 
 
 

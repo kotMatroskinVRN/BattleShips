@@ -9,7 +9,7 @@ import home.battleShips.model.Turn;
 import home.battleShips.model.TurnStatus;
 import home.battleShips.utils.StaticUtils;
 
-public class Easy implements Logic {
+public class Hard implements Logic {
     @Override
     public void makeShot(Game game) {
         FieldGrid cpuField = game.getCpuField();
@@ -25,8 +25,8 @@ public class Easy implements Logic {
                 turn.setStatus(TurnStatus.HIT);
                 ship.addHit(letter,number);
 
-                fade(cell.getButton());
                 cpuField.setGridCellStyle( cell, CSSpicture.HIT);
+//                setHit(cpuField,cell);
 
                 if(ship.isKilled()){
                     turn.setStatus(TurnStatus.KILL);
@@ -37,12 +37,13 @@ public class Easy implements Logic {
         }
 
         if(turn.getStatus()==TurnStatus.MISS){
-            fade(cell.getButton());
             cpuField.setGridCellStyle( cell, CSSpicture.MISS);
 
         }else{
             makeShot(game);
         }
+
+        System.out.println(this);
 
     }
 }

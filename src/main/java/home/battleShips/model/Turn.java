@@ -1,10 +1,8 @@
 package home.battleShips.model;
 
 import home.battleShips.field.CSSpicture;
-import home.battleShips.field.FieldCell;
-import home.battleShips.field.FieldPicture;
+import home.battleShips.field.grid.FieldCell;
 import home.battleShips.field.grid.FieldGrid;
-import home.battleShips.utils.StaticUtils;
 
 public class Turn {
 

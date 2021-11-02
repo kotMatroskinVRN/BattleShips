@@ -1,8 +1,7 @@
 package home.battleShips.model;
 
 import home.battleShips.field.CSSpicture;
-import home.battleShips.field.FieldCell;
-import home.battleShips.field.FieldPicture;
+import home.battleShips.field.grid.FieldCell;
 import home.battleShips.field.grid.FieldGrid;
 
 import java.util.ArrayList;
@@ -40,36 +39,7 @@ public class Ship{
         alive = true ;
     }
 
-    public static Ship[] randomSetOfShips() {
 
-
-        int size , n , l ;
-        char  dc;
-        char[] d = { 'h' , 'v' };
-        Ship[] rShips = new Ship[FS-2] ;
-
-        for(int i = 0 ; i<FS-2 ; i++ ){
-            size = (int)( 12 - 1.5*i )/4 + 1 ;
-            l  = (int)( Math.random()*(FS-1-size) ) +1  ;
-            n  = (int)( Math.random()*(FS-1-size) ) +1  ; // fs-1????
-            dc = d[(int)( Math.random()*2)] ;
-
-            rShips[i] = new Ship( size , l  , n , dc );
-
-
-            while( i>0 && !( checkShipsArray( rShips , i ) ) ){
-                l  = (int)( Math.random()*(FS-1-size) ) +1  ;
-                n  = (int)( Math.random()*(FS-1-size) ) +1  ;
-                dc = d[(int)( Math.random()*2)] ;
-                rShips[i] = new Ship( size , l  , n , dc );
-            }
-            //System.out.printf("%d is O.K. \n" , size );
-        }// for ships array
-
-
-
-        return rShips ;
-    }//randomSetOfShips
 
 
 
@@ -124,43 +94,24 @@ public class Ship{
 
     }
 
-    public void surroundShip(FieldGrid playField ) {
-        for(ShipCell shipCell : getShipCellList()){
-            for(int dl=-1;dl<=1;dl++) {
-                for (int dn = -1; dn <= 1; dn++) {
-                    int letter = shipCell.getLetter()+dl;
-                    int number = shipCell.getNumber()+dn;
-                    try {
-
-                        if(!hasCell(letter,number)){
-                            FieldCell cell = playField.getFieldData().getCells()[letter][number];
-                            playField.setImageToGridCell(cell, CSSpicture.MISS);
-                        }
-                    } catch (NullPointerException  | ArrayIndexOutOfBoundsException ignored){}
-
-                }
-            }
-        }
-    }
-
-
-
-    private static boolean checkShipsArray(Ship[] ships , int size){
-
-        for( int i=0;i<=size;i++ ){
-            for( int j=0;j<=size;j++ ){
-                if( i!=j && !( ships[i].check2Ships(ships[j]) ) ){
-                    return false;
-                }
-            }
-        }
-
-        return true ;
-    }//checkShipsArray
-
-
-
-
+//    public void surroundShip(FieldGrid playField ) {
+//        for(ShipCell shipCell : getShipCellList()){
+//            for(int dl=-1;dl<=1;dl++) {
+//                for (int dn = -1; dn <= 1; dn++) {
+//                    int letter = shipCell.getLetter()+dl;
+//                    int number = shipCell.getNumber()+dn;
+//                    try {
+//
+//                        if(!hasCell(letter,number)){
+//                            FieldCell cell = playField.getFieldData().getCells()[letter][number];
+//                            playField.setGridCellStyle(cell, CSSpicture.MISS);
+//                        }
+//                    } catch (NullPointerException  | ArrayIndexOutOfBoundsException ignored){}
+//
+//                }
+//            }
+//        }
+//    }
 
 }//class ship
 

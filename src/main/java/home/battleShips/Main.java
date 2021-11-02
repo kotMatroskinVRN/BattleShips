@@ -25,13 +25,15 @@ public class Main extends Application {
 
         String fxml = "MainWindow.fxml";
 
-        if(args.length>0 && args[0].equals("-yura")) fxml = "Yura.fxml";
+//        if(args.length>0 && args[0].equals("-yura")) fxml = "Yura.fxml";
 
         FXMLLoader loader = new FXMLLoader();
         Parent content = loader.load( ClassLoader.getSystemResourceAsStream(fxml) );
 
         Scene scene = new Scene(content);
 
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("Морской Бой");
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(
                 new Image(

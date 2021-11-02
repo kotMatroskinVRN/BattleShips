@@ -2,13 +2,16 @@ package home.battleShips.model;
 
 import home.battleShips.Controller;
 import home.battleShips.field.CSSpicture;
-import home.battleShips.field.FieldCell;
-import home.battleShips.field.FieldPicture;
+import home.battleShips.field.grid.FieldCell;
 import home.battleShips.field.grid.FieldGrid;
+import home.battleShips.model.cpu.Logic;
+import home.battleShips.model.cpu.LogicFactory;
 import home.battleShips.utils.StaticUtils;
-import javafx.animation.AnimationTimer;
+import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.scene.layout.GridPane;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.util.Duration;
 
 import java.util.Date;
 
@@ -26,25 +29,20 @@ public class Game {
     private final FieldGrid cpuField;
     private final  Controller controller;
 
+    private Logic aiLogic ;
+
+    private int turnCount;
+
     public Game(Controller controller) {
         this.controller = controller;
 
-//        playersTurns = new Stack<>();
-//        cpusTurns    = new Stack<>();
+        turnCount = 0;
 
         playerField = new FieldGrid();
         cpuField    = new FieldGrid();
 
         playerField.init();
            cpuField.init();
-
-//        playerField.getStyleClass().add("player");
-//           cpuField.getStyleClass().add("cpu");
-
-        System.out.println( playerField.getStyleClass() );
-
-//        shipsCPU    = Ship.randomSetOfShips() ;
-//        shipsPLAYER = Ship.randomSetOfShips() ;
 
         showPlayersShips();
 
@@ -62,14 +60,22 @@ public class Game {
     public FieldGrid getCpuField() {
         return cpuField;
     }
-//    public Ship[] getShipsCPU() {
-//        return shipsCPU;
-//    }
-//    public Ship[] getShipsPLAYER() {
-//        return shipsPLAYER;
-//    }
+
+    public void killShip(Ship ship , FieldGrid fieldGrid) {
+        fieldGrid.getFieldData().surroundShip(ship);
+        fieldGrid.addKill();
+
+        if(fieldGrid.getCount_kills()==10) gameOver(fieldGrid);
+
+    }
+
+    public void setDifficulty(LogicFactory value) {
+        aiLogic = value.getDifficulty();
+    }
 
     private void turn( FieldCell cell) {
+        turnCount++;
+        System.out.println(turnCount);
 
         int letter = StaticUtils.getNumberFromChar(cell.getLetter());
         int number = cell.getNumber();
@@ -83,8 +89,7 @@ public class Game {
                 turn.setStatus(TurnStatus.HIT);
                 ship.addHit(letter,number);
 
-                playerField.setImageToGridCell( cell, CSSpicture.HIT);
-//                setHit(playerField,cell);
+                playerField.setGridCellStyle( cell, CSSpicture.HIT);
 
                 if(ship.isKilled()){
                     turn.setStatus(TurnStatus.KILL);
@@ -96,50 +101,15 @@ public class Game {
 
 
         if(turn.getStatus()==TurnStatus.MISS){
-            playerField.setImageToGridCell( cell, CSSpicture.MISS);
+            playerField.setGridCellStyle( cell, CSSpicture.MISS);
             counterAction();
         }
-
-
-
 
     }
 
     private void counterAction() {
-        Turn turn = new Turn(cpuField);
-
-        FieldCell cell = turn.getCell();
-        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
-        int number = cell.getNumber();
-        System.out.println("cpu:" + cell.getLetter()+number);
-
-        for(Ship ship : cpuField.getFieldData().getShips()){
-            if( ship.hasCell(letter,number )){
-                turn.setStatus(TurnStatus.HIT);
-                ship.addHit(letter,number);
-
-                cpuField.setImageToGridCell( cell, CSSpicture.HIT);
-//                setHit(cpuField,cell);
-
-                if(ship.isKilled()){
-                    turn.setStatus(TurnStatus.KILL);
-                    killShip(ship , cpuField);
-                }
-                break;
-            }
-        }
-
-        if(turn.getStatus()==TurnStatus.MISS){
-            cpuField.setImageToGridCell( cell, CSSpicture.MISS);
-
-        }else{
-            counterAction();
-        }
-
+         aiLogic.makeShot(this);
     }
-
-
-
 
     private void setListeners() {
         for(int l=1;l<FIELD_SIZE;l++){
@@ -158,25 +128,12 @@ public class Game {
                 int l = shipCell.getLetter();
                 int n = shipCell.getNumber();
                 FieldCell cell = cpuField.getFieldData().getCells()[l][n];
-//                cell.setImage(FieldPicture.DECK);
                 cell.setStyle(CSSpicture.DECK);
-                GridPane.setConstraints(cell.getButton(), l, n);
-                cpuField.getChildren().add(cell.getButton());
             }
         }
     }
 
 
-
-
-
-    public void killShip(Ship ship , FieldGrid fieldGrid) {
-        ship.surroundShip(fieldGrid);
-        fieldGrid.addKill();
-
-        if(fieldGrid.getCount_kills()==10) gameOver(fieldGrid);
-
-    }
 
     public void gameOver(FieldGrid fieldGrid){
 
@@ -199,17 +156,8 @@ public class Game {
         }
     }
 
-    private void setHit(FieldGrid fieldGrid , FieldCell fieldCell){
-        AnimationTimer animationTimer = new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                fieldGrid.setImageToGridCell( fieldCell, CSSpicture.HIT);
-            }
-        };
-        animationTimer.start();
 
 
-    }
 
 
 }

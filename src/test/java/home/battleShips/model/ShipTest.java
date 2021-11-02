@@ -1,8 +1,9 @@
 package home.battleShips.model;
 
-import home.battleShips.field.FieldPicture;
+import home.battleShips.field.CSSpicture;
+import home.battleShips.field.grid.FieldCell;
+import home.battleShips.field.grid.FieldData;
 import home.battleShips.field.grid.FieldGrid;
-import javafx.scene.image.Image;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,15 +37,7 @@ class ShipTest {
         ship14 = new Ship(1,5,3,'h');
     }
 
-    @Test
-    void randomSetOfShips() {
-        Ship[] ships = Ship.randomSetOfShips();
 
-        for(int i=0;i<10;i++){
-            assertNotNull(ships[i]);
-        }
-
-    }
 
     @Test
     void getShipCellList() {
@@ -107,21 +100,22 @@ class ShipTest {
     @Test
     void surroundShip() {
 
-//        FieldGrid fieldGrid = new FieldGrid();
-//        fieldGrid.init();
-//        Ship ship = fieldGrid.getFieldData().getShips()[0];
-//        ship.surroundShip(fieldGrid);
-//
-//        //Set<ShipCell> shipCells = new HashSet<>();
-//
-//
-//        for (ShipCell shipCell : ship.getShipCellList()){
-//
-//            Image image = fieldGrid.getCells()[shipCell.getLetter()+1][shipCell.getNumber()+1].getImage();
-//            assertEquals(FieldPicture.MISS , image);
-//            break;
-//
-//        }
+        FieldData fieldData = new FieldData();
+        fieldData.init();
+        Ship ship = fieldData.getShips()[0];
+        fieldData.surroundShip(ship);
+
+        //Set<ShipCell> shipCells = new HashSet<>();
+
+
+        for (ShipCell shipCell : ship.getShipCellList()){
+
+            FieldCell cell = fieldData.getCells()[shipCell.getLetter()+1][shipCell.getNumber()+1];
+            CSSpicture picture = cell.getPicture() ;
+            assertEquals(CSSpicture.MISS, picture);
+            break;
+
+        }
 
 
 

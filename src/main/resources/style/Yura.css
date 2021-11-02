@@ -1,0 +1,48 @@
+
+#deck{
+    -fx-background-image: url("../images/style_yura/deck.png");
+}
+#sea{
+    -fx-background-image: url("../images/style_yura/sea.png");
+}
+#hit{
+    -fx-background-image: url("../images/style_yura/hit.png");
+}
+#miss{
+    -fx-background-image: url("../images/style_yura/miss.png");
+}
+
+.player.button:hover{
+    -fx-graphic: url("../images/style_yura/cross.png");
+    -fx-padding:0;
+}
+
+BorderPane .label{
+    -fx-alignment: center;
+    -fx-max-width: Infinity;
+    -fx-font-weight:bold;
+}
+
+.split-pane-divider {
+  -fx-padding: 0 ;
+}
+
+FieldGrid .label{
+    -fx-font-family: monospace ;
+    -fx-alignment: center;
+    -fx-max-width: Infinity;
+    -fx-padding: 5;
+    -fx-font-weight:bold;
+}
+
+FieldGrid .button{
+    -fx-pref-width:  30px;
+    -fx-pref-height: 30px;
+    -fx-background-size: 100% 100%;
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+
+
