@@ -10,8 +10,18 @@ import home.battleShips.model.TurnStatus;
 import home.battleShips.utils.StaticUtils;
 
 public class Easy implements Logic {
+    private Game game;
+
     @Override
-    public void makeShot(Game game) {
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    @Override
+    public void makeShot() {
+
+        stopAnimation();
+
         FieldGrid cpuField = game.getCpuField();
         Turn turn = new Turn(cpuField);
 
@@ -39,9 +49,8 @@ public class Easy implements Logic {
         if(turn.getStatus()==TurnStatus.MISS){
             fade(cell.getButton());
             cpuField.setGridCellStyle( cell, CSSpicture.MISS);
-
         }else{
-            makeShot(game);
+            makeShot();
         }
 
     }

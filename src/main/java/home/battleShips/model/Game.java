@@ -71,6 +71,7 @@ public class Game {
 
     public void setDifficulty(LogicFactory value) {
         aiLogic = value.getDifficulty();
+        aiLogic.setGame(this);
     }
 
     private void turn( FieldCell cell) {
@@ -108,7 +109,7 @@ public class Game {
     }
 
     private void counterAction() {
-         aiLogic.makeShot(this);
+         aiLogic.makeShot();
     }
 
     private void setListeners() {

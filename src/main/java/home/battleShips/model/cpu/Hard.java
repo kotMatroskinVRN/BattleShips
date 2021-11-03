@@ -10,8 +10,15 @@ import home.battleShips.model.TurnStatus;
 import home.battleShips.utils.StaticUtils;
 
 public class Hard implements Logic {
+    private Game game;
+
     @Override
-    public void makeShot(Game game) {
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    @Override
+    public void makeShot() {
         FieldGrid cpuField = game.getCpuField();
         Turn turn = new Turn(cpuField);
 
@@ -40,7 +47,7 @@ public class Hard implements Logic {
             cpuField.setGridCellStyle( cell, CSSpicture.MISS);
 
         }else{
-            makeShot(game);
+            makeShot();
         }
 
         System.out.println(this);

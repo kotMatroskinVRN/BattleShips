@@ -9,9 +9,27 @@ import home.battleShips.model.Turn;
 import home.battleShips.model.TurnStatus;
 import home.battleShips.utils.StaticUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 public class Normal implements Logic {
+
+    private final List<Turn> turns = new ArrayList<>();
+    private Game game;
+
+
     @Override
-    public void makeShot(Game game) {
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+
+    @Override
+    public void makeShot() {
+
+        stopAnimation();
+
         FieldGrid cpuField = game.getCpuField();
         Turn turn = new Turn(cpuField);
 
@@ -23,10 +41,14 @@ public class Normal implements Logic {
         for(Ship ship : game.getCpuField().getFieldData().getShips()){
             if( ship.hasCell(letter,number )){
                 turn.setStatus(TurnStatus.HIT);
+                turn.setShip(ship);
                 ship.addHit(letter,number);
 
+                fade(cell.getButton());
                 cpuField.setGridCellStyle( cell, CSSpicture.HIT);
-//                setHit(cpuField,cell);
+                turns.add(turn);
+
+                finishHim();
 
                 if(ship.isKilled()){
                     turn.setStatus(TurnStatus.KILL);
@@ -36,12 +58,25 @@ public class Normal implements Logic {
             }
         }
 
-        if(turn.getStatus()==TurnStatus.MISS){
-            cpuField.setGridCellStyle( cell, CSSpicture.MISS);
 
+
+        if(turn.getStatus()==TurnStatus.MISS){
+            fade(cell.getButton());
+            cpuField.setGridCellStyle( cell, CSSpicture.MISS);
+            turns.add(turn);
         }else{
-            makeShot(game);
+            makeShot();
         }
-        System.out.println(this);
+
     }
+
+    private void finishHim() {
+        Turn turn = turns.get(turns.size()-1);
+
+
+
+    }
+
+
+
 }

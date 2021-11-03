@@ -10,6 +10,7 @@ public class Turn {
 
     private FieldCell cell;
     private TurnStatus status = TurnStatus.MISS;
+    private Ship ship;
 
     public Turn(FieldGrid fieldGrid){
         randomTurn(fieldGrid);
@@ -33,6 +34,10 @@ public class Turn {
 
     }
 
+    public Ship getShip() {
+        return ship;
+    }
+
     public FieldCell getCell() {
         return cell;
     }
@@ -43,6 +48,12 @@ public class Turn {
 
     public void setStatus(TurnStatus status) {
         this.status = status;
+    }
+
+
+
+    public void setShip(Ship ship) {
+        this.ship = ship;
     }
 }
 
