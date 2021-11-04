@@ -44,8 +44,8 @@ public class FieldCell implements Comparable<FieldCell> {
         return this.getLetter().compareTo( o.getLetter() );
     }
 
-
-
-
-
+    @Override
+    public String toString() {
+        return " " + letter + number + " ";
+    }
 }

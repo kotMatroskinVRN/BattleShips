@@ -56,8 +56,8 @@ public class Controller {
     private void initDifficulty() {
 
         difficultyBox.getItems().addAll(LogicFactory.values());
-        difficultyBox.setValue(LogicFactory.EASY);
-        game.setDifficulty(LogicFactory.EASY);
+        difficultyBox.setValue(LogicFactory.NORMAL);
+        game.setDifficulty(difficultyBox.getValue());
         difficultyBox.setOnAction( (ae) -> setDifficulty( difficultyBox.getValue() ) );
     }
 

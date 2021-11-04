@@ -55,5 +55,10 @@ public class Turn {
     public void setShip(Ship ship) {
         this.ship = ship;
     }
+
+    @Override
+    public String toString() {
+        return  cell.toString() ;
+    }
 }
 
