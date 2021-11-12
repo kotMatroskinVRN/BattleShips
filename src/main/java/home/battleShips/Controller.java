@@ -43,11 +43,12 @@ public class Controller {
 
     @FXML
     private void initialize(){
-        newGame();
+        initDifficulty();
+//        newGame();
 //        showVictory();
 //        newGame.setId("sea");
         initSkinChoise();
-        initDifficulty();
+
 
 
 
@@ -57,7 +58,7 @@ public class Controller {
 
         difficultyBox.getItems().addAll(LogicFactory.values());
         difficultyBox.setValue(LogicFactory.NORMAL);
-        game.setDifficulty(difficultyBox.getValue());
+        setDifficulty( difficultyBox.getValue() );
         difficultyBox.setOnAction( (ae) -> setDifficulty( difficultyBox.getValue() ) );
     }
 

@@ -1,9 +1,5 @@
 package home.battleShips.model;
 
-import home.battleShips.field.CSSpicture;
-import home.battleShips.field.grid.FieldCell;
-import home.battleShips.field.grid.FieldData;
-import home.battleShips.field.grid.FieldGrid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -56,7 +52,9 @@ class ShipTest {
     @Test
     void getHitCells() {
 
-        //TODO release
+        this.addHit();
+        assertEquals(1 , ship41.getHitCells().size());
+
     }
 
     @Test
@@ -66,7 +64,8 @@ class ShipTest {
 
     @Test
     void hasHit() {
-        //TODO release
+        this.addHit();
+        assertTrue( ship41.hasHit(3,5) );
     }
 
     @Test
@@ -74,17 +73,13 @@ class ShipTest {
         ship41.addHit(3,5);
         assertTrue( ship41.hasHit(3,5) );
         assertTrue( ship41.hasCell(3,5) );
-
+        assertThrows( IndexOutOfBoundsException.class , () -> ship14.addHit(5,2) );
     }
 
     @Test
     void isKilled() {
-
-        assertThrows( IndexOutOfBoundsException.class , () -> ship14.addHit(5,2) );
-
         ship14.addHit(5,3);
-
-
+        assertTrue(ship14.isKilled());
     }
 
     @Test
@@ -97,30 +92,30 @@ class ShipTest {
 
     }
 
-    @Test
-    void surroundShip() {
-
-        FieldData fieldData = new FieldData();
-        fieldData.init();
-        Ship ship = fieldData.getShips()[0];
-        fieldData.surroundShip(ship);
-
-        //Set<ShipCell> shipCells = new HashSet<>();
-
-
-        for (ShipCell shipCell : ship.getShipCellList()){
-
-            FieldCell cell = fieldData.getCells()[shipCell.getLetter()+1][shipCell.getNumber()+1];
-            CSSpicture picture = cell.getPicture() ;
-            assertEquals(CSSpicture.MISS, picture);
-            break;
-
-        }
-
-
-
-
-        //TODO solve how to test GUI method
-
-    }
+//    @Test
+//    void surroundShip() {
+//
+//        FieldData fieldData = new FieldData();
+//        fieldData.init();
+//        Ship ship = fieldData.getShips()[0];
+//        fieldData.surroundShip(ship);
+//
+//        //Set<ShipCell> shipCells = new HashSet<>();
+//
+//
+//        for (ShipCell shipCell : ship.getShipCellList()){
+//
+//            FieldCell cell = fieldData.getCells()[shipCell.getLetter()+1][shipCell.getNumber()+1];
+//            CSSpicture picture = cell.getPicture() ;
+//            assertEquals(CSSpicture.MISS, picture);
+//            break;
+//
+//        }
+//
+//
+//
+//
+//        //TODO solve how to test GUI method
+//
+//    }
 }

@@ -1,7 +1,6 @@
 package home.battleShips.model.cpu;
 
-import home.battleShips.field.CSSpicture;
-import home.battleShips.field.grid.FieldCell;
+import home.battleShips.model.FieldCell;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.*;
 import home.battleShips.utils.StaticUtils;
@@ -10,7 +9,8 @@ import java.util.*;
 
 public class Normal implements Logic {
 
-    private final List<Turn> turns = new ArrayList<>();
+//    private final List<Turn> turns = new ArrayList<>();
+    private Turn lastTurn;
     private final Stack<Turn> nextTurns = new Stack<>();
     private Game game;
 
@@ -24,71 +24,91 @@ public class Normal implements Logic {
     @Override
     public void makeShot() {
 
+
         stopAnimation();
 
         FieldGrid cpuField = game.getCpuField();
 
+
+
         Turn turn;
         if(nextTurns.empty())  {
-            turn = new Turn(cpuField);
-
+            System.out.println("next turns : empty" );
+            turn = new Turn(cpuField.getFieldData());
+            lastTurn = cpuField.getFieldData().getTurns().get( cpuField.getFieldData().getTurns().size()-1 );
             proceedTurn(turn);
 
         }
-        else {
+//        else if(turns.get(turns.size()-1).getStatus()!=TurnStatus.MISS) {
 
+        else if( lastTurn.getStatus() != TurnStatus.MISS ) {
+            lastTurn = cpuField.getFieldData().getTurns().get( cpuField.getFieldData().getTurns().size()-1 );
             System.out.println("next turns : " + nextTurns);
-            proceedTurn(nextTurns.pop());
+            while( !nextTurns.empty() && !cpuField.getFieldData().addTurnIfAbsent(nextTurns.peek())) {
+                proceedTurn(nextTurns.pop());
+            }
+
+        }else{
+
         }
 
     }
 
     private void proceedTurn(Turn turn){
         FieldGrid cpuField = game.getCpuField();
+
+
+        isHit(turn);
+
+        System.out.println("cpu:" + turn.getStatus());
+
+
+        if(turn.getStatus()==TurnStatus.MISS){
+            fade(turn.getCell().getButton());
+//            cpuField.setGridCellStyle( cell, CSSpicture.MISS);
+//            turns.add(turn);
+        }else{
+//            Ship ship = turn.getShip();
+//            ship.addHit(StaticUtils.getNumberFromChar(turn.getCell().getLetter()),turn.getCell().getNumber());
+
+            fade(turn.getCell().getButton());
+//            cpuField.setGridCellStyle( cell, CSSpicture.HIT);
+//            turns.add(turn);
+
+
+            finishHim();
+
+
+//            makeShot();
+        }
+    }
+
+    private void isHit(Turn turn) {
         FieldCell cell = turn.getCell();
         int letter = StaticUtils.getNumberFromChar(cell.getLetter());
         int number = cell.getNumber();
         System.out.println("cpu:" + cell.getLetter()+number);
-
         for(Ship ship : game.getCpuField().getFieldData().getShips()){
-            if( ship.hasCell(letter,number )){
+            if( ship.hasCell(letter, number)){
+                ship.addHit(letter,number);
                 turn.setStatus(TurnStatus.HIT);
                 turn.setShip(ship);
-                ship.addHit(letter,number);
 
-                fade(cell.getButton());
-                cpuField.setGridCellStyle( cell, CSSpicture.HIT);
-                turns.add(turn);
-
-
-                finishHim();
-
-                if(ship.isKilled()){
-                    nextTurns.clear();
-                    turn.setStatus(TurnStatus.KILL);
-                    game.killShip(ship , cpuField);
-                }
                 break;
             }
         }
-
-
-
-
-        if(turn.getStatus()==TurnStatus.MISS){
-            fade(cell.getButton());
-            cpuField.setGridCellStyle( cell, CSSpicture.MISS);
-//            turns.add(turn);
-        }else{
-            makeShot();
+        if(turn.getShip().isKilled()){
+            nextTurns.clear();
+            turn.setStatus(TurnStatus.KILL);
+            game.killShip(turn.getShip() , game.getCpuField());
         }
     }
 
 
     private void finishHim() {
-        Turn hitTurn = turns.get(turns.size()-1);
-        System.out.println(hitTurn);
-        Ship hitShip = hitTurn.getShip();
+//        Turn hitTurn = turns.get(turns.size()-1);
+        System.out.println(lastTurn);
+        Ship hitShip = lastTurn.getShip();
         System.out.println(hitShip);
         List<ShipCell> shipHits = hitShip.getHitCells();
 
@@ -111,42 +131,37 @@ public class Normal implements Logic {
     }
     private void pushVerticalTurns(List<ShipCell> shipHits){
         int letter;
-        OptionalInt newNumber;
-        FieldCell cell;
+        int number;
 
         letter = shipHits.get(0).getLetter();
-        newNumber = shipHits.stream().mapToInt(ShipCell::getNumber).max();
-        try {
-            cell = game.getCpuField().getFieldData().getCells()[letter][newNumber.getAsInt()+1];
-            nextTurns.push(new Turn( cell ));
-            newNumber = shipHits.stream().mapToInt(ShipCell::getNumber).min();
-        }catch (NullPointerException | ArrayIndexOutOfBoundsException e){}
-        try {
-            cell = game.getCpuField().getFieldData().getCells()[letter][newNumber.getAsInt()-1];
-            nextTurns.push(new Turn( cell ));
-        }catch (NullPointerException | ArrayIndexOutOfBoundsException e){}
+        number = shipHits.stream().mapToInt(ShipCell::getNumber).max().getAsInt();
+        pushNextTurn(letter , number+1);
+        number = shipHits.stream().mapToInt(ShipCell::getNumber).min().getAsInt();
+        pushNextTurn(letter , number-1);
+
     }
     private void pushHorisontalTurns(List<ShipCell> shipHits){
         int number;
-        OptionalInt newLetter;
-        FieldCell cell;
+        int letter;
 
         number = shipHits.get(0).getNumber();
-        newLetter = shipHits.stream().mapToInt(ShipCell::getLetter).max();
-        try {
-            cell = game.getCpuField().getFieldData().getCells()[newLetter.getAsInt() + 1][number];
-            nextTurns.push(new Turn(cell));
-        }catch (NullPointerException | ArrayIndexOutOfBoundsException e){}
-        try {
-            newLetter = shipHits.stream().mapToInt(ShipCell::getLetter).min();
-            cell = game.getCpuField().getFieldData().getCells()[newLetter.getAsInt() - 1][number];
-            nextTurns.push(new Turn( cell ));
-        }catch (NullPointerException | ArrayIndexOutOfBoundsException e){}
+        letter = shipHits.stream().mapToInt(ShipCell::getLetter).max().getAsInt();
+        pushNextTurn(letter+1, number);
+        letter = shipHits.stream().mapToInt(ShipCell::getLetter).min().getAsInt();
+        pushNextTurn(letter-1, number);
+
     }
 
+    private void pushNextTurn(int letter , int number){
+        FieldCell cell;
+        try {
+            cell = game.getCpuField().getFieldData().getCells()[letter][number];
+            nextTurns.push( new Turn(cell) );
+        }catch (NullPointerException | ArrayIndexOutOfBoundsException ignored){}
+    }
 
 
 
 }
 
-//TODO why cpu make turn twice after hit
+//TODO why cpu stops do turns after hit

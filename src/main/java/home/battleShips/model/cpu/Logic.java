@@ -1,14 +1,7 @@
 package home.battleShips.model.cpu;
 
-import home.battleShips.field.CSSpicture;
-import home.battleShips.field.grid.FieldCell;
-import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.Game;
-import home.battleShips.model.Ship;
-import home.battleShips.model.Turn;
-import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
 
@@ -18,13 +11,13 @@ import java.util.List;
 public interface Logic {
 
     Duration duration = Duration.seconds(2);
-    int cycleCount    = 4;
+    int cycleCount    = 8;
     List<FadeTransition> animatedCells = new ArrayList<>();
 
     void setGame(Game game);
     void makeShot();
 
-
+// TODO move animation to FieldGrid
 
     default void fade(Button button){
         FadeTransition animation = new FadeTransition( duration );

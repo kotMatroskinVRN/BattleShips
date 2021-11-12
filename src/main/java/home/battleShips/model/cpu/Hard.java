@@ -1,7 +1,7 @@
 package home.battleShips.model.cpu;
 
 import home.battleShips.field.CSSpicture;
-import home.battleShips.field.grid.FieldCell;
+import home.battleShips.model.FieldCell;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.Game;
 import home.battleShips.model.Ship;
@@ -20,7 +20,7 @@ public class Hard implements Logic {
     @Override
     public void makeShot() {
         FieldGrid cpuField = game.getCpuField();
-        Turn turn = new Turn(cpuField);
+        Turn turn = new Turn(cpuField.getFieldData());
 
         FieldCell cell = turn.getCell();
         int letter = StaticUtils.getNumberFromChar(cell.getLetter());
@@ -32,7 +32,7 @@ public class Hard implements Logic {
                 turn.setStatus(TurnStatus.HIT);
                 ship.addHit(letter,number);
 
-                cpuField.setGridCellStyle( cell, CSSpicture.HIT);
+//                cpuField.setGridCellStyle( cell, CSSpicture.HIT);
 //                setHit(cpuField,cell);
 
                 if(ship.isKilled()){
@@ -44,7 +44,7 @@ public class Hard implements Logic {
         }
 
         if(turn.getStatus()==TurnStatus.MISS){
-            cpuField.setGridCellStyle( cell, CSSpicture.MISS);
+//            cpuField.setGridCellStyle( cell, CSSpicture.MISS);
 
         }else{
             makeShot();

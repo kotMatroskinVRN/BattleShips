@@ -1,8 +1,7 @@
 package home.battleShips.model;
 
-import home.battleShips.field.CSSpicture;
-import home.battleShips.field.grid.FieldCell;
-import home.battleShips.field.grid.FieldGrid;
+
+import javafx.scene.control.Button;
 
 public class Turn {
 
@@ -12,27 +11,44 @@ public class Turn {
     private TurnStatus status = TurnStatus.MISS;
     private Ship ship;
 
-    public Turn(FieldGrid fieldGrid){
-        randomTurn(fieldGrid);
+//    public Turn(FieldGrid fieldGrid){
+//        randomTurn(fieldGrid);
+//    }
+    public Turn(FieldData fieldData){
+        randomTurn(fieldData);
     }
 
     public Turn(FieldCell cell){
         this.cell = cell;
     }
 
-    public void randomTurn(FieldGrid fieldGrid){
+    public void killShip(){
+        setStatus(TurnStatus.KILL);
+    }
+
+//    public void randomTurn(FieldGrid fieldGrid){
+//        int letter = (int)( Math.random()*(FIELD_SIZE-1) ) +1;
+//        int number = (int)( Math.random()*(FIELD_SIZE-1) ) +1;
+//
+//        if(fieldGrid.getFieldData().getCells()[letter][number].getPicture()== CSSpicture.SEA){
+//            cell = fieldGrid.getFieldData().getCells()[letter][number];
+//        }else{
+//            randomTurn(fieldGrid);
+//        }
+//    }
+
+    public void randomTurn(FieldData fieldData){
         int letter = (int)( Math.random()*(FIELD_SIZE-1) ) +1;
         int number = (int)( Math.random()*(FIELD_SIZE-1) ) +1;
 
-        if(fieldGrid.getFieldData().getCells()[letter][number].getPicture()== CSSpicture.SEA){
-            cell = fieldGrid.getFieldData().getCells()[letter][number];
-        }else{
-            randomTurn(fieldGrid);
+        cell = fieldData.getCells()[letter][number];
+
+        if(!fieldData.addTurnIfAbsent(this) ){
+            randomTurn(fieldData);
         }
 
-
-
     }
+
 
     public Ship getShip() {
         return ship;
@@ -48,6 +64,9 @@ public class Turn {
 
     public void setStatus(TurnStatus status) {
         this.status = status;
+        Button button = getCell().getButton();
+        button.setId(status.getStyleId());
+        button.applyCss();
     }
 
 

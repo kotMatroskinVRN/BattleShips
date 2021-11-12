@@ -1,9 +1,5 @@
 package home.battleShips.model;
 
-import home.battleShips.field.CSSpicture;
-import home.battleShips.field.grid.FieldCell;
-import home.battleShips.field.grid.FieldGrid;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +14,6 @@ public class Ship{
     private final List<ShipCell> shipCellList = new ArrayList<>();
     private final List<ShipCell> hitCells     = new ArrayList<>();
 
-    private boolean 		alive  ;
 
     public Ship( int s , int li , int ni , char d ){
 
@@ -36,7 +31,6 @@ public class Ship{
         }
 
         size = s;
-        alive = true ;
     }
 
 

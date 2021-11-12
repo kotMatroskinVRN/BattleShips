@@ -1,15 +1,12 @@
 package home.battleShips.field.grid;
 
-import home.battleShips.field.CSSpicture;
+import home.battleShips.model.FieldData;
 import home.battleShips.utils.StaticUtils;
-import javafx.animation.FadeTransition;
-import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
 
 public class FieldGrid extends GridPane {
 
@@ -32,6 +29,7 @@ public class FieldGrid extends GridPane {
     public void init() {
         fieldData.init();
         defaultFill();
+
     }
 
     public Button[][] getCells() {
@@ -42,10 +40,10 @@ public class FieldGrid extends GridPane {
         return fieldData;
     }
 
-    public void setGridCellStyle(FieldCell cell, CSSpicture picture) {
-        cell.setStyle(picture);
-
-    }
+//    public void setGridCellStyle(FieldCell cell, CSSpicture picture) {
+//        cell.setStyle(picture);
+//
+//    }
 
     public int getCount_kills() {
         return count_kills;

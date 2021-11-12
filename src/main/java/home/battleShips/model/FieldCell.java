@@ -1,4 +1,4 @@
-package home.battleShips.field.grid;
+package home.battleShips.model;
 
 import home.battleShips.field.CSSpicture;
 import javafx.scene.control.Button;
@@ -22,6 +22,7 @@ public class FieldCell implements Comparable<FieldCell> {
     public void setStyle(CSSpicture picture){
 //        button = new Button();
         button.setId(picture.toString());
+        button.applyCss();
     }
 
 

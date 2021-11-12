@@ -1,14 +1,15 @@
-package home.battleShips.field.grid;
+package home.battleShips.model;
 
 import home.battleShips.field.CSSpicture;
-import home.battleShips.field.grid.FieldCell;
-import home.battleShips.model.Ship;
-import home.battleShips.model.ShipCell;
-import home.battleShips.model.Turn;
 import home.battleShips.utils.StaticUtils;
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 
-import java.util.Stack;
+import java.util.List;
+
 
 public class FieldData {
 
@@ -17,7 +18,7 @@ public class FieldData {
 
     private final FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
     private Ship[] ships ;
-    private final Stack<Turn> cpusTurns = new Stack<>();
+    private final ObservableList<Turn> turns = FXCollections.observableArrayList() ;
 
     public void init(){
 
@@ -25,6 +26,47 @@ public class FieldData {
         defaultFillArray();
         ships =  randomSetOfShips() ;
 
+        turns.addListener((InvalidationListener) change -> {
+
+                for(Turn turn : turns){
+                    turn.getCell().setStyle( turn.getStatus().getPicture() );
+                }
+        });
+
+    }
+
+    public void killShip(Turn turn){
+        turn.setStatus(TurnStatus.KILL);
+
+    }
+
+
+    public boolean hasTurn(Turn turn){
+        FieldCell cell = turn.getCell();
+        return isCellInTurns(cell);
+    }
+    public boolean hasTurn(FieldCell cell){
+        return isCellInTurns(cell);
+    }
+
+    public boolean addTurnIfAbsent(Turn turn){
+        FieldCell cell = turn.getCell();
+
+        if(isCellInTurns(cell)) return false;
+
+        turns.add(turn);
+        System.out.println(turns);
+        return true;
+    }
+    public boolean addTurnIfAbsent(FieldCell cell){
+        if(isCellInTurns(cell)) return false;
+        turns.add( new Turn(cell) );
+        System.out.println(turns);
+        return true;
+    }
+
+    public ObservableList<Turn> getTurns(){
+        return turns;
     }
 
     public Button getButton(String letter , int number){
@@ -50,6 +92,8 @@ public class FieldData {
                         if(!ship.hasCell(letter,number)){
                             FieldCell cell = cells[letter][number];
                             cell.setStyle(CSSpicture.MISS);
+                            Turn turn = new Turn(cell);
+                            addTurnIfAbsent(turn);
 //                            playField.setGridCellStyle(cell, CSSpicture.MISS);
                         }
                     } catch (NullPointerException  | ArrayIndexOutOfBoundsException ignored){}
@@ -59,6 +103,16 @@ public class FieldData {
         }
     }
 
+    private boolean isCellInTurns(FieldCell cell){
+        int cellLetter = StaticUtils.getNumberFromChar(cell.getLetter());
+        int cellNumber = cell.getNumber();
+        for(Turn t: turns){
+            int letter = StaticUtils.getNumberFromChar(t.getCell().getLetter());
+            int number = t.getCell().getNumber();
+            if(letter==cellLetter && number==cellNumber) return true;
+        }
+        return false;
+    }
 
     private FieldCell chooseCell(String letter , int number){
         return cells[StaticUtils.getNumberFromChar(letter)][number];

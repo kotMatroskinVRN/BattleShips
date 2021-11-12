@@ -2,16 +2,12 @@ package home.battleShips.model;
 
 import home.battleShips.Controller;
 import home.battleShips.field.CSSpicture;
-import home.battleShips.field.grid.FieldCell;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.cpu.Logic;
 import home.battleShips.model.cpu.LogicFactory;
 import home.battleShips.utils.StaticUtils;
-import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.util.Duration;
 
 import java.util.Date;
 
@@ -53,6 +49,7 @@ public class Game {
     }
 
 
+
     public FieldGrid getPlayerField() {
         return playerField;
     }
@@ -75,40 +72,50 @@ public class Game {
     }
 
     private void turn( FieldCell cell) {
-        turnCount++;
-        System.out.println(turnCount);
+
 
         int letter = StaticUtils.getNumberFromChar(cell.getLetter());
         int number = cell.getNumber();
-        System.out.println(cell.getLetter()+number);
+        System.out.println(cell.getLetter() + number);
 
 
         Turn turn = new Turn(cell);
 
-        for(Ship ship : playerField.getFieldData().getShips()){
-            if( ship.hasCell(letter,number )){
-                turn.setStatus(TurnStatus.HIT);
-                ship.addHit(letter,number);
+        if ( playerField.getFieldData().addTurnIfAbsent(turn) )  {
 
-                playerField.setGridCellStyle( cell, CSSpicture.HIT);
+            turnCount++;
+            System.out.println(turnCount);
 
-                if(ship.isKilled()){
-                    turn.setStatus(TurnStatus.KILL);
-                    killShip(ship,playerField);
+            for (Ship ship : playerField.getFieldData().getShips()) {
+                if (ship.hasCell(letter, number)) {
+                    turn.setStatus(TurnStatus.HIT);
+                    ship.addHit(letter, number);
+//                    turn.getCell().getButton().applyCss();
+
+//                    playerField.setGridCellStyle(cell, CSSpicture.HIT);
+
+                    if (ship.isKilled()) {
+                        turn.setStatus(TurnStatus.KILL);
+                        killShip(ship, playerField);
+                    }
+                    break;
                 }
-                break;
             }
-        }
+
+            System.out.println(turn.getStatus());
 
 
-        if(turn.getStatus()==TurnStatus.MISS){
-            playerField.setGridCellStyle( cell, CSSpicture.MISS);
-            counterAction();
+            if (turn.getStatus() == TurnStatus.MISS) {
+//                playerField.setGridCellStyle(cell, CSSpicture.MISS);
+                counterAction();
+            }
+
         }
 
     }
 
     private void counterAction() {
+        System.out.println("game counteraction");
          aiLogic.makeShot();
     }
 
@@ -138,7 +145,7 @@ public class Game {
 
     public void gameOver(FieldGrid fieldGrid){
 
-        removelisteners();
+        removeListeners();
 
         Platform.runLater(() -> {
             if(fieldGrid==playerField) controller.showVictory();
@@ -146,7 +153,7 @@ public class Game {
         });
     }
 
-    private void removelisteners() {
+    private void removeListeners() {
         for(int l=1;l<FIELD_SIZE;l++){
             for(int n=1;n<FIELD_SIZE;n++){
                 FieldCell cell = playerField.getFieldData().getCells()[l][n];
