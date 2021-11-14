@@ -7,7 +7,6 @@ import home.battleShips.model.cpu.Logic;
 import home.battleShips.model.cpu.LogicFactory;
 import home.battleShips.utils.StaticUtils;
 import javafx.application.Platform;
-import javafx.scene.control.Button;
 
 import java.util.Date;
 
@@ -86,21 +85,27 @@ public class Game {
             turnCount++;
             System.out.println(turnCount);
 
-            for (Ship ship : playerField.getFieldData().getShips()) {
-                if (ship.hasCell(letter, number)) {
-                    turn.setStatus(TurnStatus.HIT);
-                    ship.addHit(letter, number);
-//                    turn.getCell().getButton().applyCss();
+            if(turn.actionIfHit(playerField.getFieldData())){
 
-//                    playerField.setGridCellStyle(cell, CSSpicture.HIT);
+                //action then hit
 
-                    if (ship.isKilled()) {
-                        turn.setStatus(TurnStatus.KILL);
-                        killShip(ship, playerField);
-                    }
-                    break;
-                }
             }
+
+//            for (Ship ship : playerField.getFieldData().getShips()) {
+//                if (ship.hasCell(letter, number)) {
+//                    turn.setStatus(TurnStatus.HIT);
+//                    ship.addHit(letter, number);
+////                    turn.getCell().getButton().applyCss();
+//
+////                    playerField.setGridCellStyle(cell, CSSpicture.HIT);
+//
+//                    if (ship.isKilled()) {
+//                        turn.setStatus(TurnStatus.KILL);
+//                        killShip(ship, playerField);
+//                    }
+//                    break;
+//                }
+//            }
 
             System.out.println(turn.getStatus());
 

@@ -1,6 +1,7 @@
 package home.battleShips.model;
 
 
+import home.battleShips.utils.StaticUtils;
 import javafx.scene.control.Button;
 
 public class Turn {
@@ -20,6 +21,24 @@ public class Turn {
 
     public Turn(FieldCell cell){
         this.cell = cell;
+    }
+
+
+    public boolean actionIfHit(FieldData fieldData){
+        FieldCell cell = getCell();
+        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
+        int number = cell.getNumber();
+        System.out.println("cpu:" + cell.getLetter()+number);
+        for(Ship ship : fieldData.getShips()){
+            if( ship.hasCell(letter, number)){
+                ship.addHit(letter,number);
+                setStatus(TurnStatus.HIT);
+                setShip(ship);
+
+                return true;
+            }
+        }
+        return false;
     }
 
     public void killShip(){
