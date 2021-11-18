@@ -1,13 +1,9 @@
 package home.battleShips;
 
-import home.battleShips.field.CSSpicture;
 import home.battleShips.field.Media;
 import home.battleShips.field.Skin;
 import home.battleShips.model.Game;
 import home.battleShips.model.cpu.LogicFactory;
-import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -16,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -129,7 +124,7 @@ public class Controller {
 
     private void initSkinChoise(){
         skinBox.getItems().addAll(Skin.values());
-        skinBox.setValue(Skin.defaultStyle);
+        skinBox.setValue(Skin.DEFAULT);
         skinBox.setOnAction( (ae) -> setCSS(skinBox.getValue()));
     }
 

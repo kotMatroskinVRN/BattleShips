@@ -11,6 +11,7 @@ import home.battleShips.utils.StaticUtils;
 
 public class Easy implements Logic {
     private Game game;
+    private Turn lastTurn;
 
     @Override
     public void setGame(Game game) {
@@ -46,6 +47,8 @@ public class Easy implements Logic {
             }
         }
 
+        lastTurn = turn;
+
         if(turn.getStatus()==TurnStatus.MISS){
             fade(cell.getButton());
 //            cpuField.setGridCellStyle( cell, CSSpicture.MISS);
@@ -53,5 +56,10 @@ public class Easy implements Logic {
             makeShot();
         }
 
+    }
+
+    @Override
+    public Turn getLastTurn() {
+        return lastTurn;
     }
 }

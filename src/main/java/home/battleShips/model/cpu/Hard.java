@@ -53,4 +53,9 @@ public class Hard implements Logic {
         System.out.println(this);
 
     }
+
+    @Override
+    public Turn getLastTurn() {
+        return null;
+    }
 }

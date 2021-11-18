@@ -31,7 +31,7 @@ public class Turn {
         System.out.println("cpu:" + cell.getLetter()+number);
         for(Ship ship : fieldData.getShips()){
             if( ship.hasCell(letter, number)){
-                ship.addHit(letter,number);
+                ship.addHit(cell);
                 setStatus(TurnStatus.HIT);
                 setShip(ship);
 
@@ -40,6 +40,14 @@ public class Turn {
         }
         return false;
     }
+
+    public boolean isHit(){
+        if(status==TurnStatus.HIT || status==TurnStatus.KILL) {
+            return true;
+        }
+        return false;
+    }
+
 
     public void killShip(){
         setStatus(TurnStatus.KILL);

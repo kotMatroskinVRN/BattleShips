@@ -3,14 +3,14 @@ package home.battleShips.field;
 import java.net.URL;
 
 public enum Skin {
-    defaultStyle("Основной"){},
-    yuraStyle("Юра"){
+    DEFAULT("Основной"){},
+    YURA("Юра"){
         @Override
         public URL getFileName() {
             return getCSS("style/Yura.css");
         }
     },
-    paperStyle("Бумага"){
+    PAPER("Бумага"){
         @Override
         public URL getFileName() {
             return getCSS("style/paper.css");
@@ -18,7 +18,7 @@ public enum Skin {
     },
     ;
 
-    private String description;
+    private final String description;
 
     Skin(String description){
         this.description = description;

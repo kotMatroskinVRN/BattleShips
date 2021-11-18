@@ -7,8 +7,10 @@ public class FieldCell implements Comparable<FieldCell> {
 
     private final int number;
     private final String letter;
-    private CSSpicture picture = CSSpicture.SEA;
-    private Button button ;
+    // TODO replace letter number with ShipCell
+
+//    private CSSpicture picture = CSSpicture.SEA;
+    private final Button button ;
 
     public FieldCell(String letter, int number) {
         this.letter = letter;
@@ -36,9 +38,9 @@ public class FieldCell implements Comparable<FieldCell> {
     public Button getButton() {
         return button;
     }
-    public CSSpicture getPicture() {
-        return picture;
-    }
+//    public CSSpicture getPicture() {
+//        return picture;
+//    }
 
     @Override
     public int compareTo(FieldCell o) {

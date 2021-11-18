@@ -73,45 +73,20 @@ public class Game {
     private void turn( FieldCell cell) {
 
 
-        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
-        int number = cell.getNumber();
-        System.out.println(cell.getLetter() + number);
-
-
         Turn turn = new Turn(cell);
 
         if ( playerField.getFieldData().addTurnIfAbsent(turn) )  {
 
+            System.out.println(cell.getLetter() + cell.getNumber());
             turnCount++;
             System.out.println(turnCount);
 
             if(turn.actionIfHit(playerField.getFieldData())){
 
+                System.out.println(turn.getStatus());
                 //action then hit
 
-            }
-
-//            for (Ship ship : playerField.getFieldData().getShips()) {
-//                if (ship.hasCell(letter, number)) {
-//                    turn.setStatus(TurnStatus.HIT);
-//                    ship.addHit(letter, number);
-////                    turn.getCell().getButton().applyCss();
-//
-////                    playerField.setGridCellStyle(cell, CSSpicture.HIT);
-//
-//                    if (ship.isKilled()) {
-//                        turn.setStatus(TurnStatus.KILL);
-//                        killShip(ship, playerField);
-//                    }
-//                    break;
-//                }
-//            }
-
-            System.out.println(turn.getStatus());
-
-
-            if (turn.getStatus() == TurnStatus.MISS) {
-//                playerField.setGridCellStyle(cell, CSSpicture.MISS);
+            }else{
                 counterAction();
             }
 
@@ -121,7 +96,11 @@ public class Game {
 
     private void counterAction() {
         System.out.println("game counteraction");
-         aiLogic.makeShot();
+        aiLogic.makeShot();
+        if(aiLogic.getLastTurn().isHit()){
+            counterAction();
+        }
+
     }
 
     private void setListeners() {

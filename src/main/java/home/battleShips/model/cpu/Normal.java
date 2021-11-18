@@ -20,6 +20,11 @@ public class Normal implements Logic {
         this.game = game;
     }
 
+    @Override
+    public Turn getLastTurn(){
+        return lastTurn;
+    }
+
 
     @Override
     public void makeShot() {
@@ -28,59 +33,50 @@ public class Normal implements Logic {
         stopAnimation();
 
         FieldGrid cpuField = game.getCpuField();
+        FieldData fieldData = cpuField.getFieldData();
 
 
-
-        Turn turn;
         if(nextTurns.empty())  {
             System.out.println("next turns : empty" );
-            turn = new Turn(cpuField.getFieldData());
-            lastTurn = cpuField.getFieldData().getTurns().get( cpuField.getFieldData().getTurns().size()-1 );
+            Turn turn = new Turn(fieldData);
+
             proceedTurn(turn);
 
         }
-//        else if(turns.get(turns.size()-1).getStatus()!=TurnStatus.MISS) {
 
-        else if( lastTurn.getStatus() != TurnStatus.MISS ) {
-            lastTurn = cpuField.getFieldData().getTurns().get( cpuField.getFieldData().getTurns().size()-1 );
+        else {
             System.out.println("next turns : " + nextTurns);
-            while( !nextTurns.empty() && !cpuField.getFieldData().addTurnIfAbsent(nextTurns.peek())) {
-                proceedTurn(nextTurns.pop());
-            }
-
-        }else{
-
+            proceedTurn(nextTurns.pop());
         }
+
+        lastTurn = fieldData.getTurns().get( fieldData.getTurns().size()-1 );
 
     }
 
     private void proceedTurn(Turn turn){
         FieldGrid cpuField = game.getCpuField();
+        FieldData fieldData = cpuField.getFieldData();
+
+        if(turn.actionIfHit(fieldData)){
+
+            nextTurns.clear();
+            surroundHits(turn.getShip().getHitCells());
+
+//            finishHim();
+
+            if(turn.getShip().isKilled()){
+                nextTurns.clear();
+                turn.setStatus(TurnStatus.KILL);
+                game.killShip(turn.getShip() , game.getCpuField());
+            }
+        }
+
+        fade(turn.getCell().getButton());
 
 
-        isHit(turn);
 
         System.out.println("cpu:" + turn.getStatus());
 
-
-        if(turn.getStatus()==TurnStatus.MISS){
-            fade(turn.getCell().getButton());
-//            cpuField.setGridCellStyle( cell, CSSpicture.MISS);
-//            turns.add(turn);
-        }else{
-//            Ship ship = turn.getShip();
-//            ship.addHit(StaticUtils.getNumberFromChar(turn.getCell().getLetter()),turn.getCell().getNumber());
-
-            fade(turn.getCell().getButton());
-//            cpuField.setGridCellStyle( cell, CSSpicture.HIT);
-//            turns.add(turn);
-
-
-            finishHim();
-
-
-//            makeShot();
-        }
     }
 
     private void isHit(Turn turn) {

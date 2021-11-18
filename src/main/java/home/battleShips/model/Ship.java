@@ -1,5 +1,7 @@
 package home.battleShips.model;
 
+import home.battleShips.utils.StaticUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +56,15 @@ public class Ship{
         return false;
     }
 
+    public boolean hasCell(FieldCell fieldCell){
+        int letter = StaticUtils.getNumberFromChar(fieldCell.getLetter());
+        int number = fieldCell.getNumber();
+        for(ShipCell cell : shipCellList){
+            if(cell.getLetter() == letter && cell.getNumber() == number) return true;
+        }
+        return false;
+    }
+
     public boolean hasHit(int l , int n){
         if(!hasCell(l,n)) return false;
 
@@ -67,6 +78,15 @@ public class Ship{
     public void addHit(int l , int n){
         if(hasCell(l,n)){
             hitCells.add( new ShipCell(l , n) );
+        }
+        else throw new IndexOutOfBoundsException();
+    }
+
+    public void addHit(FieldCell cell){
+        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
+        int number = cell.getNumber();
+        if(hasCell(letter,number)){
+            hitCells.add( new ShipCell(letter , number) );
         }
         else throw new IndexOutOfBoundsException();
     }

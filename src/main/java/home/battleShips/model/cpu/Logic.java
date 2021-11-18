@@ -1,6 +1,7 @@
 package home.battleShips.model.cpu;
 
 import home.battleShips.model.Game;
+import home.battleShips.model.Turn;
 import javafx.animation.FadeTransition;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
@@ -16,6 +17,7 @@ public interface Logic {
 
     void setGame(Game game);
     void makeShot();
+    Turn getLastTurn();
 
 // TODO move animation to FieldGrid
 
