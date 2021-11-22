@@ -24,28 +24,25 @@ public class Turn {
     }
 
 
-    public boolean actionIfHit(FieldData fieldData){
-        FieldCell cell = getCell();
-        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
-        int number = cell.getNumber();
-        System.out.println("cpu:" + cell.getLetter()+number);
+    public void shoot(FieldData fieldData){
+        //FieldCell cell = getCell();
+        //int letter = StaticUtils.getNumberFromChar(cell.getLetter());
+        //int number = cell.getNumber();
+        System.out.println("cpu:" + cell.getLetter()+cell.getNumber());
         for(Ship ship : fieldData.getShips()){
-            if( ship.hasCell(letter, number)){
+            if( ship.hasCell(cell)){
                 ship.addHit(cell);
                 setStatus(TurnStatus.HIT);
                 setShip(ship);
 
-                return true;
+
             }
         }
-        return false;
+        //setStatus(TurnStatus.MISS);
     }
 
     public boolean isHit(){
-        if(status==TurnStatus.HIT || status==TurnStatus.KILL) {
-            return true;
-        }
-        return false;
+        return status == TurnStatus.HIT || status == TurnStatus.KILL;
     }
 
 

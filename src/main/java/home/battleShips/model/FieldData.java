@@ -55,7 +55,7 @@ public class FieldData {
         if(isCellInTurns(cell)) return false;
 
         turns.add(turn);
-        System.out.println(turns);
+        //System.out.println(turns);
         return true;
     }
     public boolean addTurnIfAbsent(FieldCell cell){

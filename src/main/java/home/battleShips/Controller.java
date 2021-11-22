@@ -53,19 +53,22 @@ public class Controller {
 
         difficultyBox.getItems().addAll(LogicFactory.values());
         difficultyBox.setValue(LogicFactory.NORMAL);
-        setDifficulty( difficultyBox.getValue() );
-        difficultyBox.setOnAction( (ae) -> setDifficulty( difficultyBox.getValue() ) );
-    }
-
-    private void setDifficulty(LogicFactory value) {
+//        setDifficulty( difficultyBox.getValue() );
+        difficultyBox.setOnAction( (ae) -> newGame() );
         newGame();
-        game.setDifficulty(value);
     }
+//
+//    private void setDifficulty(LogicFactory value) {
+//        newGame();
+//        game.setDifficulty(value);
+//    }
 
 
     @FXML
     public void newGame() {
+
         game = new Game(this);
+        game.setDifficulty(difficultyBox.getValue());
 
         playerPane.setCenter(    game.getPlayerField());
         computerPane.setCenter(  game.getCpuField()   );

@@ -5,7 +5,6 @@ import home.battleShips.field.CSSpicture;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.cpu.Logic;
 import home.battleShips.model.cpu.LogicFactory;
-import home.battleShips.utils.StaticUtils;
 import javafx.application.Platform;
 
 import java.util.Date;
@@ -81,10 +80,15 @@ public class Game {
             turnCount++;
             System.out.println(turnCount);
 
-            if(turn.actionIfHit(playerField.getFieldData())){
+            turn.shoot(playerField.getFieldData());
+            if(turn.isHit()){
 
                 System.out.println(turn.getStatus());
                 //action then hit
+
+                if(turn.getShip().isKilled()){
+                    killShip(turn.getShip(),playerField);
+                }
 
             }else{
                 counterAction();

@@ -38,26 +38,30 @@ public class Normal implements Logic {
 
         if(nextTurns.empty())  {
             System.out.println("next turns : empty" );
-            Turn turn = new Turn(fieldData);
+            Turn turn = new Turn(fieldData); // random turn
 
             proceedTurn(turn);
-
         }
 
         else {
-            System.out.println("next turns : " + nextTurns);
-            proceedTurn(nextTurns.pop());
+            printOutStack();
+            Turn turn = nextTurns.pop();
+            proceedTurn(turn);
         }
 
-        lastTurn = fieldData.getTurns().get( fieldData.getTurns().size()-1 );
+
 
     }
 
     private void proceedTurn(Turn turn){
+
+        lastTurn =turn;
+
         FieldGrid cpuField = game.getCpuField();
         FieldData fieldData = cpuField.getFieldData();
 
-        if(turn.actionIfHit(fieldData)){
+        turn.shoot(fieldData);
+        if(turn.isHit()){
 
             nextTurns.clear();
             surroundHits(turn.getShip().getHitCells());
@@ -69,10 +73,10 @@ public class Normal implements Logic {
                 turn.setStatus(TurnStatus.KILL);
                 game.killShip(turn.getShip() , game.getCpuField());
             }
+        }else {
+
+            fade(turn.getCell().getButton());
         }
-
-        fade(turn.getCell().getButton());
-
 
 
         System.out.println("cpu:" + turn.getStatus());
@@ -116,14 +120,14 @@ public class Normal implements Logic {
         }
 
 //        proceedTurn(nextTurns.pop());
-        makeShot();
+        //makeShot();
 
     }
 
     private void surroundHits(List<ShipCell> shipHits){
         pushHorisontalTurns(shipHits);
         pushVerticalTurns(shipHits);
-
+        System.out.println();
     }
     private void pushVerticalTurns(List<ShipCell> shipHits){
         int letter;
@@ -152,11 +156,31 @@ public class Normal implements Logic {
         FieldCell cell;
         try {
             cell = game.getCpuField().getFieldData().getCells()[letter][number];
+
+            // invoke exception when letter or number is out of field
+            cell.getButton(); // TODO remove monkey patch : check field size!!!
+
             nextTurns.push( new Turn(cell) );
-        }catch (NullPointerException | ArrayIndexOutOfBoundsException ignored){}
+        }catch (NullPointerException | ArrayIndexOutOfBoundsException e){
+            System.out.println("Wrong L/N :" + letter + number );
+        }
+        //System.out.println("added to stack :" + letter + number );
     }
 
+    private void printOutStack(){
 
+        System.out.println(nextTurns.size());
+        System.out.println("next turns : " );
+
+        for(Turn turn : nextTurns){
+            try {
+                System.out.print(turn);
+            }catch (NullPointerException npe){
+                npe.printStackTrace();
+            }
+        }
+        System.out.println();
+    }
 
 }
 
