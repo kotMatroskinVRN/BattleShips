@@ -25,20 +25,16 @@ public class Turn {
 
 
     public void shoot(FieldData fieldData){
-        //FieldCell cell = getCell();
-        //int letter = StaticUtils.getNumberFromChar(cell.getLetter());
-        //int number = cell.getNumber();
-        System.out.println("cpu:" + cell.getLetter()+cell.getNumber());
         for(Ship ship : fieldData.getShips()){
             if( ship.hasCell(cell)){
                 ship.addHit(cell);
                 setStatus(TurnStatus.HIT);
                 setShip(ship);
-
-
             }
         }
-        //setStatus(TurnStatus.MISS);
+        if(status==TurnStatus.MISS) {
+            setStatus(TurnStatus.MISS);
+        }
     }
 
     public boolean isHit(){

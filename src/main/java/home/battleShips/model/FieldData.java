@@ -22,7 +22,7 @@ public class FieldData {
 
     public void init(){
 
-        System.out.println("\ndefault fill array");
+        //System.out.println("\ndefault fill array");
         defaultFillArray();
         ships =  randomSetOfShips() ;
 

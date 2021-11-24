@@ -13,11 +13,15 @@ public class Normal implements Logic {
     private Turn lastTurn;
     private final Stack<Turn> nextTurns = new Stack<>();
     private Game game;
+//    private FieldGrid cpuField ;
+    private FieldData fieldData ;
 
 
     @Override
     public void setGame(Game game) {
         this.game = game;
+//        cpuField = game.getCpuField();
+        fieldData = game.getCpuField().getFieldData();
     }
 
     @Override
@@ -32,21 +36,22 @@ public class Normal implements Logic {
 
         stopAnimation();
 
-        FieldGrid cpuField = game.getCpuField();
-        FieldData fieldData = cpuField.getFieldData();
-
 
         if(nextTurns.empty())  {
-            log.info(  "next turns : empty");
+//            log.info(  "next turns : empty . Do random hit");
             Turn turn = new Turn(fieldData); // random turn
 
             proceedTurn(turn);
         }
 
         else {
-            printOutStack();
+            log.info( formatStack() );
             Turn turn = nextTurns.pop();
-            proceedTurn(turn);
+            if(fieldData.addTurnIfAbsent(turn)) {
+                proceedTurn(turn);
+            }else{
+                makeShot();
+            }
         }
 
 
@@ -55,10 +60,8 @@ public class Normal implements Logic {
 
     private void proceedTurn(Turn turn){
 
-        lastTurn =turn;
+        lastTurn = turn;
 
-        FieldGrid cpuField = game.getCpuField();
-        FieldData fieldData = cpuField.getFieldData();
 
         turn.shoot(fieldData);
         if(turn.isHit()){
@@ -73,13 +76,20 @@ public class Normal implements Logic {
                 turn.setStatus(TurnStatus.KILL);
                 game.killShip(turn.getShip() , game.getCpuField());
             }
+
+            String info = String.format("cpu shot" +
+                    " %s %s" , turn.getCell() , turn.getStatus());
+            log.info(info);
+
         }else {
+            String info = String.format("cpu shot" +
+                    " %s %s" , turn.getCell() , turn.getStatus());
+            System.out.println(info);
 
             fade(turn.getCell().getButton());
         }
 
 
-        log.info("cpu:" + turn.getStatus());
 
     }
 
@@ -166,18 +176,22 @@ public class Normal implements Logic {
         }
     }
 
-    private void printOutStack(){
-
-        log.info( String.valueOf(nextTurns.size()) );
-        log.info("next turns : " );
+    private String formatStack(){
+        StringBuilder result = new StringBuilder();
+        result.append("NextTurn size : ").append( nextTurns.size() ).append("\n");
+        result.append("\t\t");
+        result.append("next turns : " );
 
         for(Turn turn : nextTurns){
             try {
-                log.info( turn.toString() );
+                result.append( turn.toString() );
             }catch (NullPointerException npe){
+                log.severe("turn has no cell" + turn.hashCode());
                 npe.printStackTrace();
+
             }
         }
+        return result.toString();
     }
 
 }

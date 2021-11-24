@@ -71,6 +71,7 @@ public class Game {
 
     private void turn( FieldCell cell) {
 
+        //cpuField.stopAnimation()
 
         Turn turn = new Turn(cell);
 
