@@ -32,7 +32,7 @@ public class Normal implements Logic {
 
     @Override
     public void makeShot() {
-
+        log.info("cpu is shooting....");
 
         stopAnimation();
 
@@ -47,6 +47,7 @@ public class Normal implements Logic {
         else {
             log.info( formatStack() );
             Turn turn = nextTurns.pop();
+            log.info("cpu is aiming....." + turn);
             if(fieldData.addTurnIfAbsent(turn)) {
                 proceedTurn(turn);
             }else{
@@ -84,7 +85,7 @@ public class Normal implements Logic {
         }else {
             String info = String.format("cpu shot" +
                     " %s %s" , turn.getCell() , turn.getStatus());
-            System.out.println(info);
+            log.info(info);
 
             fade(turn.getCell().getButton());
         }

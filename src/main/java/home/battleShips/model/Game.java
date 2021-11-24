@@ -100,12 +100,12 @@ public class Game {
     }
 
     private void counterAction() {
-        System.out.println("game counteraction");
+//        System.out.println("game counteraction");
         aiLogic.makeShot();
         if(aiLogic.getLastTurn().isHit()){
             counterAction();
         }
-
+//        cpuField.stopAnimation();
     }
 
     private void setListeners() {
