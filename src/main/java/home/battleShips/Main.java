@@ -7,13 +7,27 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class Main extends Application {
 
     private static String[] args;
+    private final static Logger log = Logger.getLogger(ClassLoader.class.getName());
 
     public static void main(String[] args) {
+
+
+        try {
+            LogManager.getLogManager().readConfiguration(
+                    ClassLoader.getSystemResourceAsStream("logging.properties"));
+
+        } catch (IOException e) {
+            System.err.println("Could not setup logger configuration: " + e.toString());
+        }
+
 
         Main.args = args;
 
@@ -43,6 +57,10 @@ public class Main extends Application {
                 )
         );
         primaryStage.show();
+    }
+
+    public static Logger getLog(){
+        return log;
     }
 }
 

@@ -37,7 +37,7 @@ public class Normal implements Logic {
 
 
         if(nextTurns.empty())  {
-            System.out.println("next turns : empty" );
+            log.info(  "next turns : empty");
             Turn turn = new Turn(fieldData); // random turn
 
             proceedTurn(turn);
@@ -79,7 +79,7 @@ public class Normal implements Logic {
         }
 
 
-        System.out.println("cpu:" + turn.getStatus());
+        log.info("cpu:" + turn.getStatus());
 
     }
 
@@ -87,7 +87,7 @@ public class Normal implements Logic {
         FieldCell cell = turn.getCell();
         int letter = StaticUtils.getNumberFromChar(cell.getLetter());
         int number = cell.getNumber();
-        System.out.println("cpu:" + cell.getLetter()+number);
+        log.info("cpu:" + cell.getLetter()+number);
         for(Ship ship : game.getCpuField().getFieldData().getShips()){
             if( ship.hasCell(letter, number)){
                 ship.addHit(letter,number);
@@ -127,7 +127,6 @@ public class Normal implements Logic {
     private void surroundHits(List<ShipCell> shipHits){
         pushHorisontalTurns(shipHits);
         pushVerticalTurns(shipHits);
-        System.out.println();
     }
     private void pushVerticalTurns(List<ShipCell> shipHits){
         int letter;
@@ -162,24 +161,23 @@ public class Normal implements Logic {
 
             nextTurns.push( new Turn(cell) );
         }catch (NullPointerException | ArrayIndexOutOfBoundsException e){
-            System.out.println("Wrong L/N :" + letter + number );
+            String string = "Wrong L/N :" + letter + number;
+            log.warning(string);
         }
-        //System.out.println("added to stack :" + letter + number );
     }
 
     private void printOutStack(){
 
-        System.out.println(nextTurns.size());
-        System.out.println("next turns : " );
+        log.info( String.valueOf(nextTurns.size()) );
+        log.info("next turns : " );
 
         for(Turn turn : nextTurns){
             try {
-                System.out.print(turn);
+                log.info( turn.toString() );
             }catch (NullPointerException npe){
                 npe.printStackTrace();
             }
         }
-        System.out.println();
     }
 
 }

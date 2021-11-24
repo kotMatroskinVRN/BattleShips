@@ -1,5 +1,6 @@
 package home.battleShips.model.cpu;
 
+import home.battleShips.Main;
 import home.battleShips.model.Game;
 import home.battleShips.model.Turn;
 import javafx.animation.FadeTransition;
@@ -8,8 +9,11 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public interface Logic {
+
+    Logger log = Main.getLog();
 
     Duration duration = Duration.seconds(2);
     int cycleCount    = 8;
