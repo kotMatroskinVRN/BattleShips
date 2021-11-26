@@ -25,7 +25,11 @@ public enum Skin {
     }
 
     public URL getFileName() {
-        return getCSS("style/mainStyle.css");
+        return getCSS("style/defaultStyle.css");
+    }
+
+    public static URL getMainCSS(){
+        return ClassLoader.getSystemResource("style/main.css");
     }
 
     @Override

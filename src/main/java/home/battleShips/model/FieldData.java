@@ -1,28 +1,26 @@
 package home.battleShips.model;
 
+import home.battleShips.Main;
 import home.battleShips.field.CSSpicture;
 import home.battleShips.utils.StaticUtils;
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
-
-import java.util.List;
 
 
 public class FieldData {
 
-    private final int FIELD_SIZE = 11 ;
-    private final int FS        = 12 ;
+    private final int FIELD_SIZE = Main.getFIELD_SIZE();
 
     private final FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
     private Ship[] ships ;
     private final ObservableList<Turn> turns = FXCollections.observableArrayList() ;
 
+    private int count_kills     = 0;
+
     public void init(){
 
-        //System.out.println("\ndefault fill array");
         defaultFillArray();
         ships =  randomSetOfShips() ;
 
@@ -35,19 +33,7 @@ public class FieldData {
 
     }
 
-    public void killShip(Turn turn){
-        turn.setStatus(TurnStatus.KILL);
 
-    }
-
-
-    public boolean hasTurn(Turn turn){
-        FieldCell cell = turn.getCell();
-        return isCellInTurns(cell);
-    }
-    public boolean hasTurn(FieldCell cell){
-        return isCellInTurns(cell);
-    }
 
     public boolean addTurnIfAbsent(Turn turn){
         FieldCell cell = turn.getCell();
@@ -55,19 +41,9 @@ public class FieldData {
         if(isCellInTurns(cell)) return false;
 
         turns.add(turn);
-        //System.out.println(turns);
-        return true;
-    }
-    public boolean addTurnIfAbsent(FieldCell cell){
-        if(isCellInTurns(cell)) return false;
-        turns.add( new Turn(cell) );
-        System.out.println(turns);
         return true;
     }
 
-    public ObservableList<Turn> getTurns(){
-        return turns;
-    }
 
     public Button getButton(String letter , int number){
         return chooseCell(letter,number).getButton();
@@ -94,13 +70,20 @@ public class FieldData {
                             cell.setStyle(CSSpicture.MISS);
                             Turn turn = new Turn(cell);
                             addTurnIfAbsent(turn);
-//                            playField.setGridCellStyle(cell, CSSpicture.MISS);
                         }
                     } catch (NullPointerException  | ArrayIndexOutOfBoundsException ignored){}
 
                 }
             }
         }
+    }
+
+    public int getCount_kills() {
+        return count_kills;
+    }
+
+    public void addKill(){
+        count_kills++;
     }
 
     private boolean isCellInTurns(FieldCell cell){
@@ -125,7 +108,6 @@ public class FieldData {
 
                 if(c=='Й') continue;
                 int arrayNumber= StaticUtils.getNumberFromChar(c);
-                //System.out.println("defaultFill : " + arrayNumber);
                 String letter = String.valueOf(c);
                 FieldCell cell = new FieldCell(letter , i);
                 cells[arrayNumber][i] = cell;
@@ -140,30 +122,29 @@ public class FieldData {
         int size , n , l ;
         char  dc;
         char[] d = { 'h' , 'v' };
-        Ship[] rShips = new Ship[FS-2] ;
+        Ship[] rShips = new Ship[FIELD_SIZE-1] ;
 
-        for(int i = 0 ; i<FS-2 ; i++ ){
+        for(int i = 0 ; i<FIELD_SIZE-1 ; i++ ){
             size = (int)( 12 - 1.5*i )/4 + 1 ;
-            l  = (int)( Math.random()*(FS-1-size) ) +1  ;
-            n  = (int)( Math.random()*(FS-1-size) ) +1  ; // fs-1????
+            l  = (int)( Math.random()*(FIELD_SIZE-size) ) +1  ;
+            n  = (int)( Math.random()*(FIELD_SIZE-size) ) +1  ; // fs-1????
             dc = d[(int)( Math.random()*2)] ;
 
             rShips[i] = new Ship( size , l  , n , dc );
 
 
             while( i>0 && !( checkShipsArray( rShips , i ) ) ){
-                l  = (int)( Math.random()*(FS-1-size) ) +1  ;
-                n  = (int)( Math.random()*(FS-1-size) ) +1  ;
+                l  = (int)( Math.random()*(FIELD_SIZE-size) ) +1  ;
+                n  = (int)( Math.random()*(FIELD_SIZE-size) ) +1  ;
                 dc = d[(int)( Math.random()*2)] ;
                 rShips[i] = new Ship( size , l  , n , dc );
             }
-            //System.out.printf("%d is O.K. \n" , size );
-        }// for ships array
+        }
 
 
 
         return rShips ;
-    }//randomSetOfShips
+    }
 
     private boolean checkShipsArray(Ship[] ships , int size){
 
@@ -176,6 +157,6 @@ public class FieldData {
         }
 
         return true ;
-    }//checkShipsArray
+    }
 }
 

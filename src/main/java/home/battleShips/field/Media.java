@@ -8,14 +8,14 @@ public enum Media {
     LOSS("images/loss.mp4"){},
     ;
 
-    private final String imagePath;
+    private final String mediaUrl;
 
     Media(String png){
-        imagePath = png;
+        mediaUrl = png;
     }
 
-    public URL getImagePath() {
-        return ClassLoader.getSystemResource(imagePath);
+    public URL getMediaURL() {
+        return ClassLoader.getSystemResource(mediaUrl);
     }
 
 

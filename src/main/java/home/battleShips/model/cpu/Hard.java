@@ -1,61 +1,144 @@
 package home.battleShips.model.cpu;
 
-import home.battleShips.field.CSSpicture;
-import home.battleShips.model.FieldCell;
-import home.battleShips.field.grid.FieldGrid;
-import home.battleShips.model.Game;
-import home.battleShips.model.Ship;
-import home.battleShips.model.Turn;
-import home.battleShips.model.TurnStatus;
-import home.battleShips.utils.StaticUtils;
+import home.battleShips.model.*;
+
+import java.util.List;
+import java.util.Stack;
 
 public class Hard implements Logic {
-    private Game game;
+
+    private Turn lastTurn;
+    private final Stack<Turn> nextTurns = new Stack<>();
+    private FieldData fieldData ;
+
 
     @Override
-    public void setGame(Game game) {
-        this.game = game;
+    public void setData(FieldData fieldData) {
+        this.fieldData = fieldData;
     }
+
+    @Override
+    public Turn getLastTurn(){
+        return lastTurn;
+    }
+
 
     @Override
     public void makeShot() {
-        FieldGrid cpuField = game.getCpuField();
-        Turn turn = new Turn(cpuField.getFieldData());
+        log.info("cpu is shooting....");
 
-        FieldCell cell = turn.getCell();
-        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
-        int number = cell.getNumber();
-        System.out.println("cpu:" + cell.getLetter()+number);
+        if(nextTurns.empty())  {
+//            log.info(  "next turns : empty . Do random hit");
+            Turn turn = new Turn(fieldData); // random turn
 
-        for(Ship ship : game.getCpuField().getFieldData().getShips()){
-            if( ship.hasCell(letter,number )){
-                turn.setStatus(TurnStatus.HIT);
-                ship.addHit(letter,number);
+            proceedTurn(turn);
+        }
 
-//                cpuField.setGridCellStyle( cell, CSSpicture.HIT);
-//                setHit(cpuField,cell);
-
-                if(ship.isKilled()){
-                    turn.setStatus(TurnStatus.KILL);
-                    game.killShip(ship , cpuField);
-                }
-                break;
+        else {
+            log.info( formatStack() );
+            Turn turn = nextTurns.pop();
+            log.info("cpu is aiming....." + turn);
+            if(fieldData.addTurnIfAbsent(turn)) {
+                proceedTurn(turn);
+            }else{
+                makeShot();
             }
         }
 
-        if(turn.getStatus()==TurnStatus.MISS){
-//            cpuField.setGridCellStyle( cell, CSSpicture.MISS);
 
-        }else{
-            makeShot();
+
+    }
+
+    private void proceedTurn(Turn turn){
+
+        lastTurn = turn;
+
+
+        turn.shoot(fieldData);
+        if(turn.isHit()){
+
+            nextTurns.clear();
+            surroundHits(turn.getShip().getHitCells());
+
+
+            if(turn.getShip().isKilled()){
+                nextTurns.clear();
+                turn.killShip();
+
+            }
+
+            String info = String.format("cpu shot" +
+                    " %s %s" , turn.getCell() , turn.getStatus());
+            log.info(info);
+
+        }else {
+            String info = String.format("cpu shot" +
+                    " %s %s" , turn.getCell() , turn.getStatus());
+            log.info(info);
+
         }
 
-        System.out.println(this);
+    }
+
+
+    private void surroundHits(List<ShipCell> shipHits){
+        pushHorisontalTurns(shipHits);
+        pushVerticalTurns(shipHits);
+    }
+    private void pushVerticalTurns(List<ShipCell> shipHits){
+        int letter;
+        int number;
+
+        letter = shipHits.get(0).getLetter();
+        number = shipHits.stream().mapToInt(ShipCell::getNumber).max().getAsInt();
+        pushNextTurn(letter , number+1);
+        number = shipHits.stream().mapToInt(ShipCell::getNumber).min().getAsInt();
+        pushNextTurn(letter , number-1);
+
+    }
+    private void pushHorisontalTurns(List<ShipCell> shipHits){
+        int number;
+        int letter;
+
+        number = shipHits.get(0).getNumber();
+        letter = shipHits.stream().mapToInt(ShipCell::getLetter).max().getAsInt();
+        pushNextTurn(letter+1, number);
+        letter = shipHits.stream().mapToInt(ShipCell::getLetter).min().getAsInt();
+        pushNextTurn(letter-1, number);
 
     }
 
-    @Override
-    public Turn getLastTurn() {
-        return null;
+    private void pushNextTurn(int letter , int number){
+        FieldCell cell;
+        try {
+            cell = fieldData.getCells()[letter][number];
+
+            // invoke exception when letter or number is out of field
+            cell.getButton(); // TODO remove monkey patch : check field size!!!
+
+            nextTurns.push( new Turn(cell) );
+        }catch (NullPointerException | ArrayIndexOutOfBoundsException e){
+            String string = "Wrong L/N :" + letter + number;
+            log.warning(string);
+        }
     }
+
+    private String formatStack(){
+        StringBuilder result = new StringBuilder();
+        result.append("NextTurn size : ").append( nextTurns.size() ).append("\n");
+        result.append("\t\t");
+        result.append("next turns : " );
+
+        for(Turn turn : nextTurns){
+            try {
+                result.append( turn.toString() );
+            }catch (NullPointerException npe){
+                log.severe("turn has no cell" + turn.hashCode());
+                npe.printStackTrace();
+
+            }
+        }
+        return result.toString();
+    }
+
 }

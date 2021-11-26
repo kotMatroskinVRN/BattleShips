@@ -11,13 +11,12 @@ import javafx.scene.layout.GridPane;
 public class FieldGrid extends GridPane {
 
     private final int FIELD_SIZE = 11 ;
-    static final int FS        = 12 ;
 
 
-    private final Button[][] cells = new Button[FIELD_SIZE][FIELD_SIZE];
+//    private final Button[][] cells = new Button[FIELD_SIZE][FIELD_SIZE];
     private final FieldData fieldData;
 
-    private int count_kills     = 0;
+
 
     public FieldGrid(){
         super();
@@ -29,29 +28,13 @@ public class FieldGrid extends GridPane {
     public void init() {
         fieldData.init();
         defaultFill();
-
-    }
-
-    public Button[][] getCells() {
-        return cells;
     }
 
     public FieldData getFieldData() {
         return fieldData;
     }
 
-//    public void setGridCellStyle(FieldCell cell, CSSpicture picture) {
-//        cell.setStyle(picture);
-//
-//    }
 
-    public int getCount_kills() {
-        return count_kills;
-    }
-
-    public void addKill(){
-        count_kills++;
-    }
 
     private void setLetters(){
         for(int l=1;l<FIELD_SIZE;l++){
@@ -83,7 +66,7 @@ public class FieldGrid extends GridPane {
                 setConstraints(button , arrayNumber, n);
                 getChildren().add(button);
 
-                cells[n][arrayNumber] = button;
+//                cells[n][arrayNumber] = button;
             }
         }
 

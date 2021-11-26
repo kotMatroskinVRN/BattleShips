@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 
 public class Main extends Application {
 
+    private final static int FIELD_SIZE = 11 ;
+
     private static String[] args;
     private final static Logger log = Logger.getLogger(ClassLoader.class.getName());
 
@@ -61,6 +63,10 @@ public class Main extends Application {
 
     public static Logger getLog(){
         return log;
+    }
+
+    public static int getFIELD_SIZE() {
+        return FIELD_SIZE;
     }
 }
 

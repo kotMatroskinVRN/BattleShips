@@ -1,121 +1,21 @@
-INFO : NextTurn size : 3
-		next turns :  Г3  Б3  В4 
-INFO : cpu is aiming..... В4 
-INFO : cpu shot  В4  MISS
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
 INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  Г3  Б3 
-INFO : cpu is aiming..... Б3 
-INFO : cpu shot  Б3  MISS
+INFO : cpu shot  Ж7  MISS
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
 INFO : cpu is shooting....
-INFO : NextTurn size : 1
-		next turns :  Г3 
-INFO : cpu is aiming..... Г3 
-INFO : cpu shot  Г3  KILL
+INFO : cpu shot  Б7  MISS
+WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
 INFO : cpu is shooting....
-INFO : cpu shot  К8  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  З6  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  Б5  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  К4  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  А7  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  К5  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  А3  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  З7  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  А10  MISS
-INFO : cpu is shooting....
-WARNING : Wrong L/N :80
-INFO : cpu shot  З1  HIT
-INFO : cpu is shooting....
-INFO : NextTurn size : 3
-		next turns :  И1  Ж1  З2 
-INFO : cpu is aiming..... З2 
-INFO : cpu shot  З2  MISS
-INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  И1  Ж1 
-INFO : cpu is aiming..... Ж1 
-WARNING : Wrong L/N :80
-INFO : cpu shot  Ж1  HIT
-INFO : cpu is shooting....
-INFO : NextTurn size : 3
-		next turns :  И1  Е1  З2 
-INFO : cpu is aiming..... З2 
-INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  И1  Е1 
-INFO : cpu is aiming..... Е1 
-WARNING : Wrong L/N :80
-INFO : cpu shot  Е1  HIT
-INFO : cpu is shooting....
-INFO : NextTurn size : 3
-		next turns :  И1  Д1  З2 
-INFO : cpu is aiming..... З2 
-INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  И1  Д1 
-INFO : cpu is aiming..... Д1 
-INFO : cpu is shooting....
-INFO : NextTurn size : 1
-		next turns :  И1 
-INFO : cpu is aiming..... И1 
-WARNING : Wrong L/N :80
-INFO : cpu shot  И1  KILL
-INFO : cpu is shooting....
-INFO : cpu shot  Ж8  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  К3  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  Ж9  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  И9  KILL
-INFO : cpu is shooting....
-INFO : cpu shot  А6  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  К7  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  А4  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  Д5  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  И7  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  Е6  MISS
-INFO : cpu is shooting....
-WARNING : Wrong L/N :05
-INFO : cpu shot  А5  KILL
-INFO : cpu is shooting....
-INFO : cpu shot  Ж6  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  Г5  HIT
-INFO : cpu is shooting....
-INFO : NextTurn size : 4
-		next turns :  Д5  В5  Г6  Г4 
-INFO : cpu is aiming..... Г4 
-INFO : cpu is shooting....
-INFO : NextTurn size : 3
-		next turns :  Д5  В5  Г6 
-INFO : cpu is aiming..... Г6 
-INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  Д5  В5 
-INFO : cpu is aiming..... В5 
-INFO : cpu shot  В5  KILL
-INFO : cpu is shooting....
-INFO : cpu shot  А9  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  Е7  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  А8  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  Ж10  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  Ж7  KILL
-INFO : cpu is shooting....
+INFO : cpu shot  В7  MISS

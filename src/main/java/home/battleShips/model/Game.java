@@ -1,23 +1,29 @@
 package home.battleShips.model;
 
 import home.battleShips.Controller;
+import home.battleShips.Main;
 import home.battleShips.field.CSSpicture;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.cpu.Logic;
 import home.battleShips.model.cpu.LogicFactory;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
+import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Game {
 
-    private final int FIELD_SIZE = 11 ;
-    static final int FS        = 12 ;
-//    private final Ship[] shipsCPU      ;
-//    private final Ship[] shipsPLAYER   ;
-//    private final Stack<Turn> playersTurns;
-//    private final Stack<Turn> cpusTurns;
+    private final int FIELD_SIZE = Main.getFIELD_SIZE() ;
 
+    private final Duration DURATION = Duration.seconds(2);
+    private final int CYCLE_COUNT    = 16;
+    private List<FadeTransition> ANIMATED_CELLS = new ArrayList<>();
 
     private final FieldGrid playerField;
     private final FieldGrid cpuField;
@@ -27,10 +33,11 @@ public class Game {
 
     private int turnCount;
 
+
     public Game(Controller controller) {
         this.controller = controller;
 
-        turnCount = 0;
+        turnCount = 1;
 
         playerField = new FieldGrid();
         cpuField    = new FieldGrid();
@@ -44,7 +51,9 @@ public class Game {
 
         setListeners();
 
+
     }
+
 
 
 
@@ -56,56 +65,66 @@ public class Game {
         return cpuField;
     }
 
-    public void killShip(Ship ship , FieldGrid fieldGrid) {
-        fieldGrid.getFieldData().surroundShip(ship);
-        fieldGrid.addKill();
+    public void killShip(Ship ship , FieldData fieldData) {
+        fieldData.surroundShip(ship);
+        fieldData.addKill();
 
-        if(fieldGrid.getCount_kills()==10) gameOver(fieldGrid);
+        if(cpuField.getFieldData().getCount_kills()==10) gameOver(cpuField);
+        if(playerField.getFieldData().getCount_kills()==10) gameOver(playerField);
 
     }
 
     public void setDifficulty(LogicFactory value) {
         aiLogic = value.getDifficulty();
-        aiLogic.setGame(this);
+        aiLogic.setData(cpuField.getFieldData());
     }
 
     private void turn( FieldCell cell) {
-
-        //cpuField.stopAnimation()
 
         Turn turn = new Turn(cell);
 
         if ( playerField.getFieldData().addTurnIfAbsent(turn) )  {
 
-            System.out.println(cell.getLetter() + cell.getNumber());
-            turnCount++;
-            System.out.println(turnCount);
+            stopAnimation();
+
+
+            controller.addPlayerTurn(turn);
+
+
 
             turn.shoot(playerField.getFieldData());
             if(turn.isHit()){
 
-                System.out.println(turn.getStatus());
                 //action then hit
 
-                if(turn.getShip().isKilled()){
-                    killShip(turn.getShip(),playerField);
+                Ship ship = turn.getShip();
+                if(ship.isKilled()){
+                    killShip(turn.getShip(),playerField.getFieldData());
                 }
 
             }else{
                 counterAction();
             }
-
         }
 
     }
 
     private void counterAction() {
-//        System.out.println("game counteraction");
+        System.out.println(turnCount++);
         aiLogic.makeShot();
-        if(aiLogic.getLastTurn().isHit()){
+        Turn lastTurn =  aiLogic.getLastTurn();
+        fadeAnimation( lastTurn.getCell().getButton() );
+        controller.addCpuTurn(lastTurn);
+
+
+        if(lastTurn.isHit()){
+            if(lastTurn.isKill()){
+                killShip( lastTurn.getShip() , cpuField.getFieldData() );
+            }
             counterAction();
+
         }
-//        cpuField.stopAnimation();
+
     }
 
     private void setListeners() {
@@ -116,30 +135,6 @@ public class Game {
                 cell.getButton().getStyleClass().add("player");
             }
         }
-    }
-
-    private void showPlayersShips() {
-        for(Ship ship : cpuField.getFieldData().getShips()){
-            System.out.println(ship);
-            for(ShipCell shipCell : ship.getShipCellList()){
-                int l = shipCell.getLetter();
-                int n = shipCell.getNumber();
-                FieldCell cell = cpuField.getFieldData().getCells()[l][n];
-                cell.setStyle(CSSpicture.DECK);
-            }
-        }
-    }
-
-
-
-    public void gameOver(FieldGrid fieldGrid){
-
-        removeListeners();
-
-        Platform.runLater(() -> {
-            if(fieldGrid==playerField) controller.showVictory();
-            if(fieldGrid==cpuField)    controller.showDefeat();
-        });
     }
 
     private void removeListeners() {
@@ -153,7 +148,55 @@ public class Game {
         }
     }
 
+    private void showPlayersShips() {
+        for(Ship ship : cpuField.getFieldData().getShips()){
+            for(ShipCell shipCell : ship.getShipCellList()){
+                int l = shipCell.getLetter();
+                int n = shipCell.getNumber();
+                FieldCell cell = cpuField.getFieldData().getCells()[l][n];
+                cell.setStyle(CSSpicture.DECK);
+            }
+        }
+    }
 
+
+
+    private void gameOver(FieldGrid fieldGrid){
+
+        removeListeners();
+
+        Platform.runLater(() -> {
+            if(fieldGrid==playerField) controller.showVictory();
+            if(fieldGrid==cpuField)    controller.showDefeat();
+        });
+    }
+
+    private void fadeAnimation(Button button){
+        FadeTransition animation = new FadeTransition( DURATION );
+
+        ANIMATED_CELLS.add(animation);
+
+        animation.setNode(button);
+        animation.setFromValue(1.0);
+        animation.setToValue(0.0);
+        animation.setCycleCount(CYCLE_COUNT);
+        animation.setAutoReverse(true);
+        animation.play();
+    }
+
+    private void stopAnimation(){
+
+        for (FadeTransition animation : ANIMATED_CELLS){
+
+            animation.stop();
+            animation.setFromValue(1.0);
+            animation.setToValue(1.0);
+            animation.setCycleCount(1);
+            animation.play();
+        }
+        ANIMATED_CELLS.clear();
+
+    }
 
 
 

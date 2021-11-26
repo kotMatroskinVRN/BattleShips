@@ -9,7 +9,6 @@ public class FieldCell implements Comparable<FieldCell> {
     private final String letter;
     // TODO replace letter number with ShipCell
 
-//    private CSSpicture picture = CSSpicture.SEA;
     private final Button button ;
 
     public FieldCell(String letter, int number) {
@@ -22,7 +21,6 @@ public class FieldCell implements Comparable<FieldCell> {
 
 
     public void setStyle(CSSpicture picture){
-//        button = new Button();
         button.setId(picture.toString());
         button.applyCss();
     }
@@ -38,9 +36,7 @@ public class FieldCell implements Comparable<FieldCell> {
     public Button getButton() {
         return button;
     }
-//    public CSSpicture getPicture() {
-//        return picture;
-//    }
+
 
     @Override
     public int compareTo(FieldCell o) {

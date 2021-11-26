@@ -1,0 +1,18 @@
+
+#deck{
+    -fx-background-image: url("../images/style_default/deck.png");
+}
+#sea{
+    -fx-background-image: url("../images/style_default/sea.png");
+}
+#hit{
+    -fx-background-image: url("../images/style_default/hit.png");
+}
+#miss{
+    -fx-background-image: url("../images/style_default/miss.png");
+}
+
+.player.button:hover{
+    -fx-graphic: url("../images/style_default/cross.png");
+    -fx-padding:0;
+}

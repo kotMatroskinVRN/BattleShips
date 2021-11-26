@@ -1,8 +1,8 @@
-C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\field\grid\FieldCell.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\field\Media.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\utils\StaticUtils.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\Normal.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\TurnStatus.java
+C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\utils\LevelAndMessageFormatter.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\Turn.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\Logic.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\Game.java
@@ -15,7 +15,8 @@ C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\field\
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\Main.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\Hard.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\field\grid\FieldGrid.java
+C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\FieldCell.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\field\Skin.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\field\grid\PlayField.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\Controller.java
-C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\field\grid\FieldData.java
+C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\FieldData.java

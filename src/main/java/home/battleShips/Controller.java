@@ -3,12 +3,15 @@ package home.battleShips;
 import home.battleShips.field.Media;
 import home.battleShips.field.Skin;
 import home.battleShips.model.Game;
+import home.battleShips.model.Turn;
 import home.battleShips.model.cpu.LogicFactory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -27,25 +30,22 @@ public class Controller {
     @FXML
     private BorderPane computerPane;
     @FXML
-    private Button newGame;
-    @FXML
     private ChoiceBox<Skin> skinBox;
     @FXML
     private ChoiceBox<LogicFactory> difficultyBox;
+    @FXML
+    private ListView<String> playerTurns;
+    @FXML
+    private ListView<String> cpuTurns;
 
-
-    private Game game ;
 
     @FXML
     private void initialize(){
         initDifficulty();
-//        newGame();
-//        showVictory();
-//        newGame.setId("sea");
-        initSkinChoise();
+        initSkinChoice();
 
-
-
+        playerTurns.setItems( FXCollections.observableArrayList() );
+           cpuTurns.setItems( FXCollections.observableArrayList() );
 
     }
 
@@ -53,21 +53,16 @@ public class Controller {
 
         difficultyBox.getItems().addAll(LogicFactory.values());
         difficultyBox.setValue(LogicFactory.NORMAL);
-//        setDifficulty( difficultyBox.getValue() );
         difficultyBox.setOnAction( (ae) -> newGame() );
         newGame();
     }
-//
-//    private void setDifficulty(LogicFactory value) {
-//        newGame();
-//        game.setDifficulty(value);
-//    }
+
 
 
     @FXML
     public void newGame() {
 
-        game = new Game(this);
+        Game game = new Game(this);
         game.setDifficulty(difficultyBox.getValue());
 
         playerPane.setCenter(    game.getPlayerField());
@@ -75,9 +70,6 @@ public class Controller {
 
         playerPane.setBottom(null);
         computerPane.setBottom(null);
-
-//        setCSS(Skin.yuraStyle);
-        //setRandomCSS();
 
     }
 
@@ -95,8 +87,23 @@ public class Controller {
         computerPane.setBottom(new Label("Поражение"));
     }
 
+    public void addPlayerTurn(Turn turn) {
+        ObservableList<String> list = playerTurns.getItems();
+        list.add(turn.getCell().toString());
+        playerTurns.scrollTo(list.size());
+    }
+
+    public void addCpuTurn(Turn turn) {
+        ObservableList<String> list = cpuTurns.getItems();
+        list.add(turn.getCell().toString());
+        cpuTurns.scrollTo(list.size());
+    }
+
+
+
+
     private MediaView getMediaView(Media fieldPicture) {
-        URL url = fieldPicture.getImagePath();
+        URL url = fieldPicture.getMediaURL();
         javafx.scene.media.Media media = new javafx.scene.media.Media( url.toString() );
 
         MediaPlayer player = new MediaPlayer(media);
@@ -112,6 +119,7 @@ public class Controller {
     private void setCSS(Skin skin){
         Parent parent = root;
         parent.getStylesheets().clear();
+        parent.getStylesheets().add(Skin.getMainCSS().toString());
         parent.getStylesheets().add(skin.getFileName().toString());
     }
 
@@ -122,10 +130,11 @@ public class Controller {
 
         Parent parent = root;
         parent.getStylesheets().clear();
+        parent.getStylesheets().add(Skin.getMainCSS().toString());
         parent.getStylesheets().add(skin.getFileName().toString());
     }
 
-    private void initSkinChoise(){
+    private void initSkinChoice(){
         skinBox.getItems().addAll(Skin.values());
         skinBox.setValue(Skin.DEFAULT);
         skinBox.setOnAction( (ae) -> setCSS(skinBox.getValue()));

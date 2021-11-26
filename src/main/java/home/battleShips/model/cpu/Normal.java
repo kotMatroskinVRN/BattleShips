@@ -1,27 +1,20 @@
 package home.battleShips.model.cpu;
 
 import home.battleShips.model.FieldCell;
-import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.*;
-import home.battleShips.utils.StaticUtils;
 
 import java.util.*;
 
 public class Normal implements Logic {
 
-//    private final List<Turn> turns = new ArrayList<>();
     private Turn lastTurn;
     private final Stack<Turn> nextTurns = new Stack<>();
-    private Game game;
-//    private FieldGrid cpuField ;
     private FieldData fieldData ;
 
 
     @Override
-    public void setGame(Game game) {
-        this.game = game;
-//        cpuField = game.getCpuField();
-        fieldData = game.getCpuField().getFieldData();
+    public void setData(FieldData fieldData) {
+        this.fieldData = fieldData;
     }
 
     @Override
@@ -33,9 +26,6 @@ public class Normal implements Logic {
     @Override
     public void makeShot() {
         log.info("cpu is shooting....");
-
-        stopAnimation();
-
 
         if(nextTurns.empty())  {
 //            log.info(  "next turns : empty . Do random hit");
@@ -55,14 +45,11 @@ public class Normal implements Logic {
             }
         }
 
-
-
     }
 
     private void proceedTurn(Turn turn){
 
         lastTurn = turn;
-
 
         turn.shoot(fieldData);
         if(turn.isHit()){
@@ -70,70 +57,17 @@ public class Normal implements Logic {
             nextTurns.clear();
             surroundHits(turn.getShip().getHitCells());
 
-//            finishHim();
-
             if(turn.getShip().isKilled()){
                 nextTurns.clear();
-                turn.setStatus(TurnStatus.KILL);
-                game.killShip(turn.getShip() , game.getCpuField());
-            }
-
-            String info = String.format("cpu shot" +
-                    " %s %s" , turn.getCell() , turn.getStatus());
-            log.info(info);
-
-        }else {
-            String info = String.format("cpu shot" +
-                    " %s %s" , turn.getCell() , turn.getStatus());
-            log.info(info);
-
-            fade(turn.getCell().getButton());
-        }
-
-
-
-    }
-
-    private void isHit(Turn turn) {
-        FieldCell cell = turn.getCell();
-        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
-        int number = cell.getNumber();
-        log.info("cpu:" + cell.getLetter()+number);
-        for(Ship ship : game.getCpuField().getFieldData().getShips()){
-            if( ship.hasCell(letter, number)){
-                ship.addHit(letter,number);
-                turn.setStatus(TurnStatus.HIT);
-                turn.setShip(ship);
-
-                break;
             }
         }
-        if(turn.getShip().isKilled()){
-            nextTurns.clear();
-            turn.setStatus(TurnStatus.KILL);
-            game.killShip(turn.getShip() , game.getCpuField());
-        }
-    }
 
-
-    private void finishHim() {
-//        Turn hitTurn = turns.get(turns.size()-1);
-        System.out.println(lastTurn);
-        Ship hitShip = lastTurn.getShip();
-        System.out.println(hitShip);
-        List<ShipCell> shipHits = hitShip.getHitCells();
-
-        if(nextTurns.empty())surroundHits(shipHits);
-
-        if(hitShip.isKilled()) {
-            nextTurns.clear();
-            return;
-        }
-
-//        proceedTurn(nextTurns.pop());
-        //makeShot();
+        String info = String.format("cpu shot" +
+                " %s %s" , turn.getCell() , turn.getStatus());
+        log.info(info);
 
     }
+
 
     private void surroundHits(List<ShipCell> shipHits){
         pushHorisontalTurns(shipHits);
@@ -165,10 +99,10 @@ public class Normal implements Logic {
     private void pushNextTurn(int letter , int number){
         FieldCell cell;
         try {
-            cell = game.getCpuField().getFieldData().getCells()[letter][number];
+            cell = fieldData.getCells()[letter][number];
 
             // invoke exception when letter or number is out of field
-            cell.getButton(); // TODO remove monkey patch : check field size!!!
+            cell.toString(); // TODO remove monkey patch : check field size!!!
 
             nextTurns.push( new Turn(cell) );
         }catch (NullPointerException | ArrayIndexOutOfBoundsException e){
