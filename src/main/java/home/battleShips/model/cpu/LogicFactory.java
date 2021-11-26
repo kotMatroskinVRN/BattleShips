@@ -21,7 +21,7 @@ public enum LogicFactory {
     },
     ;
 
-    private String description;
+    private final String description;
 
 
     LogicFactory(String name){

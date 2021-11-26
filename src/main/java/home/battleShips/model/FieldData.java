@@ -127,7 +127,7 @@ public class FieldData {
         for(int i = 0 ; i<FIELD_SIZE-1 ; i++ ){
             size = (int)( 12 - 1.5*i )/4 + 1 ;
             l  = (int)( Math.random()*(FIELD_SIZE-size) ) +1  ;
-            n  = (int)( Math.random()*(FIELD_SIZE-size) ) +1  ; // fs-1????
+            n  = (int)( Math.random()*(FIELD_SIZE-size) ) +1  ;
             dc = d[(int)( Math.random()*2)] ;
 
             rShips[i] = new Ship( size , l  , n , dc );

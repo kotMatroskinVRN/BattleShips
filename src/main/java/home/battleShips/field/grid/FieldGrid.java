@@ -1,5 +1,6 @@
 package home.battleShips.field.grid;
 
+import home.battleShips.Main;
 import home.battleShips.model.FieldData;
 import home.battleShips.utils.StaticUtils;
 import javafx.geometry.Pos;
@@ -10,10 +11,7 @@ import javafx.scene.layout.GridPane;
 
 public class FieldGrid extends GridPane {
 
-    private final int FIELD_SIZE = 11 ;
-
-
-//    private final Button[][] cells = new Button[FIELD_SIZE][FIELD_SIZE];
+    private final int FIELD_SIZE = Main.getFIELD_SIZE();
     private final FieldData fieldData;
 
 
@@ -66,7 +64,6 @@ public class FieldGrid extends GridPane {
                 setConstraints(button , arrayNumber, n);
                 getChildren().add(button);
 
-//                cells[n][arrayNumber] = button;
             }
         }
 

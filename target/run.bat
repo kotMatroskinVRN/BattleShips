@@ -1,1 +1,1 @@
-java --module-path ./lib --add-modules javafx.controls,javafx.fxml,javafx.media -jar ./SymbolCount-1.0.jar
+java -Dconsole.encoding=UTF-8 -Dfile.encoding=UTF-8 --module-path ./lib --add-modules javafx.controls,javafx.fxml,javafx.media -jar ./BattleShips-1.0.jar

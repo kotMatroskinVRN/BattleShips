@@ -14,7 +14,7 @@ BorderPane .label{
 
 
 .list-cell{
-    -fx-alignment: left;
+    -fx-alignment: center-left;
     -fx-padding: 2px ;
 }
 
