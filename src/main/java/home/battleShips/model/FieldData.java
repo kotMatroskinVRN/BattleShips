@@ -1,7 +1,7 @@
 package home.battleShips.model;
 
 import home.battleShips.Main;
-import home.battleShips.field.CSSpicture;
+import home.battleShips.field.CssId;
 import home.battleShips.utils.StaticUtils;
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
@@ -67,7 +67,7 @@ public class FieldData {
 
                         if(!ship.hasCell(letter,number)){
                             FieldCell cell = cells[letter][number];
-                            cell.setStyle(CSSpicture.MISS);
+                            cell.setStyle(CssId.MISS);
                             Turn turn = new Turn(cell);
                             addTurnIfAbsent(turn);
                         }

@@ -1,5 +1,6 @@
 package home.battleShips.model;
 
+import home.battleShips.field.CssId;
 import home.battleShips.utils.StaticUtils;
 
 import java.util.ArrayList;
@@ -21,16 +22,22 @@ public class Ship{
         // split to 2 sections : start position and end position
         if (d == 'v') {
             for (int i = 0; i < s; i++) {
-                shipCellList.add( new ShipCell(li,ni+i) );
+                ShipCell shipCell = new ShipCell(li,ni+i);
+                shipCell.setDeckStyle(s,i);
+
+                shipCellList.add( shipCell );
             }
         } else {
             for (int i = 0; i < s; i++) {
-                shipCellList.add( new ShipCell(li+i,ni) );
+                ShipCell shipCell = new ShipCell(li+i,ni);
+                shipCellList.add( shipCell );
             }
         }
 
         size = s;
     }
+
+
 
     public List<ShipCell> getShipCellList() {
         return shipCellList;

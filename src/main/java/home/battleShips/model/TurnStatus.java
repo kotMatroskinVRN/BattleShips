@@ -1,20 +1,20 @@
 package home.battleShips.model;
 
-import home.battleShips.field.CSSpicture;
+import home.battleShips.field.CssId;
 
 public enum TurnStatus {
-    MISS(CSSpicture.MISS),
-    HIT(CSSpicture.HIT),
-    KILL(CSSpicture.HIT),
+    MISS(CssId.MISS),
+    HIT(CssId.HIT),
+    KILL(CssId.HIT),
     ;
 
-    private CSSpicture picture;
+    private CssId picture;
 
-    TurnStatus(CSSpicture picture ){
+    TurnStatus(CssId picture ){
         this.picture = picture;
     }
 
-    public CSSpicture getPicture() {
+    public CssId getPicture() {
         return picture;
     }
     public String getStyleId(){

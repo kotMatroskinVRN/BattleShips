@@ -2,14 +2,12 @@ package home.battleShips.model;
 
 import home.battleShips.Controller;
 import home.battleShips.Main;
-import home.battleShips.field.CSSpicture;
+import home.battleShips.field.CssId;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.cpu.Logic;
 import home.battleShips.model.cpu.LogicFactory;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
 
@@ -154,7 +152,7 @@ public class Game {
                 int l = shipCell.getLetter();
                 int n = shipCell.getNumber();
                 FieldCell cell = cpuField.getFieldData().getCells()[l][n];
-                cell.setStyle(CSSpicture.DECK);
+                cell.setStyle(CssId.DECK);
             }
         }
     }

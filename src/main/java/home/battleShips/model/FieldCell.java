@@ -1,6 +1,6 @@
 package home.battleShips.model;
 
-import home.battleShips.field.CSSpicture;
+import home.battleShips.field.CssId;
 import javafx.scene.control.Button;
 
 public class FieldCell implements Comparable<FieldCell> {
@@ -15,12 +15,12 @@ public class FieldCell implements Comparable<FieldCell> {
         this.letter = letter;
         this.number = number;
         button = new Button();
-        setStyle(CSSpicture.SEA);
+        setStyle(CssId.SEA);
     }
 
 
 
-    public void setStyle(CSSpicture picture){
+    public void setStyle(CssId picture){
         button.setId(picture.toString());
         button.applyCss();
     }

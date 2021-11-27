@@ -1,10 +1,16 @@
 package home.battleShips.field;
 
-public enum CSSpicture {
+public enum CssId {
     SEA(){},
     MISS(){},
     DECK(){},
+    DECK_FRONT(){},
+    DECK_BACK(){},
+    DECK_SINGLE(){},
     HIT(){},
+    HIT_FRONT(){},
+    HIT_BACK(){},
+    HIT_SINGLE(){},
     ;
 
 
