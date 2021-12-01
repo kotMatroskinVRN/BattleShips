@@ -3,6 +3,8 @@ package home.battleShips.model;
 
 import home.battleShips.Main;
 
+import java.util.Objects;
+
 public class Turn {
 
     private final int FIELD_SIZE = Main.getFIELD_SIZE();
@@ -46,6 +48,7 @@ public class Turn {
 
     public void killShip(){
         setStatus(TurnStatus.KILL);
+
     }
 
     public void randomTurn(FieldData fieldData){
@@ -89,5 +92,15 @@ public class Turn {
     public String toString() {
         return  cell.toString() ;
     }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Turn turn = (Turn) o;
+//        return cell.equals(turn.cell);
+//    }
+
+
 }
 

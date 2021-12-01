@@ -62,21 +62,21 @@ public class Game {
         return cpuField;
     }
 
+    public void setDifficulty(LogicFactory value) {
+        aiLogic = value.getDifficulty();
+        aiLogic.setData(cpuField.getFieldData());
+    }
+
     private void killShip(Ship ship , FieldGrid fieldGrid) {
-        FieldData fieldData = fieldGrid.getFieldData();
-        fieldData.surroundShip(ship);
-        fieldData.addKill();
+//        FieldData fieldData = fieldGrid.getFieldData();
+//        fieldData.surroundShip(ship);
+//        fieldData.addKill();
 
         fieldGrid.update();
 
         if(cpuField.getFieldData().getCount_kills()==10) gameOver(cpuField);
         if(playerField.getFieldData().getCount_kills()==10) gameOver(playerField);
 
-    }
-
-    public void setDifficulty(LogicFactory value) {
-        aiLogic = value.getDifficulty();
-        aiLogic.setData(cpuField.getFieldData());
     }
 
     private void turn( FieldCell cell) {
@@ -151,8 +151,6 @@ public class Game {
         for(int l=1;l<FIELD_SIZE;l++){
             for(int n=1;n<FIELD_SIZE;n++){
                 FieldCell cell = playerField.getFieldData().getCells()[l][n];
-//                cell.getButton().onMouseClickedProperty().set( null );
-//                cell.getButton().getStyleClass().removeAll();
                 playerField.getButton(cell).onMouseClickedProperty().set( null );
                 playerField.getButton(cell).getStyleClass().removeAll();
 

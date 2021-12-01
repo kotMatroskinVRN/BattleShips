@@ -62,11 +62,13 @@ public class Hard implements Logic {
             log.info( formatStack() );
             Turn turn = nextTurns.pop();
             log.info("cpu is aiming....." + turn);
+
             while(!fieldData.addTurnIfAbsent(turn)) {
                 log.info( formatStack() );
                 turn = nextTurns.pop();
                 log.info("cpu is aiming....." + turn);
             }
+
             proceedTurn(turn);
         }
     }
@@ -93,11 +95,12 @@ public class Hard implements Logic {
     private Turn getTurnFromPattern( ){
 
         if(onlyTorpedoBoats) {
-            System.out.println("do random turn");
+//            System.out.println("do random turn");
             return new Turn(fieldData); // random turn
         }else {
 
-            System.out.println(turnPattern);
+//            System.out.println(turnPattern);
+
 
             int element = (int) (Math.random() * (turnPattern.size()));
             Turn turn = turnPattern.get(element);
@@ -105,8 +108,8 @@ public class Hard implements Logic {
 
 
             while (!fieldData.addTurnIfAbsent(turn)) {
-                System.out.println(turn + " exist in");
-                System.out.println(fieldData.getTurns());
+//                System.out.println(turn + " exist in");
+//                System.out.println(fieldData.getTurns());
                 turnPattern.remove(turn);
 
                 element = (int) (Math.random() * (turnPattern.size()));
@@ -114,6 +117,7 @@ public class Hard implements Logic {
             }
 
             turnPattern.remove(turn);
+//            if(turnPattern==fours && turnPattern.size()==0) turnPattern = twos;
             return turn;
         }
     }
@@ -130,12 +134,14 @@ public class Hard implements Logic {
 
             if(turn.getShip().isKilled()){
                 nextTurns.clear();
+                fieldData.addKill();
+                fieldData.surroundShip(turn.getShip());
 
                 killedShips.add(turn.getShip());
 
                 if(isCarrierKilled()) {
                     turnPattern = twos;
-                    System.out.println("Carrier is killed");
+//                    System.out.println("Carrier is killed");
                 }
                 if(onlyTorpedoBoatsLeft()) {
                     onlyTorpedoBoats = true;

@@ -4,7 +4,9 @@ import home.battleShips.Main;
 import home.battleShips.utils.StaticUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class FieldData {
@@ -13,9 +15,12 @@ public class FieldData {
 
     private final FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
     private Ship[] ships ;
-    private final List<Turn> turns = new ArrayList<>();
+//    private final List<Turn> turns = new ArrayList<>();
+    private final Set<Turn> turns = new HashSet<>();
 
     private int count_kills     = 0;
+
+    private final List<FieldCell> surroundedCells = new ArrayList<>();
 
     public void init(){
 
@@ -24,12 +29,6 @@ public class FieldData {
         defaultFillArray();
         ships =  randomSetOfShips() ;
 
-//        turns.addListener((InvalidationListener) change -> {
-//
-//                for(Turn turn : turns){
-//                    turn.getCell().setStyle( turn.getStatus().getPicture() );
-//                }
-//        });
 
     }
 
@@ -38,13 +37,21 @@ public class FieldData {
     public boolean addTurnIfAbsent(Turn turn){
         FieldCell cell = turn.getCell();
 
-        if(isCellInTurns(cell)) return false;
+//        if(surroundedCells.contains(cell)) {
+//            Main.getLog().severe(cell.toString()+ " is in surrounded");
+//        }
+
+        if(isCellInTurns(cell)) {
+            return false;
+        }
 
         turns.add(turn);
         return true;
     }
 
-    public List<Turn> getTurns() {
+
+
+    public Set<Turn> getTurns() {
         return turns;
     }
 
@@ -70,6 +77,7 @@ public class FieldData {
 
                         if(!ship.hasCell(letter,number)){
                             FieldCell cell = cells[letter][number];
+                            surroundedCells.add(cell);
                             cell.setStyle(CssId.MISS);
                             Turn turn = new Turn(cell);
                             addTurnIfAbsent(turn);
@@ -91,12 +99,12 @@ public class FieldData {
     }
 
     private boolean isCellInTurns(FieldCell cell){
-        int cellLetter = StaticUtils.getNumberFromChar(cell.getLetter());
+        String cellLetter = cell.getLetter();
         int cellNumber = cell.getNumber();
         for(Turn t: turns){
-            int letter = StaticUtils.getNumberFromChar(t.getCell().getLetter());
+            String letter = t.getCell().getLetter();
             int number = t.getCell().getNumber();
-            if(letter==cellLetter && number==cellNumber) return true;
+            if(letter.equals(cellLetter) && number==cellNumber) return true;
         }
         return false;
     }
