@@ -1,7 +1,5 @@
 package home.battleShips.model;
 
-import home.battleShips.field.CssId;
-
 public enum TurnStatus {
     MISS(CssId.MISS),
     HIT(CssId.HIT),

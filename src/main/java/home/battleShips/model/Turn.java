@@ -2,14 +2,13 @@ package home.battleShips.model;
 
 
 import home.battleShips.Main;
-import javafx.scene.control.Button;
 
 public class Turn {
 
     private final int FIELD_SIZE = Main.getFIELD_SIZE();
 
     private FieldCell cell;
-    private TurnStatus status = TurnStatus.MISS;
+    private TurnStatus status ;
     private Ship ship;
 
     public Turn(FieldData fieldData){
@@ -33,7 +32,7 @@ public class Turn {
 
             }
         }
-        if(status==TurnStatus.MISS) {
+        if(!isHit()) {
             setStatus(TurnStatus.MISS);
         }
     }
@@ -74,13 +73,16 @@ public class Turn {
         return status;
     }
 
+//    public void setStatus(TurnStatus status) {
+//        this.status = status;
+//        Button button = getCell().getButton();
+//        button.setId(status.getStyleId());
+//        button.applyCss();
+//    }
     public void setStatus(TurnStatus status) {
         this.status = status;
-        Button button = getCell().getButton();
-        button.setId(status.getStyleId());
-        button.applyCss();
+        cell.setStyle( status.getPicture() );
     }
-
 
 
     @Override

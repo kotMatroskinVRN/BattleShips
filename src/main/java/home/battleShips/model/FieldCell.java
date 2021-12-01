@@ -1,6 +1,5 @@
 package home.battleShips.model;
 
-import home.battleShips.field.CssId;
 import javafx.scene.control.Button;
 
 public class FieldCell implements Comparable<FieldCell> {
@@ -9,23 +8,31 @@ public class FieldCell implements Comparable<FieldCell> {
     private final String letter;
     // TODO replace letter number with ShipCell
 
-    private final Button button ;
+//    private Button button ;
+    private CssId cssId ;
 
     public FieldCell(String letter, int number) {
         this.letter = letter;
         this.number = number;
-        button = new Button();
+
+//         button = new Button();
+
         setStyle(CssId.SEA);
     }
 
 
 
+//    public void setStyle(CssId picture){
+//        button.setId(picture.toString());
+//        button.applyCss();
+//    }
     public void setStyle(CssId picture){
-        button.setId(picture.toString());
-        button.applyCss();
+        cssId = picture;
     }
 
-
+    public CssId getCssId() {
+        return cssId;
+    }
 
     public String getLetter() {
         return letter;
@@ -33,9 +40,9 @@ public class FieldCell implements Comparable<FieldCell> {
     public int getNumber() {
         return number;
     }
-    public Button getButton() {
-        return button;
-    }
+//    public Button getButton() {
+//        return button;
+//    }
 
 
     @Override

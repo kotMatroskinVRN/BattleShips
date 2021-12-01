@@ -44,15 +44,15 @@ public class Controller {
         initDifficulty();
         initSkinChoice();
 
-        playerTurns.setItems( FXCollections.observableArrayList() );
-           cpuTurns.setItems( FXCollections.observableArrayList() );
+//        playerTurns.setItems( FXCollections.observableArrayList() );
+//           cpuTurns.setItems( FXCollections.observableArrayList() );
 
     }
 
     private void initDifficulty() {
 
         difficultyBox.getItems().addAll(LogicFactory.values());
-        difficultyBox.setValue(LogicFactory.NORMAL);
+        difficultyBox.setValue(LogicFactory.HARD);
         difficultyBox.setOnAction( (ae) -> newGame() );
         newGame();
     }
@@ -70,6 +70,9 @@ public class Controller {
 
         playerPane.setBottom(null);
         computerPane.setBottom(null);
+
+        playerTurns.setItems( FXCollections.observableArrayList() );
+        cpuTurns.setItems( FXCollections.observableArrayList() );
 
     }
 

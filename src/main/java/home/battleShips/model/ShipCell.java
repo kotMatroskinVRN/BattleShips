@@ -1,7 +1,5 @@
 package home.battleShips.model;
 
-import home.battleShips.field.CssId;
-
 public class ShipCell {
 
     private final int letter;
@@ -21,21 +19,21 @@ public class ShipCell {
         this.cssId = cssId;
     }
 
-    public void setDeckStyle(int s , int deck){
+    public void setDeckStyle(int s , int deck , boolean v){
         if(s==1){
             cssId = CssId.DECK_SINGLE;
-            return;
+            return ;
         }
         if(deck==0)   {
-            cssId = CssId.DECK_BACK;
+            cssId = v?CssId.DECK_FRONT_V:CssId.DECK_FRONT;
             return;
         }
         if(deck==s-1) {
-            cssId = CssId.DECK_FRONT;
+            cssId = v?CssId.DECK_BACK_V:CssId.DECK_BACK;
             return;
         }
 
-        cssId = CssId.DECK;
+        cssId = v?CssId.DECK_V:CssId.DECK;
 
     }
 

@@ -1,12 +1,10 @@
 package home.battleShips.model;
 
 import home.battleShips.Main;
-import home.battleShips.field.CssId;
 import home.battleShips.utils.StaticUtils;
-import javafx.beans.InvalidationListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FieldData {
@@ -15,21 +13,23 @@ public class FieldData {
 
     private final FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
     private Ship[] ships ;
-    private final ObservableList<Turn> turns = FXCollections.observableArrayList() ;
+    private final List<Turn> turns = new ArrayList<>();
 
     private int count_kills     = 0;
 
     public void init(){
 
+        turns.clear();
+
         defaultFillArray();
         ships =  randomSetOfShips() ;
 
-        turns.addListener((InvalidationListener) change -> {
-
-                for(Turn turn : turns){
-                    turn.getCell().setStyle( turn.getStatus().getPicture() );
-                }
-        });
+//        turns.addListener((InvalidationListener) change -> {
+//
+//                for(Turn turn : turns){
+//                    turn.getCell().setStyle( turn.getStatus().getPicture() );
+//                }
+//        });
 
     }
 
@@ -44,10 +44,13 @@ public class FieldData {
         return true;
     }
 
-
-    public Button getButton(String letter , int number){
-        return chooseCell(letter,number).getButton();
+    public List<Turn> getTurns() {
+        return turns;
     }
+
+//    public Button getButton(String letter , int number){
+//        return chooseCell(letter,number).getButton();
+//    }
 
     public FieldCell[][] getCells() {
         return cells;
@@ -75,6 +78,7 @@ public class FieldData {
 
                 }
             }
+            cells[shipCell.getLetter()][shipCell.getNumber()].setStyle(CssId.HIT);
         }
     }
 

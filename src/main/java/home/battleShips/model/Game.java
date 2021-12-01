@@ -2,7 +2,6 @@ package home.battleShips.model;
 
 import home.battleShips.Controller;
 import home.battleShips.Main;
-import home.battleShips.field.CssId;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.cpu.Logic;
 import home.battleShips.model.cpu.LogicFactory;
@@ -63,9 +62,12 @@ public class Game {
         return cpuField;
     }
 
-    public void killShip(Ship ship , FieldData fieldData) {
+    private void killShip(Ship ship , FieldGrid fieldGrid) {
+        FieldData fieldData = fieldGrid.getFieldData();
         fieldData.surroundShip(ship);
         fieldData.addKill();
+
+        fieldGrid.update();
 
         if(cpuField.getFieldData().getCount_kills()==10) gameOver(cpuField);
         if(playerField.getFieldData().getCount_kills()==10) gameOver(playerField);
@@ -91,13 +93,16 @@ public class Game {
 
 
             turn.shoot(playerField.getFieldData());
+            Button button =playerField.getButton(turn.getCell());
+            button.setId(turn.getStatus().getPicture().toString());
+            button.applyCss();
             if(turn.isHit()){
 
                 //action then hit
 
                 Ship ship = turn.getShip();
                 if(ship.isKilled()){
-                    killShip(turn.getShip(),playerField.getFieldData());
+                    killShip(turn.getShip(),playerField);
                 }
 
             }else{
@@ -108,16 +113,21 @@ public class Game {
     }
 
     private void counterAction() {
-        System.out.println(turnCount++);
+
         aiLogic.makeShot();
         Turn lastTurn =  aiLogic.getLastTurn();
-        fadeAnimation( lastTurn.getCell().getButton() );
+        System.out.println(turnCount++ + " " + lastTurn);
+        //fadeAnimation( lastTurn.getCell().getButton() );
+        fadeAnimation( cpuField.getButton(lastTurn.getCell()) );
         controller.addCpuTurn(lastTurn);
 
+        Button button =cpuField.getButton(lastTurn.getCell());
+        button.setId(lastTurn.getStatus().getPicture().toString());
+        button.applyCss();
 
         if(lastTurn.isHit()){
             if(lastTurn.isKill()){
-                killShip( lastTurn.getShip() , cpuField.getFieldData() );
+                killShip( lastTurn.getShip() , cpuField );
             }
             counterAction();
 
@@ -129,8 +139,10 @@ public class Game {
         for(int l=1;l<FIELD_SIZE;l++){
             for(int n=1;n<FIELD_SIZE;n++){
                 FieldCell cell = playerField.getFieldData().getCells()[l][n];
-                cell.getButton().onMouseClickedProperty().set( ae -> turn( cell ) );
-                cell.getButton().getStyleClass().add("player");
+//                cell.getButton().onMouseClickedProperty().set( ae -> turn( cell ) );
+//                cell.getButton().getStyleClass().add("player");
+                playerField.getButton(cell).onMouseClickedProperty().set( ae -> turn( cell ) );
+                playerField.getButton(cell).getStyleClass().add("player");
             }
         }
     }
@@ -139,8 +151,10 @@ public class Game {
         for(int l=1;l<FIELD_SIZE;l++){
             for(int n=1;n<FIELD_SIZE;n++){
                 FieldCell cell = playerField.getFieldData().getCells()[l][n];
-                cell.getButton().onMouseClickedProperty().set( null );
-                cell.getButton().getStyleClass().removeAll();
+//                cell.getButton().onMouseClickedProperty().set( null );
+//                cell.getButton().getStyleClass().removeAll();
+                playerField.getButton(cell).onMouseClickedProperty().set( null );
+                playerField.getButton(cell).getStyleClass().removeAll();
 
             }
         }
@@ -152,7 +166,9 @@ public class Game {
                 int l = shipCell.getLetter();
                 int n = shipCell.getNumber();
                 FieldCell cell = cpuField.getFieldData().getCells()[l][n];
-                cell.setStyle(CssId.DECK);
+                cell.setStyle(shipCell.getCssId());
+                cpuField.getButton(cell).setId(cell.getCssId().toString());
+
             }
         }
     }

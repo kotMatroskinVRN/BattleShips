@@ -1,4 +1,4 @@
-package home.battleShips.field;
+package home.battleShips.model;
 
 public enum CssId {
     SEA(){},
@@ -6,6 +6,9 @@ public enum CssId {
     DECK(){},
     DECK_FRONT(){},
     DECK_BACK(){},
+    DECK_V(){},
+    DECK_FRONT_V(){},
+    DECK_BACK_V(){},
     DECK_SINGLE(){},
     HIT(){},
     HIT_FRONT(){},

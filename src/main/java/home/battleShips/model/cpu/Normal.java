@@ -130,5 +130,3 @@ public class Normal implements Logic {
     }
 
 }
-
-//TODO why cpu stops do turns after hit

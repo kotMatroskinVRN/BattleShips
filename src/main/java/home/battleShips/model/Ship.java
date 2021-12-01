@@ -1,6 +1,5 @@
 package home.battleShips.model;
 
-import home.battleShips.field.CssId;
 import home.battleShips.utils.StaticUtils;
 
 import java.util.ArrayList;
@@ -23,13 +22,14 @@ public class Ship{
         if (d == 'v') {
             for (int i = 0; i < s; i++) {
                 ShipCell shipCell = new ShipCell(li,ni+i);
-                shipCell.setDeckStyle(s,i);
+                shipCell.setDeckStyle(s,i , true);
 
                 shipCellList.add( shipCell );
             }
         } else {
             for (int i = 0; i < s; i++) {
                 ShipCell shipCell = new ShipCell(li+i,ni);
+                shipCell.setDeckStyle(s,i,false);
                 shipCellList.add( shipCell );
             }
         }
@@ -37,7 +37,9 @@ public class Ship{
         size = s;
     }
 
-
+    public int getSize() {
+        return size;
+    }
 
     public List<ShipCell> getShipCellList() {
         return shipCellList;
@@ -61,6 +63,15 @@ public class Ship{
             if(cell.getLetter() == letter && cell.getNumber() == number) return true;
         }
         return false;
+    }
+
+    public ShipCell getCell(FieldCell fieldCell){
+        int letter = StaticUtils.getNumberFromChar(fieldCell.getLetter());
+        int number = fieldCell.getNumber();
+        for(ShipCell cell : shipCellList){
+            if(cell.getLetter() == letter && cell.getNumber() == number) return cell;
+        }
+        return null;
     }
 
     public boolean hasHit(int l , int n){

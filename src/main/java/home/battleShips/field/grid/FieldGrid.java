@@ -1,6 +1,8 @@
 package home.battleShips.field.grid;
 
 import home.battleShips.Main;
+import home.battleShips.model.CssId;
+import home.battleShips.model.FieldCell;
 import home.battleShips.model.FieldData;
 import home.battleShips.utils.StaticUtils;
 import javafx.geometry.Pos;
@@ -13,6 +15,7 @@ public class FieldGrid extends GridPane {
 
     private final int FIELD_SIZE = Main.getFIELD_SIZE();
     private final FieldData fieldData;
+    private final Button[][] buttons = new Button[Main.getFIELD_SIZE()][Main.getFIELD_SIZE()];
 
 
 
@@ -28,11 +31,25 @@ public class FieldGrid extends GridPane {
         defaultFill();
     }
 
+    public void update(){
+        for (FieldCell[] row : fieldData.getCells()){
+            for (FieldCell cell : row){
+                try {
+                    Button button = getButton(cell);
+                    button.setId(cell.getCssId().toString());
+                    button.applyCss();
+                }catch (NullPointerException ignore){}
+            }
+        }
+    }
+
     public FieldData getFieldData() {
         return fieldData;
     }
 
-
+    public Button getButton(FieldCell fieldCell){
+        return buttons[StaticUtils.getNumberFromChar(fieldCell.getLetter())][fieldCell.getNumber()];
+    }
 
     private void setLetters(){
         for(int l=1;l<FIELD_SIZE;l++){
@@ -59,8 +76,11 @@ public class FieldGrid extends GridPane {
                 int arrayNumber= StaticUtils.getNumberFromChar(c);
                 String letter = String.valueOf(c);
 
-                Button button = fieldData.getButton(letter , n);
-
+                //Button button = fieldData.getButton(letter , n);
+                Button button = new Button();
+                button.setId(CssId.SEA.toString());
+                button.applyCss();
+                buttons[arrayNumber][n] = button;
                 setConstraints(button , arrayNumber, n);
                 getChildren().add(button);
 

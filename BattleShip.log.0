@@ -1,26 +1,11 @@
-INFO : cpu shot  В9  HIT
+INFO : cpu shot  Ж1  MISS
 INFO : cpu is shooting....
-INFO : NextTurn size : 4
-		next turns :  Г9  Б9  В10  В8 
-INFO : cpu is aiming..... В8 
+INFO : cpu shot  А9  MISS
 INFO : cpu is shooting....
-INFO : NextTurn size : 3
-		next turns :  Г9  Б9  В10 
-INFO : cpu is aiming..... В10 
+INFO : cpu shot  К8  MISS
 INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  Г9  Б9 
-INFO : cpu is aiming..... Б9 
-INFO : cpu shot  Б9  KILL
+INFO : cpu shot  Г10  MISS
 INFO : cpu is shooting....
-INFO : cpu shot  Д10  MISS
+INFO : cpu shot  Е10  MISS
 INFO : cpu is shooting....
-INFO : cpu shot  Ж7  MISS
-INFO : cpu is shooting....
-INFO : cpu shot  Г6  MISS
-WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
-WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
-WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
-WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
-WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
-WARNING : Caught java.lang.IllegalArgumentException: No enum constant javafx.geometry.Pos.left' while calculating value for '-fx-alignment' from rule '*.list-cell' in stylesheet file:/C:/Users/amananko/IdeaProjects/BattleShips/target/classes/style/main.css
+INFO : cpu shot  Г8  MISS

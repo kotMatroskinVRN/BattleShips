@@ -11,7 +11,8 @@ C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\ShipCell.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\utils\FileResourcesUtils.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\LogicFactory.java
-C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\field\CSSpicture.java
+C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\CssId.java
+C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\utils\TurnSequenceParser.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\Main.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\Hard.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\field\grid\FieldGrid.java
