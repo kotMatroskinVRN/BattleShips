@@ -72,18 +72,28 @@ public class Normal implements Logic {
 
 
     private void surroundHits(List<ShipCell> shipHits){
-        pushHorisontalTurns(shipHits);
-        pushVerticalTurns(shipHits);
-    }
-    private void pushVerticalTurns(List<ShipCell> shipHits){
         int letter;
         int number;
 
         letter = shipHits.get(0).getLetter();
         number = shipHits.stream().mapToInt(ShipCell::getNumber).max().getAsInt();
         pushNextTurn(letter , number+1);
+
+        number = shipHits.get(0).getNumber();
+        letter = shipHits.stream().mapToInt(ShipCell::getLetter).max().getAsInt();
+        pushNextTurn(letter+1, number);
+
+        letter = shipHits.get(0).getLetter();
         number = shipHits.stream().mapToInt(ShipCell::getNumber).min().getAsInt();
         pushNextTurn(letter , number-1);
+
+        number = shipHits.get(0).getNumber();
+        letter = shipHits.stream().mapToInt(ShipCell::getLetter).min().getAsInt();
+        pushNextTurn(letter-1, number);
+
+    }
+    private void pushVerticalTurns(List<ShipCell> shipHits){
+
 
     }
     private void pushHorisontalTurns(List<ShipCell> shipHits){
@@ -109,7 +119,7 @@ public class Normal implements Logic {
             nextTurns.push( new Turn(cell) );
         }catch (NullPointerException | ArrayIndexOutOfBoundsException e){
             String string = "Wrong L/N :" + letter + number;
-            log.warning(string);
+            log.info(string);
         }
     }
 

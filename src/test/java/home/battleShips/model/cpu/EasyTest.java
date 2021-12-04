@@ -1,22 +1,18 @@
 package home.battleShips.model.cpu;
 
 import home.battleShips.Main;
-import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.FieldData;
 import home.battleShips.model.Turn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 
-import static org.junit.jupiter.api.Assertions.*;
+class EasyTest {
 
-class NormalTest {
-
-    private int turnCount , missCount;
+    private int turnCount;
 
     private FieldData fieldData;
     private Logic logic;
@@ -29,7 +25,7 @@ class NormalTest {
 
         fieldData = new FieldData();
         fieldData.init();
-        logic = new Normal();
+        logic = new Easy();
         logic.setData(fieldData);
 
 

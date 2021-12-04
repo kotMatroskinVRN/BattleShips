@@ -198,7 +198,7 @@ public class Hard implements Logic {
             nextTurns.push( new Turn(cell) );
         }catch (NullPointerException | ArrayIndexOutOfBoundsException e){
             String string = "Wrong L/N :" + letter + number;
-            log.warning(string);
+            log.info(string);
         }
     }
 

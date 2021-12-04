@@ -96,13 +96,18 @@ public class Game {
             Button button =playerField.getButton(turn.getCell());
             button.setId(turn.getStatus().getPicture().toString());
             button.applyCss();
+
+
             if(turn.isHit()){
 
                 //action then hit
 
                 Ship ship = turn.getShip();
                 if(ship.isKilled()){
-                    killShip(turn.getShip(),playerField);
+                    killShip(ship ,playerField);
+                    playerField.getFieldData().addKill();
+                    playerField.getFieldData().surroundShip(ship);
+                    playerField.update();
                 }
 
             }else{
@@ -129,7 +134,9 @@ public class Game {
             if(lastTurn.isKill()){
                 killShip( lastTurn.getShip() , cpuField );
             }
-            counterAction();
+            if(cpuField.getFieldData().getCount_kills()<10) {
+                counterAction();
+            }
 
         }
 

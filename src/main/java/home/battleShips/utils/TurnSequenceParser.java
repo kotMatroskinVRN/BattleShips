@@ -31,7 +31,7 @@ public class TurnSequenceParser {
 
         try{
             InputStream is = ClassLoader.getSystemResourceAsStream(content) ;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is , "UTF-8") );
 
             String line = reader.readLine();
             while(line != null){
