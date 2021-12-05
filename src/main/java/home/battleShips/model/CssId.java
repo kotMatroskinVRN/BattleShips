@@ -10,16 +10,29 @@ public enum CssId {
     DECK_FRONT_V(){},
     DECK_BACK_V(){},
     DECK_SINGLE(){},
-    HIT(){},
-    HIT_FRONT(){},
-    HIT_BACK(){},
-    HIT_SINGLE(){},
+    HIT(DECK){},
+    HIT_FRONT(DECK_BACK){},
+    HIT_BACK(DECK_FRONT){},
+    HIT_SINGLE(DECK_SINGLE){},
     ;
 
+    CssId afterKill;
+
+    CssId(){
+        afterKill=this;
+    }
+
+    CssId(CssId id){
+        afterKill = id;
+    }
 
     @Override
     public String toString() {
         return super.toString().toLowerCase();
+    }
+
+    public CssId getAfterKill() {
+        return afterKill;
     }
 
     public static void main(String[] args) {

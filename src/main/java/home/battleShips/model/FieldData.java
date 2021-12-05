@@ -20,7 +20,7 @@ public class FieldData {
 
     private int count_kills     = 0;
 
-    private final List<FieldCell> surroundedCells = new ArrayList<>();
+//    private final List<FieldCell> surroundedCells = new ArrayList<>();
 
     public void init(){
 
@@ -77,7 +77,7 @@ public class FieldData {
 
                         if(!ship.hasCell(letter,number)){
                             FieldCell cell = cells[letter][number];
-                            surroundedCells.add(cell);
+//                            surroundedCells.add(cell);
                             cell.setStyle(CssId.MISS);
                             Turn turn = new Turn(cell);
                             addTurnIfAbsent(turn);
@@ -94,8 +94,9 @@ public class FieldData {
         return count_kills;
     }
 
-    public void addKill(){
+    public void addKill(Ship ship){
         count_kills++;
+        surroundShip(ship);
     }
 
     private boolean isCellInTurns(FieldCell cell){

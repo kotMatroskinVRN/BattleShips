@@ -24,8 +24,7 @@ public class Easy implements Logic {
 
                 if(lastTurn.getShip().isKilled()){
                     lastTurn.killShip();
-                    fieldData.addKill();
-                    fieldData.surroundShip(lastTurn.getShip());
+                    fieldData.addKill(lastTurn.getShip());
                 }
             }
     }

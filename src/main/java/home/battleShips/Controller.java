@@ -44,20 +44,8 @@ public class Controller {
         initDifficulty();
         initSkinChoice();
 
-//        playerTurns.setItems( FXCollections.observableArrayList() );
-//           cpuTurns.setItems( FXCollections.observableArrayList() );
 
     }
-
-    private void initDifficulty() {
-
-        difficultyBox.getItems().addAll(LogicFactory.values());
-        difficultyBox.setValue(LogicFactory.HARD);
-        difficultyBox.setOnAction( (ae) -> newGame() );
-        newGame();
-    }
-
-
 
     @FXML
     public void newGame() {
@@ -76,8 +64,6 @@ public class Controller {
 
     }
 
-
-
     public void showVictory() {
         MediaView mediaView = getMediaView(Media.VICTORY);
         playerPane.setCenter( mediaView);
@@ -90,13 +76,13 @@ public class Controller {
         computerPane.setBottom(new Label("Поражение"));
     }
 
-    public void addPlayerTurn(Turn turn) {
+    public void addPlayerTurnToList(Turn turn) {
         ObservableList<String> list = playerTurns.getItems();
         list.add(turn.getCell().toString());
         playerTurns.scrollTo(list.size());
     }
 
-    public void addCpuTurn(Turn turn) {
+    public void addCpuTurnToList(Turn turn) {
         ObservableList<String> list = cpuTurns.getItems();
         list.add(turn.getCell().toString());
         cpuTurns.scrollTo(list.size());
@@ -141,6 +127,14 @@ public class Controller {
         skinBox.getItems().addAll(Skin.values());
         skinBox.setValue(Skin.DEFAULT);
         skinBox.setOnAction( (ae) -> setCSS(skinBox.getValue()));
+    }
+
+    private void initDifficulty() {
+
+        difficultyBox.getItems().addAll(LogicFactory.values());
+        difficultyBox.setValue(LogicFactory.HARD);
+        difficultyBox.setOnAction( (ae) -> newGame() );
+        newGame();
     }
 
 }

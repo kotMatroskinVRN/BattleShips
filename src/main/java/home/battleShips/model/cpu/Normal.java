@@ -59,8 +59,7 @@ public class Normal implements Logic {
 
             if(turn.getShip().isKilled()){
                 nextTurns.clear();
-                fieldData.addKill();
-                fieldData.surroundShip(turn.getShip());
+                fieldData.addKill(turn.getShip());
             }
         }
 

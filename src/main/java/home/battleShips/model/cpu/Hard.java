@@ -134,8 +134,7 @@ public class Hard implements Logic {
 
             if(turn.getShip().isKilled()){
                 nextTurns.clear();
-                fieldData.addKill();
-                fieldData.surroundShip(turn.getShip());
+                fieldData.addKill(turn.getShip());
 
                 killedShips.add(turn.getShip());
 

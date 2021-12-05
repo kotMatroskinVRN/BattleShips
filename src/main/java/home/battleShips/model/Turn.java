@@ -76,12 +76,6 @@ public class Turn {
         return status;
     }
 
-//    public void setStatus(TurnStatus status) {
-//        this.status = status;
-//        Button button = getCell().getButton();
-//        button.setId(status.getStyleId());
-//        button.applyCss();
-//    }
     public void setStatus(TurnStatus status) {
         this.status = status;
         cell.setStyle( status.getPicture() );

@@ -1,9 +1,7 @@
 package home.battleShips.field.grid;
 
 import home.battleShips.Main;
-import home.battleShips.model.CssId;
-import home.battleShips.model.FieldCell;
-import home.battleShips.model.FieldData;
+import home.battleShips.model.*;
 import home.battleShips.utils.StaticUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -43,6 +41,8 @@ public class FieldGrid extends GridPane {
         }
     }
 
+
+
     public FieldData getFieldData() {
         return fieldData;
     }
@@ -50,6 +50,59 @@ public class FieldGrid extends GridPane {
     public Button getButton(FieldCell fieldCell){
         return buttons[StaticUtils.getNumberFromChar(fieldCell.getLetter())][fieldCell.getNumber()];
     }
+
+    public void setListeners(Game game) {
+        for(int l=1;l<FIELD_SIZE;l++){
+            for(int n=1;n<FIELD_SIZE;n++){
+                FieldCell cell = getFieldData().getCells()[l][n];
+                getButton(cell).onMouseClickedProperty().set( ae -> game.turn( cell ) );
+                getButton(cell).getStyleClass().add("player");
+            }
+        }
+    }
+
+    public void removeListeners() {
+        for(int l=1;l<FIELD_SIZE;l++){
+            for(int n=1;n<FIELD_SIZE;n++){
+                FieldCell cell = getFieldData().getCells()[l][n];
+                getButton(cell).onMouseClickedProperty().set( null );
+                getButton(cell).getStyleClass().removeAll();
+
+            }
+        }
+    }
+
+    public void showKilledShip(Ship ship) {
+        for(ShipCell shipCell : ship.getShipCellList()){
+            int l = shipCell.getLetter();
+            int n = shipCell.getNumber();
+            FieldCell cell = getFieldData().getCells()[l][n];
+            CssId newCSS = cell.getCssId().getAfterKill();
+            cell.setStyle(newCSS);
+        }
+        update();
+    }
+
+    public void showShips() {
+        for(Ship ship : getFieldData().getShips()){
+            for(ShipCell shipCell : ship.getShipCellList()){
+                int l = shipCell.getLetter();
+                int n = shipCell.getNumber();
+                FieldCell cell = getFieldData().getCells()[l][n];
+                cell.setStyle(shipCell.getCssId());
+                getButton(cell).setId(cell.getCssId().toString());
+
+            }
+        }
+    }
+
+    public void applyTurn(Turn turn){
+
+        Button button =getButton(turn.getCell());
+        button.setId(turn.getStatus().getPicture().toString());
+        button.applyCss();
+    }
+
 
     private void setLetters(){
         for(int l=1;l<FIELD_SIZE;l++){
@@ -90,7 +143,6 @@ public class FieldGrid extends GridPane {
         setLetters();
         setNumbers();
     }
-
 
 
 
