@@ -48,7 +48,7 @@ public class FieldGrid extends GridPane {
     }
 
     public Button getButton(FieldCell fieldCell){
-        return buttons[StaticUtils.getNumberFromChar(fieldCell.getLetter())][fieldCell.getNumber()];
+        return buttons[fieldCell.getLetter()][fieldCell.getNumber()];
     }
 
     public void setListeners(Game game) {
@@ -73,7 +73,7 @@ public class FieldGrid extends GridPane {
     }
 
     public void showKilledShip(Ship ship) {
-        for(ShipCell shipCell : ship.getShipCellList()){
+        for(FieldCell shipCell : ship.getShipCellList()){
             int l = shipCell.getLetter();
             int n = shipCell.getNumber();
             FieldCell cell = getFieldData().getCells()[l][n];
@@ -85,7 +85,7 @@ public class FieldGrid extends GridPane {
 
     public void showShips() {
         for(Ship ship : getFieldData().getShips()){
-            for(ShipCell shipCell : ship.getShipCellList()){
+            for(FieldCell shipCell : ship.getShipCellList()){
                 int l = shipCell.getLetter();
                 int n = shipCell.getNumber();
                 FieldCell cell = getFieldData().getCells()[l][n];
@@ -106,7 +106,7 @@ public class FieldGrid extends GridPane {
 
     private void setLetters(){
         for(int l=1;l<FIELD_SIZE;l++){
-            String letter = fieldData.getCells()[l][1].getLetter();
+            String letter = fieldData.getCells()[l][1].covertLetter();
             Node label = new Label(letter);
             setConstraints(label , l, 0);
             getChildren().add(label);

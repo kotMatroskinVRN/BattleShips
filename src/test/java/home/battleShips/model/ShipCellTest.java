@@ -8,32 +8,32 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ShipCellTest {
 
-    ShipCell cell;
-    ShipCell samePlace;
-    ShipCell neighbourRight;
-    ShipCell neighbourLeft;
-    ShipCell neighbourDown;
-    ShipCell neighbourUp;
-    ShipCell neighbourDiagNE;
-    ShipCell neighbourDiagSE;
-    ShipCell neighbourDiagSW;
-    ShipCell neighbourDiagNW;
-    ShipCell differPlace;
+    FieldCell cell;
+    FieldCell samePlace;
+    FieldCell neighbourRight;
+    FieldCell neighbourLeft;
+    FieldCell neighbourDown;
+    FieldCell neighbourUp;
+    FieldCell neighbourDiagNE;
+    FieldCell neighbourDiagSE;
+    FieldCell neighbourDiagSW;
+    FieldCell neighbourDiagNW;
+    FieldCell differPlace;
 
 
     @BeforeEach
     void setUp() {
-        cell              = new ShipCell(1,5);
-        samePlace         = new ShipCell(1,5);
-        neighbourRight    = new ShipCell(2,5);
-        neighbourLeft     = new ShipCell(0,5);
-        neighbourDown     = new ShipCell(1,6);
-        neighbourUp       = new ShipCell(1,4);
-        neighbourDiagNE   = new ShipCell(2,4);
-        neighbourDiagSE   = new ShipCell(2,6);
-        neighbourDiagSW   = new ShipCell(0,6);
-        neighbourDiagNW   = new ShipCell(0,4);
-        differPlace       = new ShipCell(5,8);
+        cell              = new FieldCell(1,5);
+        samePlace         = new FieldCell(1,5);
+        neighbourRight    = new FieldCell(2,5);
+        neighbourLeft     = new FieldCell(0,5);
+        neighbourDown     = new FieldCell(1,6);
+        neighbourUp       = new FieldCell(1,4);
+        neighbourDiagNE   = new FieldCell(2,4);
+        neighbourDiagSE   = new FieldCell(2,6);
+        neighbourDiagSW   = new FieldCell(0,6);
+        neighbourDiagNW   = new FieldCell(0,4);
+        differPlace       = new FieldCell(5,8);
 
     }
 

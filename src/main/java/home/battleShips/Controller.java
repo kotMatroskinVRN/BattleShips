@@ -132,7 +132,7 @@ public class Controller {
     private void initDifficulty() {
 
         difficultyBox.getItems().addAll(LogicFactory.values());
-        difficultyBox.setValue(LogicFactory.HARD);
+        difficultyBox.setValue(LogicFactory.NORMAL);
         difficultyBox.setOnAction( (ae) -> newGame() );
         newGame();
     }

@@ -68,7 +68,7 @@ public class FieldData {
     }
 
     public void surroundShip(Ship ship ) {
-        for(ShipCell shipCell : ship.getShipCellList()){
+        for(FieldCell shipCell : ship.getShipCellList()){
             for(int dl=-1;dl<=1;dl++) {
                 for (int dn = -1; dn <= 1; dn++) {
                     int letter = shipCell.getLetter()+dl;
@@ -100,12 +100,12 @@ public class FieldData {
     }
 
     private boolean isCellInTurns(FieldCell cell){
-        String cellLetter = cell.getLetter();
+        int cellLetter = cell.getLetter();
         int cellNumber = cell.getNumber();
         for(Turn t: turns){
-            String letter = t.getCell().getLetter();
+            int letter = t.getCell().getLetter();
             int number = t.getCell().getNumber();
-            if(letter.equals(cellLetter) && number==cellNumber) return true;
+            if(letter==cellLetter && number==cellNumber) return true;
         }
         return false;
     }
@@ -116,14 +116,10 @@ public class FieldData {
 
 
     private void defaultFillArray() {
-        for(char c='А'; c <= 'К' ;c++ ){
-            for(int i=1; i<FIELD_SIZE; i++){
-
-                if(c=='Й') continue;
-                int arrayNumber= StaticUtils.getNumberFromChar(c);
-                String letter = String.valueOf(c);
-                FieldCell cell = new FieldCell(letter , i);
-                cells[arrayNumber][i] = cell;
+        for(char letter=1; letter<FIELD_SIZE  ;letter++ ){
+            for(int number=1; number<FIELD_SIZE; number++){
+                FieldCell cell = new FieldCell(letter , number);
+                cells[letter][number] = cell;
 
             }
         }

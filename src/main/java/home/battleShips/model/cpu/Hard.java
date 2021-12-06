@@ -159,29 +159,29 @@ public class Hard implements Logic {
     }
 
 
-    private void surroundHits(List<ShipCell> shipHits){
+    private void surroundHits(List<FieldCell> shipHits){
         pushHorisontalTurns(shipHits);
         pushVerticalTurns(shipHits);
     }
-    private void pushVerticalTurns(List<ShipCell> shipHits){
+    private void pushVerticalTurns(List<FieldCell> shipHits){
         int letter;
         int number;
 
         letter = shipHits.get(0).getLetter();
-        number = shipHits.stream().mapToInt(ShipCell::getNumber).max().getAsInt();
+        number = shipHits.stream().mapToInt(FieldCell::getNumber).max().getAsInt();
         pushNextTurn(letter , number+1);
-        number = shipHits.stream().mapToInt(ShipCell::getNumber).min().getAsInt();
+        number = shipHits.stream().mapToInt(FieldCell::getNumber).min().getAsInt();
         pushNextTurn(letter , number-1);
 
     }
-    private void pushHorisontalTurns(List<ShipCell> shipHits){
+    private void pushHorisontalTurns(List<FieldCell> shipHits){
         int number;
         int letter;
 
         number = shipHits.get(0).getNumber();
-        letter = shipHits.stream().mapToInt(ShipCell::getLetter).max().getAsInt();
+        letter = shipHits.stream().mapToInt(FieldCell::getLetter).max().getAsInt();
         pushNextTurn(letter+1, number);
-        letter = shipHits.stream().mapToInt(ShipCell::getLetter).min().getAsInt();
+        letter = shipHits.stream().mapToInt(FieldCell::getLetter).min().getAsInt();
         pushNextTurn(letter-1, number);
 
     }

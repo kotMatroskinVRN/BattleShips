@@ -13,6 +13,8 @@ import java.util.List;
 
 public class TurnSequenceParser {
 
+    private final int FIELD_SIZE = Main.getFIELD_SIZE();
+
     private List<Turn> turns = new ArrayList<>();
     private String content;
 
@@ -38,9 +40,9 @@ public class TurnSequenceParser {
                 line = line.trim();
 //                System.out.println(line);
                 if(!line.equals("")) {
-                    String letter = line.split(" ")[0];
+                    int letter = StaticUtils.getNumberFromChar(line.split(" ")[0]);
                     int number = Integer.parseInt(line.split(" ")[1]);
-                    if (!letter.equals("") && number < Main.getFIELD_SIZE() && number > 0) {
+                    if ( isCellInField(letter,number) ) {
 
                         FieldCell fieldCell = new FieldCell(letter, number);
                         Turn turn = new Turn(fieldCell);
@@ -70,6 +72,10 @@ public class TurnSequenceParser {
         turnSequenceParser.parse();
         System.out.println(turnSequenceParser.getTurns().size());
         System.out.println(turnSequenceParser.getTurns().get(23));
+    }
+
+    private boolean isCellInField(int letter , int number){
+        return  letter>0 && letter<FIELD_SIZE && number < FIELD_SIZE && number > 0;
     }
 
 }

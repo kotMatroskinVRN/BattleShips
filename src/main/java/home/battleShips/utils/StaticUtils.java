@@ -16,6 +16,8 @@ public class StaticUtils {
         throw new IndexOutOfBoundsException("Letter is out of Battle Field : " + c );
     }
 
+
+
     public static void pause(long millis){
         try {
             Thread.sleep(millis);

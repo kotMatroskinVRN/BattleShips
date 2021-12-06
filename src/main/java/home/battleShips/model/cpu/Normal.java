@@ -8,7 +8,7 @@ import java.util.*;
 public class Normal implements Logic {
 
     private Turn lastTurn;
-    private final Stack<Turn> nextTurns = new Stack<>();
+    private final List<Turn> nextTurns = new ArrayList<>();
     private FieldData fieldData ;
 
 
@@ -27,7 +27,7 @@ public class Normal implements Logic {
     public void makeShot() {
         log.info("cpu is shooting....");
 
-        if(nextTurns.empty())  {
+        if(nextTurns.isEmpty())  {
 //            log.info(  "next turns : empty . Do random hit");
             Turn turn = new Turn(fieldData); // random turn
 
@@ -36,7 +36,8 @@ public class Normal implements Logic {
 
         else {
             log.info( formatStack() );
-            Turn turn = nextTurns.pop();
+
+            Turn turn = getTurn();
             log.info("cpu is aiming....." + turn);
             if(fieldData.addTurnIfAbsent(turn)) {
                 proceedTurn(turn);
@@ -45,6 +46,13 @@ public class Normal implements Logic {
             }
         }
 
+    }
+
+    private Turn getTurn(){
+//        Collections.shuffle(nextTurns);
+        Turn turn = nextTurns.get(nextTurns.size()-1);
+        nextTurns.remove(turn);
+        return turn ;
     }
 
     private void proceedTurn(Turn turn){
@@ -70,39 +78,39 @@ public class Normal implements Logic {
     }
 
 
-    private void surroundHits(List<ShipCell> shipHits){
+    private void surroundHits(List<FieldCell> shipHits){
         int letter;
         int number;
 
         letter = shipHits.get(0).getLetter();
-        number = shipHits.stream().mapToInt(ShipCell::getNumber).max().getAsInt();
+        number = shipHits.stream().mapToInt(FieldCell::getNumber).max().getAsInt();
         pushNextTurn(letter , number+1);
 
         number = shipHits.get(0).getNumber();
-        letter = shipHits.stream().mapToInt(ShipCell::getLetter).max().getAsInt();
+        letter = shipHits.stream().mapToInt(FieldCell::getLetter).max().getAsInt();
         pushNextTurn(letter+1, number);
 
         letter = shipHits.get(0).getLetter();
-        number = shipHits.stream().mapToInt(ShipCell::getNumber).min().getAsInt();
+        number = shipHits.stream().mapToInt(FieldCell::getNumber).min().getAsInt();
         pushNextTurn(letter , number-1);
 
         number = shipHits.get(0).getNumber();
-        letter = shipHits.stream().mapToInt(ShipCell::getLetter).min().getAsInt();
+        letter = shipHits.stream().mapToInt(FieldCell::getLetter).min().getAsInt();
         pushNextTurn(letter-1, number);
 
     }
-    private void pushVerticalTurns(List<ShipCell> shipHits){
+    private void pushVerticalTurns(List<FieldCell> shipHits){
 
 
     }
-    private void pushHorisontalTurns(List<ShipCell> shipHits){
+    private void pushHorisontalTurns(List<FieldCell> shipHits){
         int number;
         int letter;
 
         number = shipHits.get(0).getNumber();
-        letter = shipHits.stream().mapToInt(ShipCell::getLetter).max().getAsInt();
+        letter = shipHits.stream().mapToInt(FieldCell::getLetter).max().getAsInt();
         pushNextTurn(letter+1, number);
-        letter = shipHits.stream().mapToInt(ShipCell::getLetter).min().getAsInt();
+        letter = shipHits.stream().mapToInt(FieldCell::getLetter).min().getAsInt();
         pushNextTurn(letter-1, number);
 
     }
@@ -115,7 +123,7 @@ public class Normal implements Logic {
             // invoke exception when letter or number is out of field
             cell.toString(); // TODO remove monkey patch : check field size!!!
 
-            nextTurns.push( new Turn(cell) );
+            nextTurns.add( new Turn(cell) );
         }catch (NullPointerException | ArrayIndexOutOfBoundsException e){
             String string = "Wrong L/N :" + letter + number;
             log.info(string);
@@ -141,3 +149,5 @@ public class Normal implements Logic {
     }
 
 }
+
+// TODO Nerf this algorithm

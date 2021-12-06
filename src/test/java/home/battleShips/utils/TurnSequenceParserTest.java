@@ -40,7 +40,7 @@ class TurnSequenceParserTest  {
     @Test
     void getTurns() {
         //23 : size -1
-        Turn turn = new Turn( new FieldCell("К" , 7));
+        Turn turn = new Turn( new FieldCell(10 , 7));
         assertEquals( turn.toString() ,turnSequenceParser.getTurns().get(23).toString() );
 
     }

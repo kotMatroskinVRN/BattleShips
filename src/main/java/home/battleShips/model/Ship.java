@@ -8,8 +8,8 @@ import java.util.List;
 public class Ship{
 
     private final int size ;
-    private final List<ShipCell> shipCellList = new ArrayList<>();
-    private final List<ShipCell> hitCells     = new ArrayList<>();
+    private final List<FieldCell> shipCellList = new ArrayList<>();
+    private final List<FieldCell> hitCells     = new ArrayList<>();
 
 
     public Ship( int s , int li , int ni , char d ){
@@ -21,14 +21,14 @@ public class Ship{
         // split to 2 sections : start position and end position
         if (d == 'v') {
             for (int i = 0; i < s; i++) {
-                ShipCell shipCell = new ShipCell(li,ni+i);
+                FieldCell shipCell = new FieldCell(li,ni+i);
                 shipCell.setDeckStyle(s,i , true);
 
                 shipCellList.add( shipCell );
             }
         } else {
             for (int i = 0; i < s; i++) {
-                ShipCell shipCell = new ShipCell(li+i,ni);
+                FieldCell shipCell = new FieldCell(li+i,ni);
                 shipCell.setDeckStyle(s,i,false);
                 shipCellList.add( shipCell );
             }
@@ -41,34 +41,34 @@ public class Ship{
         return size;
     }
 
-    public List<ShipCell> getShipCellList() {
+    public List<FieldCell> getShipCellList() {
         return shipCellList;
     }
 
-    public List<ShipCell> getHitCells() {
+    public List<FieldCell> getHitCells() {
         return hitCells;
     }
 
     public boolean hasCell(int l , int n){
-        for(ShipCell cell : shipCellList){
+        for(FieldCell cell : shipCellList){
             if(cell.getLetter() == l && cell.getNumber() == n) return true;
         }
         return false;
     }
 
     public boolean hasCell(FieldCell fieldCell){
-        int letter = StaticUtils.getNumberFromChar(fieldCell.getLetter());
+        int letter = fieldCell.getLetter();
         int number = fieldCell.getNumber();
-        for(ShipCell cell : shipCellList){
+        for(FieldCell cell : shipCellList){
             if(cell.getLetter() == letter && cell.getNumber() == number) return true;
         }
         return false;
     }
 
-    public ShipCell getCell(FieldCell fieldCell){
-        int letter = StaticUtils.getNumberFromChar(fieldCell.getLetter());
+    public FieldCell getCell(FieldCell fieldCell){
+        int letter = fieldCell.getLetter();
         int number = fieldCell.getNumber();
-        for(ShipCell cell : shipCellList){
+        for(FieldCell cell : shipCellList){
             if(cell.getLetter() == letter && cell.getNumber() == number) return cell;
         }
         return null;
@@ -77,7 +77,7 @@ public class Ship{
     public boolean hasHit(int l , int n){
         if(!hasCell(l,n)) return false;
 
-        for(ShipCell cell : hitCells){
+        for(FieldCell cell : hitCells){
             if(cell.getLetter() == l && cell.getNumber() == n) return true;
         }
 
@@ -86,16 +86,14 @@ public class Ship{
 
     public void addHit(int l , int n){
         if(hasCell(l,n)){
-            hitCells.add( new ShipCell(l , n) );
+            hitCells.add( new FieldCell(l , n) );
         }
         else throw new IndexOutOfBoundsException();
     }
 
     public void addHit(FieldCell cell){
-        int letter = StaticUtils.getNumberFromChar(cell.getLetter());
-        int number = cell.getNumber();
-        if(hasCell(letter,number)){
-            hitCells.add( new ShipCell(letter , number) );
+        if(hasCell(cell)){
+            hitCells.add( cell );
         }
         else throw new IndexOutOfBoundsException();
     }
@@ -107,8 +105,8 @@ public class Ship{
     // check positions of THIS ship and given one
     public boolean check2Ships(Ship p ){
 
-        for(ShipCell thisCell : shipCellList){
-            for (ShipCell cell : p.getShipCellList()){
+        for(FieldCell thisCell : shipCellList){
+            for (FieldCell cell : p.getShipCellList()){
                 if(thisCell.isSamePlace(cell)) return false;
                 if(thisCell.isNeighbour(cell)) return false;
             }

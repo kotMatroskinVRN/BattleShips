@@ -5,27 +5,47 @@ import javafx.scene.control.Button;
 public class FieldCell implements Comparable<FieldCell> {
 
     private final int number;
-    private final String letter;
+    private final int letter;
     // TODO replace letter number with ShipCell
 
 //    private Button button ;
     private CssId cssId ;
 
-    public FieldCell(String letter, int number) {
+    public FieldCell(int letter, int number) {
         this.letter = letter;
         this.number = number;
-
-//         button = new Button();
 
         setStyle(CssId.SEA);
     }
 
+    public void setDeckStyle(int s , int deck , boolean v){
+        if(s==1){
+            cssId = CssId.DECK_SINGLE;
+            return ;
+        }
+        if(deck==0)   {
+            cssId = v?CssId.DECK_FRONT_V:CssId.DECK_FRONT;
+            return;
+        }
+        if(deck==s-1) {
+            cssId = v?CssId.DECK_BACK_V:CssId.DECK_BACK;
+            return;
+        }
 
+        cssId = v?CssId.DECK_V:CssId.DECK;
 
-//    public void setStyle(CssId picture){
-//        button.setId(picture.toString());
-//        button.applyCss();
-//    }
+    }
+
+    public boolean isSamePlace(FieldCell cell){
+        return letter == cell.getLetter() && number == cell.getNumber();
+    }
+
+    public boolean isNeighbour(FieldCell cell){
+        return !isSamePlace(cell) &&
+                Math.abs(letter - cell.getLetter() ) <= 1 &&
+                Math.abs(number - cell.getNumber() ) <= 1;
+    }
+
     public void setStyle(CssId picture){
         cssId = picture;
     }
@@ -33,25 +53,27 @@ public class FieldCell implements Comparable<FieldCell> {
     public CssId getCssId() {
         return cssId;
     }
-
-    public String getLetter() {
+    public int getLetter() {
         return letter;
     }
     public int getNumber() {
         return number;
     }
-//    public Button getButton() {
-//        return button;
-//    }
 
+    public String covertLetter(){
+        char result =  letter==10? 'К' : (char) ('А' + letter-1);
+        return String.valueOf(result);
+    }
 
     @Override
     public int compareTo(FieldCell o) {
-        return this.getLetter().compareTo( o.getLetter() );
+        if(letter == o.getLetter()) return 0;
+
+        return  letter>o.getLetter()?1:0 ;
     }
 
     @Override
     public String toString() {
-        return " " + letter + number + " ";
+        return " " + covertLetter() + number + " ";
     }
 }
