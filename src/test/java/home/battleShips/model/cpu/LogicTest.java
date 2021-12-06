@@ -3,7 +3,6 @@ package home.battleShips.model.cpu;
 import home.battleShips.Main;
 import home.battleShips.model.FieldData;
 import home.battleShips.model.Turn;
-import home.battleShips.model.TurnStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,13 +63,13 @@ public class LogicTest {
 
     private void counterAction() {
         logic.makeShot();
-        Turn lastTurn =  logic.getLastTurn();
+//        Turn lastTurn =  logic.getLastTurn();
 //        System.out.printf("%-5s%-5s%s\n", turnCount , lastTurn.getCell() , lastTurn.getStatus().toString());
 
-            if(lastTurn.isKill()){
-//            System.out.println(lastTurn.getShip().getSize());
-
-            }
+//            if(lastTurn.isKill()){
+////            System.out.println(lastTurn.getShip().getSize());
+//
+//            }
 
     }
 
