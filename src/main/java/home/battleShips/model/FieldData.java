@@ -1,9 +1,10 @@
 package home.battleShips.model;
 
 import home.battleShips.Main;
-import home.battleShips.utils.StaticUtils;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -14,8 +15,8 @@ public class FieldData {
     private final FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
     private Ship[] ships ;
     private final Set<Turn> turns = new HashSet<>();
+    private final List<Ship> killedShips = new ArrayList<>();
 
-    private int count_kills     = 0;
 
 
     public void init(){
@@ -33,9 +34,6 @@ public class FieldData {
     public boolean addTurnIfAbsent(Turn turn){
         FieldCell cell = turn.getCell();
 
-//        if(surroundedCells.contains(cell)) {
-//            Main.getLog().severe(cell.toString()+ " is in surrounded");
-//        }
 
         if(isCellInTurns(cell)) {
             return false;
@@ -45,15 +43,35 @@ public class FieldData {
         return true;
     }
 
+    public boolean isHit(FieldCell cell){
 
+        for(Ship ship : ships){
+            if( ship.hasCell(cell)){
+                ship.addHit(cell);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public boolean isShipKilled(FieldCell cell){
+        for(Ship ship : ships){
+            if( ship.hasCell(cell) && ship.isKilled() ){
+                if(!killedShips.contains(ship)) {
+                    killedShips.add(ship);
+                    surroundShip(ship);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 
     public Set<Turn> getTurns() {
         return turns;
     }
 
-//    public Button getButton(String letter , int number){
-//        return chooseCell(letter,number).getButton();
-//    }
 
     public FieldCell[][] getCells() {
         return cells;
@@ -61,6 +79,45 @@ public class FieldData {
 
     public Ship[] getShips() {
         return ships;
+    }
+
+    public boolean isCarrierKilled(){
+        for( Ship ship : killedShips ){
+            if(ship.getSize()==4) return true;
+        }
+        return false;
+    }
+
+    public boolean areBattleShipsKilled(){
+        int battleShips = 0;
+
+
+        for( Ship ship : killedShips){
+            if(ship.getSize()==3) battleShips++;
+        }
+
+        return battleShips == 2 && isCarrierKilled();
+    }
+
+    public boolean onlyTorpedoBoatsLeft(){
+        int battleShips = 0;
+        int destroyers  = 0;
+
+        for( Ship ship : killedShips){
+            if(ship.getSize()==3) battleShips++;
+            if(ship.getSize()==2) destroyers++;
+        }
+
+        return battleShips == 2 && destroyers == 3 && isCarrierKilled();
+    }
+
+    public Ship getKilledShip(FieldCell cell){
+        for(Ship ship : killedShips){
+            if(ship.hasCell(cell)){
+                return ship;
+            }
+        }
+        return null;
     }
 
     public void surroundShip(Ship ship ) {
@@ -86,13 +143,9 @@ public class FieldData {
     }
 
     public int getCount_kills() {
-        return count_kills;
+        return killedShips.size();
     }
 
-    public void addKill(Ship ship){
-        count_kills++;
-        surroundShip(ship);
-    }
 
     private boolean isCellInTurns(FieldCell cell){
         int cellLetter = cell.getLetter();

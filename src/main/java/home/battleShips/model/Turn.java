@@ -10,7 +10,6 @@ public class Turn {
 
     private FieldCell cell;
     private TurnStatus status ;
-    private Ship ship;
 
     public Turn(FieldData fieldData){
         randomTurn(fieldData);
@@ -21,17 +20,11 @@ public class Turn {
     }
 
     public void shoot(FieldData fieldData){
-        for(Ship ship : fieldData.getShips()){
-            if( ship.hasCell(cell)){
-                ship.addHit(cell);
-                setStatus(TurnStatus.HIT);
-                this.ship = ship;
-
-                if(ship.isKilled()){
-                    killShip();
-                }
-
-            }
+        if(fieldData.isHit(cell)){
+            setStatus(TurnStatus.HIT);
+        }
+        if(fieldData.isShipKilled(cell)){
+            killShip();
         }
         if(!isHit()) {
             setStatus(TurnStatus.MISS);
@@ -63,9 +56,6 @@ public class Turn {
     }
 
 
-    public Ship getShip() {
-        return this.ship;
-    }
 
     public FieldCell getCell() {
         return cell;

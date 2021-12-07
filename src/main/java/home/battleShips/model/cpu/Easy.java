@@ -12,10 +12,10 @@ public class Easy implements Logic {
         this.fieldData = fieldData;
     }
 
-    @Override
-    public FieldData getData() {
-        return null;
-    }
+//    @Override
+//    public FieldData getData() {
+//        return null;
+//    }
 
     @Override
     public void makeShot() {
@@ -23,15 +23,7 @@ public class Easy implements Logic {
         lastTurn = new Turn(fieldData);
 
         lastTurn.shoot(fieldData);
-            if(lastTurn.isHit()){
 
-                // action when hit
-
-                if(lastTurn.getShip().isKilled()){
-                    lastTurn.killShip();
-                    fieldData.addKill(lastTurn.getShip());
-                }
-            }
     }
 
     @Override

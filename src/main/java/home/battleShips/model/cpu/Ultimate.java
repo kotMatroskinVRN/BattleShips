@@ -1,13 +1,15 @@
 package home.battleShips.model.cpu;
 
-import home.battleShips.model.*;
+import home.battleShips.model.FieldCell;
+import home.battleShips.model.FieldData;
+import home.battleShips.model.Turn;
 import home.battleShips.utils.TurnSequenceParser;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class Hard implements Logic {
+public class Ultimate implements Logic {
 
     private final static List<Turn> FOURS, TWOS;
 
@@ -15,7 +17,6 @@ public class Hard implements Logic {
     private Turn lastTurn;
 
     private FieldData fieldData ;
-
     private List<Turn>  turnPattern;
     private final List<FieldCell>  hitsToKill  = new ArrayList<>();
 
@@ -24,12 +25,14 @@ public class Hard implements Logic {
 
     static {
         TurnSequenceParser turnSequenceParser;
-        turnSequenceParser = new TurnSequenceParser("move_sequence/four.txt");
+        turnSequenceParser = new TurnSequenceParser("move_sequence/four_three.txt");
         turnSequenceParser.parse();
         FOURS = turnSequenceParser.getTurns();
-        turnSequenceParser = new TurnSequenceParser("move_sequence/two.txt");
+        turnSequenceParser = new TurnSequenceParser("move_sequence/four_three_center.txt");
         turnSequenceParser.parse();
         TWOS = turnSequenceParser.getTurns();
+
+
     }
 
 
@@ -37,13 +40,7 @@ public class Hard implements Logic {
     public void setData(FieldData fieldData) {
 
         this.fieldData = fieldData;
-
-
-
-
         turnPattern = new ArrayList<>(FOURS);
-
-
     }
 
 //    @Override
@@ -87,6 +84,8 @@ public class Hard implements Logic {
 
     private Turn getTurnFromPattern( ){
 
+        whenFoursEmpty();
+
         if(onlyTorpedoBoats) {
 //            System.out.println("do random turn");
             return new Turn(fieldData); // random turn
@@ -99,18 +98,23 @@ public class Hard implements Logic {
             Turn turn = turnPattern.get(element);
 
 
-
-            while (!fieldData.addTurnIfAbsent(turn)) {
+            boolean factor = fieldData.addTurnIfAbsent(turn);
+            while (!factor) {
                 turnPattern.remove(turn);
 
                 element = (int) (Math.random() * (turnPattern.size()));
                 turn = turnPattern.get(element);
+                whenFoursEmpty();
+                factor = fieldData.addTurnIfAbsent(turn);
             }
 
             turnPattern.remove(turn);
-//            if(turnPattern==fours && turnPattern.size()==0) turnPattern = twos;
             return turn;
         }
+    }
+
+    private void whenFoursEmpty(){
+        if(turnPattern.size()==0) turnPattern = new ArrayList<>(TWOS);
     }
 
     private void proceedTurn(Turn turn){
@@ -128,7 +132,7 @@ public class Hard implements Logic {
                 nextTurns.clear();
                 hitsToKill.clear();
 
-                if(fieldData.onlyTorpedoBoatsLeft()) {
+                if(fieldData.areBattleShipsKilled()) {
                     onlyTorpedoBoats = true;
                 }
 
@@ -141,11 +145,7 @@ public class Hard implements Logic {
                     " %s %s" , turn.getCell() , turn.getStatus());
         log.info(info);
 
-        if(fieldData.isCarrierKilled()) {
-//        if(FOURS.size()==0 && turnPattern==FOURS) {
-            turnPattern = new ArrayList<>(TWOS);
-//            System.out.println(turnPattern.size());
-        }
+
 
 
     }

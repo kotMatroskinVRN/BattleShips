@@ -1,6 +1,7 @@
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\field\Media.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\utils\StaticUtils.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\Normal.java
+C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\field\CpuTurnAnimation.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\TurnStatus.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\utils\LevelAndMessageFormatter.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\Turn.java
@@ -8,7 +9,7 @@ C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\Game.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\Ship.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\Easy.java
-C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\ShipCell.java
+C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\Ultimate.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\utils\FileResourcesUtils.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\LogicFactory.java
 C:\Users\amananko\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\CssId.java

@@ -5,7 +5,6 @@ import home.battleShips.model.FieldCell;
 import home.battleShips.model.FieldData;
 import home.battleShips.model.Turn;
 
-import java.util.List;
 import java.util.Stack;
 import java.util.logging.Logger;
 
@@ -15,41 +14,30 @@ public interface Logic {
     Stack<Turn> nextTurns =  new Stack<>();
 
     void setData(FieldData fieldData);
-    FieldData getData();
+//    FieldData getData();
     void makeShot();
     Turn getLastTurn();
 
-    default void surroundHits(List<FieldCell> shipHits){
-        pushHorisontalTurns(shipHits);
-        pushVerticalTurns(shipHits);
+    default void surroundHit(FieldCell hit){
+        pushHorisontalTurns(hit);
+        pushVerticalTurns(hit);
     }
-    default void pushVerticalTurns(List<FieldCell> shipHits){
-        int letter;
-        int number;
-
-        letter = shipHits.get(0).getLetter();
-        number = shipHits.stream().mapToInt(FieldCell::getNumber).max().getAsInt();
-        pushNextTurn(letter , number+1);
-        number = shipHits.stream().mapToInt(FieldCell::getNumber).min().getAsInt();
-        pushNextTurn(letter , number-1);
+    default void pushVerticalTurns(FieldCell hit){
+        pushNextTurn(hit.getLetter() , hit.getNumber()+1);
+        pushNextTurn(hit.getLetter() , hit.getNumber()-1);
 
     }
-    default void pushHorisontalTurns(List<FieldCell> shipHits){
-        int number;
-        int letter;
-
-        number = shipHits.get(0).getNumber();
-        letter = shipHits.stream().mapToInt(FieldCell::getLetter).max().getAsInt();
-        pushNextTurn(letter+1, number);
-        letter = shipHits.stream().mapToInt(FieldCell::getLetter).min().getAsInt();
-        pushNextTurn(letter-1, number);
+    default void pushHorisontalTurns(FieldCell hit){
+        pushNextTurn(hit.getLetter()+1 , hit.getNumber());
+        pushNextTurn(hit.getLetter()-1 , hit.getNumber());
 
     }
 
     default void pushNextTurn(int letter , int number){
         FieldCell cell;
         try {
-            cell = getData().getCells()[letter][number];
+//            cell = getData().getCells()[letter][number];
+            cell = new FieldCell(letter,number);
 
             // invoke exception when letter or number is out of field
             cell.toString();

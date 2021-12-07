@@ -19,6 +19,12 @@ public enum LogicFactory {
             return new Hard();
         }
     },
+    ULTIMATE("Максимальный"){
+        @Override
+        public Logic getDifficulty() {
+            return new Ultimate();
+        }
+    },
     ;
 
     private final String description;

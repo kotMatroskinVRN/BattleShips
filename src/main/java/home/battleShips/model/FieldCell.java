@@ -1,6 +1,8 @@
 package home.battleShips.model;
 
 
+import home.battleShips.Main;
+
 public class FieldCell implements Comparable<FieldCell> {
 
     private final int number;
@@ -9,6 +11,11 @@ public class FieldCell implements Comparable<FieldCell> {
     private CssId cssId ;
 
     public FieldCell(int letter, int number) {
+        if(letter<1||letter> Main.getFIELD_SIZE()-1||
+                number<1 || number>Main.getFIELD_SIZE()-1) {
+            throw new NullPointerException();
+        }
+
         this.letter = letter;
         this.number = number;
 

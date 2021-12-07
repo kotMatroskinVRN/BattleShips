@@ -72,13 +72,14 @@ public class Game {
     public void turn( FieldCell cell) {
 
         Turn turn = new Turn(cell);
+        FieldData fieldData = playerField.getFieldData();
 
-        if ( playerField.getFieldData().addTurnIfAbsent(turn) )  {
+        if ( fieldData.addTurnIfAbsent(turn) )  {
 
             cpuTurnAnimation.stopAnimation();
             controller.addPlayerTurnToList(turn);
 
-            turn.shoot(playerField.getFieldData());
+            turn.shoot(fieldData);
             playerField.applyTurn(turn);
 
 
@@ -86,10 +87,10 @@ public class Game {
 
                 //action then hit
 
-                Ship ship = turn.getShip();
-                if(ship.isKilled()){
-                    playerField.getFieldData().addKill(ship);
-                    playerField.showKilledShip(ship);
+
+                if(turn.isKill()){
+
+                    playerField.showKilledShip(fieldData.getKilledShip(turn.getCell()));
                     playerField.update();
                     checkGameOver(playerField);
                 }
@@ -114,7 +115,7 @@ public class Game {
 
         if(lastTurn.isHit()){
             if(lastTurn.isKill()){
-                cpuField.showKilledShip(lastTurn.getShip());
+                cpuField.showKilledShip(cpuField.getFieldData().getKilledShip(lastTurn.getCell()));
                 checkGameOver(  cpuField );
             }
             if(cpuField.getFieldData().getCount_kills()<10) {

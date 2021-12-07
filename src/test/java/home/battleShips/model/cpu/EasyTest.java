@@ -10,7 +10,7 @@ class EasyTest {
     @BeforeEach
     void setUp() {
         logicTest = new LogicTest();
-        logicTest.setUp( new Easy() );
+        logicTest.setUp( LogicFactory.EASY.getDifficulty() );
 
     }
 

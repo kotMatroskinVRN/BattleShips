@@ -27,9 +27,9 @@ class ShipTest {
         ship21 = new Ship(2,8,1,'h');
         ship22 = new Ship(2,3,8,'h');
         ship23 = new Ship(2,7,5,'v');
-        ship11 = new Ship(1,0,0,'h');
-        ship12 = new Ship(1,0,6,'h');
-        ship13 = new Ship(1,6,0,'h');
+        ship11 = new Ship(1,1,1,'h');
+        ship12 = new Ship(1,1,6,'h');
+        ship13 = new Ship(1,6,1,'h');
         ship14 = new Ship(1,5,3,'h');
     }
 
@@ -87,35 +87,10 @@ class ShipTest {
 
         assertTrue( ship41.check2Ships(ship13) );
 
-        assertFalse( ship11.check2Ships(  new Ship(1,1,0,'h') ) );
-        assertFalse( ship11.check2Ships(  new Ship(1,0,0,'h') ) );
+        assertFalse( ship11.check2Ships(  new Ship(1,1,1,'h') ) );
+        assertFalse( ship11.check2Ships(  new Ship(1,1,1,'h') ) );
 
     }
 
-//    @Test
-//    void surroundShip() {
-//
-//        FieldData fieldData = new FieldData();
-//        fieldData.init();
-//        Ship ship = fieldData.getShips()[0];
-//        fieldData.surroundShip(ship);
-//
-//        //Set<ShipCell> shipCells = new HashSet<>();
-//
-//
-//        for (ShipCell shipCell : ship.getShipCellList()){
-//
-//            FieldCell cell = fieldData.getCells()[shipCell.getLetter()+1][shipCell.getNumber()+1];
-//            CSSpicture picture = cell.getPicture() ;
-//            assertEquals(CSSpicture.MISS, picture);
-//            break;
-//
-//        }
-//
-//
-//
-//
-//        //TODO solve how to test GUI method
-//
-//    }
+
 }

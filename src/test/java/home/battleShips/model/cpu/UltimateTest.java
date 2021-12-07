@@ -3,7 +3,7 @@ package home.battleShips.model.cpu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class HardTest {
+class UltimateTest {
 
     private LogicTest logicTest ;
 
@@ -11,7 +11,7 @@ class HardTest {
     @BeforeEach
     void setUp() {
         logicTest = new LogicTest();
-        logicTest.setUp( LogicFactory.HARD.getDifficulty() );
+        logicTest.setUp( LogicFactory.ULTIMATE.getDifficulty() );
 
     }
 

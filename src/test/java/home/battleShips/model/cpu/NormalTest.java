@@ -13,7 +13,7 @@ class NormalTest {
     @BeforeEach
     void setUp() {
         logicTest = new LogicTest();
-        logicTest.setUp( new Normal() );
+        logicTest.setUp( LogicFactory.NORMAL.getDifficulty() );
 
     }
 

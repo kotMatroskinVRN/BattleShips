@@ -65,15 +65,16 @@ public class Controller {
     }
 
     public void showVictory() {
+
         MediaView mediaView = getMediaView(Media.VICTORY);
         playerPane.setCenter( mediaView);
-        playerPane.setBottom(new Label("Победа"));
+        playerPane.setBottom(new Label("Победа : " + playerTurns.getItems().size()));
     }
 
     public void showDefeat(){
         MediaView mediaView = getMediaView(Media.LOSS);
         computerPane.setCenter(mediaView);
-        computerPane.setBottom(new Label("Поражение"));
+        computerPane.setBottom(new Label("Поражение : " + cpuTurns.getItems().size()));
     }
 
     public void addPlayerTurnToList(Turn turn) {

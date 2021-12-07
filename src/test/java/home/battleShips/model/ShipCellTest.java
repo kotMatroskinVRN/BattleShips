@@ -23,27 +23,25 @@ class ShipCellTest {
 
     @BeforeEach
     void setUp() {
-        cell              = new FieldCell(1,5);
-        samePlace         = new FieldCell(1,5);
-        neighbourRight    = new FieldCell(2,5);
-        neighbourLeft     = new FieldCell(0,5);
-        neighbourDown     = new FieldCell(1,6);
+        cell              = new FieldCell(2,5);
+        samePlace         = new FieldCell(2,5);
+        neighbourRight    = new FieldCell(3,5);
+        neighbourLeft     = new FieldCell(1,5);
+        neighbourDown     = new FieldCell(2,6);
         neighbourUp       = new FieldCell(1,4);
-        neighbourDiagNE   = new FieldCell(2,4);
-        neighbourDiagSE   = new FieldCell(2,6);
-        neighbourDiagSW   = new FieldCell(0,6);
-        neighbourDiagNW   = new FieldCell(0,4);
-        differPlace       = new FieldCell(5,8);
+        neighbourDiagNE   = new FieldCell(3,4);
+        neighbourDiagSE   = new FieldCell(3,6);
+        neighbourDiagSW   = new FieldCell(1,6);
+        neighbourDiagNW   = new FieldCell(1,4);
+        differPlace       = new FieldCell(6,8);
 
     }
 
-    @AfterEach
-    void tearDown() {
-    }
+
 
     @Test
     void getLetter() {
-        assertEquals(1 , cell.getLetter());
+        assertEquals(2 , cell.getLetter());
     }
 
     @Test

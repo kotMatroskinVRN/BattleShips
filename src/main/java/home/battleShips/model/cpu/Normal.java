@@ -2,12 +2,10 @@ package home.battleShips.model.cpu;
 
 import home.battleShips.model.*;
 
-import java.util.*;
 
 public class Normal implements Logic {
 
     private Turn lastTurn;
-    private final List<Turn> nextTurns = new ArrayList<>();
     private FieldData fieldData ;
 
 
@@ -16,10 +14,10 @@ public class Normal implements Logic {
         this.fieldData = fieldData;
     }
 
-    @Override
-    public FieldData getData(){
-        return fieldData;
-    }
+//    @Override
+//    public FieldData getData(){
+//        return fieldData;
+//    }
 
     @Override
     public Turn getLastTurn(){
@@ -32,7 +30,7 @@ public class Normal implements Logic {
         log.info("cpu is shooting....");
 
         if(nextTurns.isEmpty())  {
-//            log.info(  "next turns : empty . Do random hit");
+            log.info(  "next turns : empty . Do random hit");
             Turn turn = new Turn(fieldData); // random turn
 
             proceedTurn(turn);
@@ -41,23 +39,21 @@ public class Normal implements Logic {
         else {
             log.info( formatStack() );
 
-            Turn turn = getTurn();
+            Turn turn = nextTurns.pop();
             log.info("cpu is aiming....." + turn);
-            if(fieldData.addTurnIfAbsent(turn)) {
-                proceedTurn(turn);
-            }else{
-                makeShot();
+
+
+            while(!fieldData.addTurnIfAbsent(turn)) {
+                log.info( formatStack() );
+                turn = nextTurns.pop();
+                log.info("cpu is aiming....." + turn);
             }
+
+            proceedTurn(turn);
         }
 
     }
 
-    private Turn getTurn(){
-//        Collections.shuffle(nextTurns);
-        Turn turn = nextTurns.get(nextTurns.size()-1);
-        nextTurns.remove(turn);
-        return turn ;
-    }
 
     private void proceedTurn(Turn turn){
 
@@ -66,12 +62,11 @@ public class Normal implements Logic {
         turn.shoot(fieldData);
         if(turn.isHit()){
 
-            nextTurns.clear();
-            surroundHits(turn.getShip().getHitCells());
+            surroundHit(turn.getCell());
 
-            if(turn.getShip().isKilled()){
+            if(turn.isKill()){
                 nextTurns.clear();
-                fieldData.addKill(turn.getShip());
+
             }
         }
 
