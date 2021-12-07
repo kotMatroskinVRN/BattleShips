@@ -9,13 +9,14 @@ import home.battleShips.model.cpu.LogicFactory;
 import javafx.application.Platform;
 
 import java.util.Date;
+import java.util.logging.Logger;
 
 public class Game {
 
     private final int FIELD_SIZE = Main.getFIELD_SIZE() ;
     private final CpuTurnAnimation cpuTurnAnimation;
 
-
+    private final Logger log = Main.getLog();
 
 
     private final FieldGrid playerField;
@@ -42,7 +43,8 @@ public class Game {
 
         System.out.println(new Date());
 
-        playerField.setListeners(this);
+        setListeners();
+        playerField.setPlayerField(true);
 
         cpuTurnAnimation = new CpuTurnAnimation();
 
@@ -86,10 +88,10 @@ public class Game {
 
                 Ship ship = turn.getShip();
                 if(ship.isKilled()){
-                    checkGameOver(playerField);
                     playerField.getFieldData().addKill(ship);
                     playerField.showKilledShip(ship);
                     playerField.update();
+                    checkGameOver(playerField);
                 }
 
             }else{
@@ -103,7 +105,7 @@ public class Game {
 
         aiLogic.makeShot();
         Turn lastTurn =  aiLogic.getLastTurn();
-        System.out.println(turnCount++ + " " + lastTurn);
+        log.info(turnCount++ + " " + lastTurn);
         cpuTurnAnimation.fadeAnimation( cpuField.getButton(lastTurn.getCell()) );
         controller.addCpuTurnToList(lastTurn);
         cpuField.applyTurn(lastTurn);
@@ -112,6 +114,7 @@ public class Game {
 
         if(lastTurn.isHit()){
             if(lastTurn.isKill()){
+                cpuField.showKilledShip(lastTurn.getShip());
                 checkGameOver(  cpuField );
             }
             if(cpuField.getFieldData().getCount_kills()<10) {
@@ -153,7 +156,15 @@ public class Game {
         });
     }
 
-
+    private void setListeners() {
+        for(int l=1;l<FIELD_SIZE;l++){
+            for(int n=1;n<FIELD_SIZE;n++){
+                FieldCell cell = playerField.getFieldData().getCells()[l][n];
+                playerField.getButton(cell).onMouseClickedProperty().set( ae -> turn( cell ) );
+                playerField.getButton(cell).getStyleClass().add("player");
+            }
+        }
+    }
 
 
 

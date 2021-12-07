@@ -13,6 +13,11 @@ public class Easy implements Logic {
     }
 
     @Override
+    public FieldData getData() {
+        return null;
+    }
+
+    @Override
     public void makeShot() {
 
         lastTurn = new Turn(fieldData);

@@ -1,14 +1,11 @@
 package home.battleShips.model;
 
-import javafx.scene.control.Button;
 
 public class FieldCell implements Comparable<FieldCell> {
 
     private final int number;
     private final int letter;
-    // TODO replace letter number with ShipCell
 
-//    private Button button ;
     private CssId cssId ;
 
     public FieldCell(int letter, int number) {
@@ -18,21 +15,21 @@ public class FieldCell implements Comparable<FieldCell> {
         setStyle(CssId.SEA);
     }
 
-    public void setDeckStyle(int s , int deck , boolean v){
+    public void setDeckStyle(int s , int deck ){
         if(s==1){
             cssId = CssId.DECK_SINGLE;
             return ;
         }
         if(deck==0)   {
-            cssId = v?CssId.DECK_FRONT_V:CssId.DECK_FRONT;
+            cssId = CssId.DECK_FRONT;
             return;
         }
         if(deck==s-1) {
-            cssId = v?CssId.DECK_BACK_V:CssId.DECK_BACK;
+            cssId = CssId.DECK_BACK;
             return;
         }
 
-        cssId = v?CssId.DECK_V:CssId.DECK;
+        cssId = CssId.DECK;
 
     }
 

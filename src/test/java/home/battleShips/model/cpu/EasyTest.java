@@ -11,6 +11,7 @@ class EasyTest {
     void setUp() {
         logicTest = new LogicTest();
         logicTest.setUp( new Easy() );
+
     }
 
     @Test
@@ -23,7 +24,7 @@ class EasyTest {
 
     @Test
     void makeShot() {
-
+        System.out.println(this.getClass().getName());
         logicTest.makeShot();
 
     }

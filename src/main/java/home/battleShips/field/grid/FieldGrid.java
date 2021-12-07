@@ -2,7 +2,6 @@ package home.battleShips.field.grid;
 
 import home.battleShips.Main;
 import home.battleShips.model.*;
-import home.battleShips.utils.StaticUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -15,7 +14,7 @@ public class FieldGrid extends GridPane {
     private final FieldData fieldData;
     private final Button[][] buttons = new Button[Main.getFIELD_SIZE()][Main.getFIELD_SIZE()];
 
-
+    private boolean isPlayerField;
 
     public FieldGrid(){
         super();
@@ -23,6 +22,9 @@ public class FieldGrid extends GridPane {
         setAlignment(Pos.CENTER);
     }
 
+    public void setPlayerField(boolean isPlayerField){
+        this.isPlayerField = isPlayerField;
+    }
 
     public void init() {
         fieldData.init();
@@ -36,11 +38,16 @@ public class FieldGrid extends GridPane {
                     Button button = getButton(cell);
                     button.setId(cell.getCssId().toString());
                     button.applyCss();
+
                 }catch (NullPointerException ignore){}
             }
         }
     }
 
+    private void processPlayerShipKilled(Ship ship) {
+
+
+    }
 
 
     public FieldData getFieldData() {
@@ -51,20 +58,12 @@ public class FieldGrid extends GridPane {
         return buttons[fieldCell.getLetter()][fieldCell.getNumber()];
     }
 
-    public void setListeners(Game game) {
-        for(int l=1;l<FIELD_SIZE;l++){
-            for(int n=1;n<FIELD_SIZE;n++){
-                FieldCell cell = getFieldData().getCells()[l][n];
-                getButton(cell).onMouseClickedProperty().set( ae -> game.turn( cell ) );
-                getButton(cell).getStyleClass().add("player");
-            }
-        }
-    }
+
 
     public void removeListeners() {
         for(int l=1;l<FIELD_SIZE;l++){
             for(int n=1;n<FIELD_SIZE;n++){
-                FieldCell cell = getFieldData().getCells()[l][n];
+                FieldCell cell = fieldData.getCells()[l][n];
                 getButton(cell).onMouseClickedProperty().set( null );
                 getButton(cell).getStyleClass().removeAll();
 
@@ -76,9 +75,23 @@ public class FieldGrid extends GridPane {
         for(FieldCell shipCell : ship.getShipCellList()){
             int l = shipCell.getLetter();
             int n = shipCell.getNumber();
-            FieldCell cell = getFieldData().getCells()[l][n];
-            CssId newCSS = cell.getCssId().getAfterKill();
+            FieldCell cell = fieldData.getCells()[l][n];
+
+            CssId newCSS = shipCell.getCssId().getKilled();
             cell.setStyle(newCSS);
+
+
+            if(isPlayerField) {
+                if(newCSS == CssId.HIT_BACK)   cell.setStyle(CssId.HIT_FRONT);
+                if(newCSS == CssId.HIT_FRONT)  cell.setStyle(CssId.HIT_BACK);
+                Button button = getButton(shipCell);
+                if(ship.isVertical()){
+                    button.setRotate(270);
+                }else{
+                    button.setRotate(180);
+                }
+
+            }
         }
         update();
     }
@@ -88,16 +101,19 @@ public class FieldGrid extends GridPane {
             for(FieldCell shipCell : ship.getShipCellList()){
                 int l = shipCell.getLetter();
                 int n = shipCell.getNumber();
-                FieldCell cell = getFieldData().getCells()[l][n];
+                FieldCell cell = fieldData.getCells()[l][n];
                 cell.setStyle(shipCell.getCssId());
-                getButton(cell).setId(cell.getCssId().toString());
+                Button button = getButton(cell);
+                button.setId(cell.getCssId().toString());
+                if(ship.isVertical()) {
+                    button.setRotate(90);
+                }
 
             }
         }
     }
 
     public void applyTurn(Turn turn){
-
         Button button =getButton(turn.getCell());
         button.setId(turn.getStatus().getPicture().toString());
         button.applyCss();
@@ -122,19 +138,15 @@ public class FieldGrid extends GridPane {
     }
 
     private void defaultFill(){
-        for(char c='А'; c <= 'К' ;c++ ){
+        for(char l=1; l<FIELD_SIZE;l++ ){
             for(int n=1; n<FIELD_SIZE; n++){
 
-                if(c=='Й') continue;
-                int arrayNumber= StaticUtils.getNumberFromChar(c);
-                String letter = String.valueOf(c);
-
-                //Button button = fieldData.getButton(letter , n);
                 Button button = new Button();
                 button.setId(CssId.SEA.toString());
                 button.applyCss();
-                buttons[arrayNumber][n] = button;
-                setConstraints(button , arrayNumber, n);
+                buttons[l][n] = button;
+
+                setConstraints(button , l, n);
                 getChildren().add(button);
 
             }

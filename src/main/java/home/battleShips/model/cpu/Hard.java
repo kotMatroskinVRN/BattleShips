@@ -5,17 +5,31 @@ import home.battleShips.utils.TurnSequenceParser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class Hard implements Logic {
 
+    private final static List<Turn> FOURS, TWOS;
+
+
     private Turn lastTurn;
-    private Stack<Turn> nextTurns ;
+
     private FieldData fieldData ;
-    private List<Turn> fours  , twos , turnPattern;
+
+    private List<Turn>  turnPattern;
     private List<Ship> killedShips ;
 
     private boolean onlyTorpedoBoats = false;
+
+
+    static {
+        TurnSequenceParser turnSequenceParser;
+        turnSequenceParser = new TurnSequenceParser("move_sequence/four.txt");
+        turnSequenceParser.parse();
+        FOURS = turnSequenceParser.getTurns();
+        turnSequenceParser = new TurnSequenceParser("move_sequence/two.txt");
+        turnSequenceParser.parse();
+        TWOS = turnSequenceParser.getTurns();
+    }
 
 
     @Override
@@ -23,22 +37,18 @@ public class Hard implements Logic {
 
         this.fieldData = fieldData;
 
-        nextTurns   = new Stack<>();
+
         killedShips = new ArrayList<>();
 
-        TurnSequenceParser turnSequenceParser;
-        turnSequenceParser = new TurnSequenceParser("move_sequence/four.txt");
-        turnSequenceParser.parse();
-        fours = turnSequenceParser.getTurns();
-        turnSequenceParser = new TurnSequenceParser("move_sequence/two.txt");
-        turnSequenceParser.parse();
-        twos = turnSequenceParser.getTurns();
-
-        turnPattern = fours;
-//        System.out.println(turnSequenceParser.getTurns().size());
-//        System.out.println(turnSequenceParser.getTurns().get(23));
+        turnPattern = new ArrayList<>(FOURS);
+//        System.out.println(turnPattern.size());
 
 
+    }
+
+    @Override
+    public FieldData getData(){
+        return fieldData;
     }
 
     @Override
@@ -108,8 +118,6 @@ public class Hard implements Logic {
 
 
             while (!fieldData.addTurnIfAbsent(turn)) {
-//                System.out.println(turn + " exist in");
-//                System.out.println(fieldData.getTurns());
                 turnPattern.remove(turn);
 
                 element = (int) (Math.random() * (turnPattern.size()));
@@ -138,10 +146,7 @@ public class Hard implements Logic {
 
                 killedShips.add(turn.getShip());
 
-                if(isCarrierKilled()) {
-                    turnPattern = twos;
-//                    System.out.println("Carrier is killed");
-                }
+
                 if(onlyTorpedoBoatsLeft()) {
                     onlyTorpedoBoats = true;
                 }
@@ -150,73 +155,20 @@ public class Hard implements Logic {
 
 
         }
-            String info = String.format("cpu shot" +
+
+        String info = String.format("cpu shot" +
                     " %s %s" , turn.getCell() , turn.getStatus());
-            log.info(info);
+        log.info(info);
 
-
-
-    }
-
-
-    private void surroundHits(List<FieldCell> shipHits){
-        pushHorisontalTurns(shipHits);
-        pushVerticalTurns(shipHits);
-    }
-    private void pushVerticalTurns(List<FieldCell> shipHits){
-        int letter;
-        int number;
-
-        letter = shipHits.get(0).getLetter();
-        number = shipHits.stream().mapToInt(FieldCell::getNumber).max().getAsInt();
-        pushNextTurn(letter , number+1);
-        number = shipHits.stream().mapToInt(FieldCell::getNumber).min().getAsInt();
-        pushNextTurn(letter , number-1);
-
-    }
-    private void pushHorisontalTurns(List<FieldCell> shipHits){
-        int number;
-        int letter;
-
-        number = shipHits.get(0).getNumber();
-        letter = shipHits.stream().mapToInt(FieldCell::getLetter).max().getAsInt();
-        pushNextTurn(letter+1, number);
-        letter = shipHits.stream().mapToInt(FieldCell::getLetter).min().getAsInt();
-        pushNextTurn(letter-1, number);
-
-    }
-
-    private void pushNextTurn(int letter , int number){
-        FieldCell cell;
-        try {
-            cell = fieldData.getCells()[letter][number];
-
-            // invoke exception when letter or number is out of field
-            cell.toString(); // TODO remove monkey patch : check field size!!!
-
-            nextTurns.push( new Turn(cell) );
-        }catch (NullPointerException | ArrayIndexOutOfBoundsException e){
-            String string = "Wrong L/N :" + letter + number;
-            log.info(string);
+        if(isCarrierKilled()) {
+//        if(FOURS.size()==0 && turnPattern==FOURS) {
+            turnPattern = new ArrayList<>(TWOS);
+//            System.out.println(turnPattern.size());
         }
+
+
     }
 
-    private String formatStack(){
-        StringBuilder result = new StringBuilder();
-        result.append("NextTurn size : ").append( nextTurns.size() ).append("\n");
-        result.append("\t\t");
-        result.append("next turns : " );
 
-        for(Turn turn : nextTurns){
-            try {
-                result.append( turn.toString() );
-            }catch (NullPointerException npe){
-                log.severe("turn has no cell" + turn.hashCode());
-                npe.printStackTrace();
-
-            }
-        }
-        return result.toString();
-    }
 
 }

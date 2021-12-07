@@ -11,26 +11,30 @@
 #deck_back{
     -fx-background-image: url("../images/style_default/deck_back.png");
 }
-#deck_v{
-    -fx-background-image: url("../images/style_default/deck.png");
-    -fx-rotate: 90deg ;
-}
-#deck_front_v{
-    -fx-background-image: url("../images/style_default/deck_front.png");
-    -fx-rotate: 90deg ;
-}
-#deck_back_v{
-    -fx-background-image: url("../images/style_default/deck_back.png");
-    -fx-rotate: 90deg ;
-}
-#sea{
-    -fx-background-image: url("../images/style_default/sea.png");
-}
+
 #hit{
     -fx-background-image: url("../images/style_default/hit.png");
 }
+#hit_deck{
+    -fx-background-image: url("../images/style_default/hit_deck.png");
+}
+#hit_back{
+    -fx-background-image: url("../images/style_default/hit_back.png");
+}
+#hit_front{
+     -fx-background-image: url("../images/style_default/hit_front.png");
+}
+
+#hit_single{
+    -fx-background-image: url("../images/style_default/hit_single.png");
+}
+
+
 #miss{
     -fx-background-image: url("../images/style_default/miss.png");
+}
+#sea{
+    -fx-background-image: url("../images/style_default/sea.png");
 }
 
 .player.button:hover{

@@ -11,6 +11,8 @@ public class Ship{
     private final List<FieldCell> shipCellList = new ArrayList<>();
     private final List<FieldCell> hitCells     = new ArrayList<>();
 
+    private boolean isVertical ;
+
 
     public Ship( int s , int li , int ni , char d ){
 
@@ -21,15 +23,19 @@ public class Ship{
         // split to 2 sections : start position and end position
         if (d == 'v') {
             for (int i = 0; i < s; i++) {
+                isVertical = true;
                 FieldCell shipCell = new FieldCell(li,ni+i);
-                shipCell.setDeckStyle(s,i , true);
+                shipCell.setDeckStyle(s,i);
 
                 shipCellList.add( shipCell );
+
+
             }
         } else {
             for (int i = 0; i < s; i++) {
+                isVertical = false;
                 FieldCell shipCell = new FieldCell(li+i,ni);
-                shipCell.setDeckStyle(s,i,false);
+                shipCell.setDeckStyle(s,i);
                 shipCellList.add( shipCell );
             }
         }
@@ -39,6 +45,10 @@ public class Ship{
 
     public int getSize() {
         return size;
+    }
+
+    public boolean isVertical() {
+        return isVertical;
     }
 
     public List<FieldCell> getShipCellList() {

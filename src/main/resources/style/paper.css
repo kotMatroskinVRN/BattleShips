@@ -11,29 +11,35 @@
 #deck_back{
     -fx-background-image: url("../images/style_paper/deck.png");
 }
-#deck_v{
-    -fx-background-image: url("../images/style_paper/deck.png");
-    -fx-rotate: 90deg ;
+
+#hit{
+    -fx-background-image: url("../images/style_paper/hit.png");
 }
-#deck_front_v{
-    -fx-background-image: url("../images/style_paper/deck.png");
-    -fx-rotate: 90deg ;
+#hit_deck{
+    -fx-background-image: url("../images/style_paper/hit.png");
 }
-#deck_back_v{
-    -fx-background-image: url("../images/style_paper/deck.png");
-    -fx-rotate: 90deg ;
+#hit_back{
+    -fx-background-image: url("../images/style_paper/hit.png");
+}
+#hit_front{
+     -fx-background-image: url("../images/style_paper/hit.png");
+}
+
+#hit_single{
+    -fx-background-image: url("../images/style_paper/hit.png");
+}
+
+
+#miss{
+    -fx-background-image: url("../images/style_paper/miss.png");
 }
 #sea{
     -fx-background-image: url("../images/style_paper/sea.png");
 }
-#hit{
-    -fx-background-image: url("../images/style_paper/hit.png");
-}
-#miss{
-    -fx-background-image: url("../images/style_paper/miss.png");
-}
 
 .player.button:hover{
     -fx-graphic: url("../images/style_paper/cross.png");
+    -fx-max-height: 30;
+    -fx-max-width: 30;
     -fx-padding:0;
 }

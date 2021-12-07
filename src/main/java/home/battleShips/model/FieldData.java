@@ -3,9 +3,7 @@ package home.battleShips.model;
 import home.battleShips.Main;
 import home.battleShips.utils.StaticUtils;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -15,12 +13,10 @@ public class FieldData {
 
     private final FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
     private Ship[] ships ;
-//    private final List<Turn> turns = new ArrayList<>();
     private final Set<Turn> turns = new HashSet<>();
 
     private int count_kills     = 0;
 
-//    private final List<FieldCell> surroundedCells = new ArrayList<>();
 
     public void init(){
 
@@ -77,7 +73,6 @@ public class FieldData {
 
                         if(!ship.hasCell(letter,number)){
                             FieldCell cell = cells[letter][number];
-//                            surroundedCells.add(cell);
                             cell.setStyle(CssId.MISS);
                             Turn turn = new Turn(cell);
                             addTurnIfAbsent(turn);
@@ -110,9 +105,6 @@ public class FieldData {
         return false;
     }
 
-    private FieldCell chooseCell(String letter , int number){
-        return cells[StaticUtils.getNumberFromChar(letter)][number];
-    }
 
 
     private void defaultFillArray() {

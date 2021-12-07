@@ -12,6 +12,7 @@ class HardTest {
     void setUp() {
         logicTest = new LogicTest();
         logicTest.setUp( new Hard() );
+
     }
 
     @Test
@@ -24,7 +25,7 @@ class HardTest {
 
     @Test
     void makeShot() {
-
+        System.out.println(this.getClass().getName());
         logicTest.makeShot();
 
     }

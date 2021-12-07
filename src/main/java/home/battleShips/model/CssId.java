@@ -3,17 +3,17 @@ package home.battleShips.model;
 public enum CssId {
     SEA(){},
     MISS(){},
-    DECK(){},
-    DECK_FRONT(){},
-    DECK_BACK(){},
-    DECK_V(){},
-    DECK_FRONT_V(){},
-    DECK_BACK_V(){},
-    DECK_SINGLE(){},
-    HIT(DECK){},
-    HIT_FRONT(DECK_BACK){},
-    HIT_BACK(DECK_FRONT){},
-    HIT_SINGLE(DECK_SINGLE){},
+    HIT(){},
+    HIT_DECK(){},
+    HIT_FRONT(){},
+    HIT_BACK(){},
+    HIT_SINGLE(){},
+    DECK(HIT_DECK){},
+    DECK_FRONT(HIT_FRONT){},
+    DECK_BACK(HIT_BACK){},
+    DECK_SINGLE(HIT_SINGLE){},
+
+
     ;
 
     CssId afterKill;
@@ -31,7 +31,7 @@ public enum CssId {
         return super.toString().toLowerCase();
     }
 
-    public CssId getAfterKill() {
+    public CssId getKilled() {
         return afterKill;
     }
 

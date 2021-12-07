@@ -14,6 +14,7 @@ class NormalTest {
     void setUp() {
         logicTest = new LogicTest();
         logicTest.setUp( new Normal() );
+
     }
 
     @Test
@@ -26,7 +27,7 @@ class NormalTest {
 
     @Test
     void makeShot() {
-
+        System.out.println(this.getClass().getName());
         logicTest.makeShot();
 
     }
