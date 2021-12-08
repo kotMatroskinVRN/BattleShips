@@ -1,6 +1,7 @@
 home\battleShips\model\CssId$7.class
 home\battleShips\model\CssId$4.class
 home\battleShips\utils\TurnSequenceParser.class
+home\battleShips\model\cpu\Hardest.class
 home\battleShips\model\cpu\LogicFactory$4.class
 home\battleShips\model\CssId$1.class
 home\battleShips\model\CssId.class
@@ -13,6 +14,7 @@ home\battleShips\Controller.class
 home\battleShips\model\CssId$11.class
 home\battleShips\model\cpu\Ultimate.class
 home\battleShips\model\CssId$8.class
+home\battleShips\model\cpu\LogicFactory$5.class
 home\battleShips\model\CssId$2.class
 home\battleShips\model\CssId$9.class
 home\battleShips\model\CssId$3.class

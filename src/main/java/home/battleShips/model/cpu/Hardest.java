@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class Ultimate implements Logic {
+public class Hardest implements Logic {
 
-    private final static List<Turn> FOURS, TWOS;
+    private final static List<Turn> THREES;
 
 
     private Turn lastTurn;
@@ -25,12 +25,12 @@ public class Ultimate implements Logic {
 
     static {
         TurnSequenceParser turnSequenceParser;
-        turnSequenceParser = new TurnSequenceParser("move_sequence/four_three.txt");
+        turnSequenceParser = new TurnSequenceParser("move_sequence/threes.txt");
         turnSequenceParser.parse();
-        FOURS = turnSequenceParser.getTurns();
-        turnSequenceParser = new TurnSequenceParser("move_sequence/four_three_center.txt");
-        turnSequenceParser.parse();
-        TWOS = turnSequenceParser.getTurns();
+        THREES = turnSequenceParser.getTurns();
+//        turnSequenceParser = new TurnSequenceParser("move_sequence/four_three_center.txt");
+//        turnSequenceParser.parse();
+//        TWOS = turnSequenceParser.getTurns();
 
 
     }
@@ -40,9 +40,8 @@ public class Ultimate implements Logic {
     public void setData(FieldData fieldData) {
 
         this.fieldData = fieldData;
-        turnPattern = new ArrayList<>(FOURS);
+        turnPattern = new ArrayList<>(THREES);
     }
-
 
 
     @Override
@@ -84,7 +83,6 @@ public class Ultimate implements Logic {
         if(onlyTorpedoBoats) {
             return new Turn(fieldData); // random turn
         }
-
         Turn turn = getRandomTurnFromPattern();
 
         boolean factor = fieldData.addTurnIfAbsent(turn);
@@ -100,7 +98,9 @@ public class Ultimate implements Logic {
 
     private Turn getRandomTurnFromPattern(){
         whenFoursEmpty();
-        if(turnPattern.size()==0) return new Turn(fieldData); // random turn
+        if(onlyTorpedoBoats) {
+            return new Turn(fieldData); // random turn
+        }
         int element = (int) (Math.random() * (turnPattern.size()));
         Turn turn = turnPattern.get(element);
         turnPattern.remove(turn);
@@ -109,7 +109,8 @@ public class Ultimate implements Logic {
     }
 
     private void whenFoursEmpty(){
-        if(turnPattern.size()==0) turnPattern = new ArrayList<>(TWOS);
+//        if(turnPattern.size()==0) turnPattern = new ArrayList<>(TWOS);
+        if(turnPattern.size()==0) onlyTorpedoBoats = true;
     }
 
     private void proceedTurn(Turn turn){
@@ -127,9 +128,9 @@ public class Ultimate implements Logic {
                 nextTurns.clear();
                 hitsToKill.clear();
 
-                if(fieldData.areBattleShipsKilled()) {
-                    onlyTorpedoBoats = true;
-                }
+//                if(fieldData.areBattleShipsKilled()) {
+//                    onlyTorpedoBoats = true;
+//                }
 
             }
 

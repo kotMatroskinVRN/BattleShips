@@ -25,6 +25,12 @@ public enum LogicFactory {
             return new Ultimate();
         }
     },
+    HARDEST("Экстремальный"){
+        @Override
+        public Logic getDifficulty() {
+            return new Hardest();
+        }
+    },
     ;
 
     private final String description;

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class LogicTest {
 
-    private final int RERUN_NUMBER = 10000;
+    private final int RERUN_NUMBER = 1000;
 
     private int turnCount ;
 

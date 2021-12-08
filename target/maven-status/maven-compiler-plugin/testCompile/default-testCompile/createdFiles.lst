@@ -1,5 +1,6 @@
 home\battleShips\model\cpu\HardTest.class
 home\battleShips\MainTest.class
+home\battleShips\model\cpu\HardestTest.class
 home\battleShips\model\cpu\EasyTest.class
 home\battleShips\model\cpu\UltimateTest.class
 home\battleShips\utils\TurnSequenceParserTest.class
