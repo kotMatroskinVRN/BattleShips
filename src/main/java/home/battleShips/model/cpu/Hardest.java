@@ -79,13 +79,11 @@ public class Hardest implements Logic {
 
 
     private Turn getTurnFromPattern( ){
+        Turn turn;
+        boolean factor;
 
-        if(onlyTorpedoBoats) {
-            return new Turn(fieldData); // random turn
-        }
-        Turn turn = getRandomTurnFromPattern();
-
-        boolean factor = fieldData.addTurnIfAbsent(turn);
+        turn = getRandomTurnFromPattern();
+        factor = fieldData.addTurnIfAbsent(turn);
         while (!factor) {
             turn = getRandomTurnFromPattern();
             factor = fieldData.addTurnIfAbsent(turn);

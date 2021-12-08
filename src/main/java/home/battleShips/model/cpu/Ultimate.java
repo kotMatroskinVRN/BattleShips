@@ -11,36 +11,41 @@ import java.util.Stack;
 
 public class Ultimate implements Logic {
 
-    private final static List<Turn> FOURS, TWOS;
-
+//    private final static List<Turn> FOURS, TWOS;
+    private static int patternSwitchedTimes ;
 
     private Turn lastTurn;
 
+    private UltimatePattern pattern;
     private FieldData fieldData ;
-    private List<Turn>  turnPattern;
+//    private List<Turn>  turnPattern;
     private final List<FieldCell>  hitsToKill  = new ArrayList<>();
 
     private boolean onlyTorpedoBoats = false;
 
 
-    static {
-        TurnSequenceParser turnSequenceParser;
-        turnSequenceParser = new TurnSequenceParser("move_sequence/four_three.txt");
-        turnSequenceParser.parse();
-        FOURS = turnSequenceParser.getTurns();
-        turnSequenceParser = new TurnSequenceParser("move_sequence/four_three_center.txt");
-        turnSequenceParser.parse();
-        TWOS = turnSequenceParser.getTurns();
-
-
-    }
+//    static {
+//        TurnSequenceParser turnSequenceParser;
+//        turnSequenceParser = new TurnSequenceParser("move_sequence/four_three.txt");
+//        turnSequenceParser.parse();
+//        FOURS = turnSequenceParser.getTurns();
+//        turnSequenceParser = new TurnSequenceParser("move_sequence/four_three_center.txt");
+//        turnSequenceParser.parse();
+//        TWOS = turnSequenceParser.getTurns();
+//
+//
+//    }
 
 
     @Override
     public void setData(FieldData fieldData) {
 
         this.fieldData = fieldData;
-        turnPattern = new ArrayList<>(FOURS);
+//        turnPattern = new ArrayList<>(FOURS);
+        patternSwitchedTimes = 0;
+        UltimatePattern.RANDOM.setFieldData(fieldData);
+        pattern = UltimatePattern.FIRST;
+
     }
 
 
@@ -56,8 +61,16 @@ public class Ultimate implements Logic {
         log.info("cpu is shooting....");
 
         if(nextTurns.empty())  {
+            switchPattern();
+            Turn turn = pattern.getTurn();
 
-            Turn turn = getTurnFromPattern();
+            while(pattern!=UltimatePattern.RANDOM && !fieldData.addTurnIfAbsent(turn)) {
+                switchPattern();
+                turn = pattern.getTurn();
+            }
+            if(pattern==UltimatePattern.RANDOM){
+                turn = pattern.getTurn();
+            }
 
             proceedTurn(turn);
         }
@@ -77,40 +90,39 @@ public class Ultimate implements Logic {
         }
     }
 
-
-
-    private Turn getTurnFromPattern( ){
-
-        if(onlyTorpedoBoats) {
-            return new Turn(fieldData); // random turn
-        }
-
-        Turn turn = getRandomTurnFromPattern();
-
-        boolean factor = fieldData.addTurnIfAbsent(turn);
-        while (!factor) {
-            turn = getRandomTurnFromPattern();
-            factor = fieldData.addTurnIfAbsent(turn);
-
-        }
-
-        return turn;
-
+    private void switchPattern(){
+        if(UltimatePattern.FIRST.isEmpty())  pattern = UltimatePattern.SECOND;
+        if(UltimatePattern.SECOND.isEmpty()) pattern = UltimatePattern.RANDOM;
     }
 
-    private Turn getRandomTurnFromPattern(){
-        whenFoursEmpty();
-        if(turnPattern.size()==0) return new Turn(fieldData); // random turn
-        int element = (int) (Math.random() * (turnPattern.size()));
-        Turn turn = turnPattern.get(element);
-        turnPattern.remove(turn);
 
-        return turn;
-    }
+//    private Turn getTurnFromPattern( ){
+//         getRandomTurnFromPattern();
+//
+//
+//        return turn;
+//
+//    }
 
-    private void whenFoursEmpty(){
-        if(turnPattern.size()==0) turnPattern = new ArrayList<>(TWOS);
-    }
+//    private Turn getRandomTurnFromPattern(){
+//        whenFoursEmpty();
+//        if(turnPattern.size()==0) {
+//            return new Turn(fieldData); // random turn
+//        }
+//        int element = (int) (Math.random() * (turnPattern.size()));
+//        Turn turn = turnPattern.get(element);
+//        turnPattern.remove(turn);
+//
+//        return turn;
+//    }
+//
+//    private void whenFoursEmpty(){
+//        if(patternSwitchedTimes==0 && turnPattern.size()==0) {
+//            turnPattern = new ArrayList<>(TWOS);
+//            patternSwitchedTimes++;
+//            log.warning("switched");
+//        }
+//    }
 
     private void proceedTurn(Turn turn){
 
