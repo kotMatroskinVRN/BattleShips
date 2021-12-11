@@ -31,7 +31,7 @@ public class FieldData {
 
 
 
-    public boolean addTurnIfAbsent(Turn turn){
+    public boolean addTurn(Turn turn){
         FieldCell cell = turn.getCell();
 
 
@@ -40,6 +40,7 @@ public class FieldData {
         }
 
         turns.add(turn);
+        Main.getLog().warning(String.valueOf(turns.size()));
         return true;
     }
 
@@ -48,6 +49,7 @@ public class FieldData {
         for(Ship ship : ships){
             if( ship.hasCell(cell)){
                 ship.addHit(cell);
+                Main.getLog().warning(ship.getShipCellList().toString());
                 return true;
             }
         }
@@ -132,7 +134,7 @@ public class FieldData {
                             FieldCell cell = cells[letter][number];
                             cell.setStyle(CssId.MISS);
                             Turn turn = new Turn(cell);
-                            addTurnIfAbsent(turn);
+                            addTurn(turn);
                         }
                     } catch (NullPointerException  | ArrayIndexOutOfBoundsException ignored){}
 
@@ -147,7 +149,7 @@ public class FieldData {
     }
 
 
-    private boolean isCellInTurns(FieldCell cell){
+    public boolean isCellInTurns(FieldCell cell){
         int cellLetter = cell.getLetter();
         int cellNumber = cell.getNumber();
         for(Turn t: turns){

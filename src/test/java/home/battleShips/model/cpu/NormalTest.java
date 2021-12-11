@@ -6,17 +6,6 @@ import org.junit.jupiter.api.Test;
 class NormalTest {
 
 
-
-    private LogicTest logicTest ;
-
-
-    @BeforeEach
-    void setUp() {
-        logicTest = new LogicTest();
-        logicTest.setUp( LogicFactory.NORMAL.getDifficulty() );
-
-    }
-
     @Test
     void setFieldData() {
     }
@@ -27,6 +16,8 @@ class NormalTest {
 
     @Test
     void makeShot() {
+        LogicTest logicTest = new LogicTest();
+        logicTest.setLogic( LogicFactory.NORMAL.getDifficulty() );
         System.out.println(this.getClass().getName());
         logicTest.makeShot();
 

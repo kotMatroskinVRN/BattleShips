@@ -8,12 +8,7 @@ class HardestTest {
     private LogicTest logicTest ;
 
 
-    @BeforeEach
-    void setUp() {
-        logicTest = new LogicTest();
-        logicTest.setUp( LogicFactory.HARDEST.getDifficulty() );
 
-    }
 
     @Test
     void setFieldData() {
@@ -25,6 +20,8 @@ class HardestTest {
 
     @Test
     void makeShot() {
+        logicTest = new LogicTest();
+        logicTest.setLogic( LogicFactory.HARDEST.getDifficulty() );
         System.out.println(this.getClass().getName());
         try{ logicTest.makeShot();}
         catch (IndexOutOfBoundsException e){e.printStackTrace();}

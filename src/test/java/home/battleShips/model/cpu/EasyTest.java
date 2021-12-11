@@ -1,18 +1,9 @@
 package home.battleShips.model.cpu;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class EasyTest {
-    private LogicTest logicTest ;
 
-
-    @BeforeEach
-    void setUp() {
-        logicTest = new LogicTest();
-        logicTest.setUp( LogicFactory.EASY.getDifficulty() );
-
-    }
 
     @Test
     void setFieldData() {
@@ -24,6 +15,8 @@ class EasyTest {
 
     @Test
     void makeShot() {
+        LogicTest logicTest = new LogicTest();
+        logicTest.setLogic( LogicFactory.EASY.getDifficulty() );
         System.out.println(this.getClass().getName());
         logicTest.makeShot();
 

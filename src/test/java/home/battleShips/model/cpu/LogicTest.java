@@ -1,7 +1,9 @@
 package home.battleShips.model.cpu;
 
 import home.battleShips.Main;
+import home.battleShips.model.FieldCell;
 import home.battleShips.model.FieldData;
+import home.battleShips.model.Ship;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -9,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class LogicTest {
 
-    private final int RERUN_NUMBER = 1;
+    private final int RERUN_NUMBER = 3;
 
     private int turnCount ;
 
@@ -18,25 +20,22 @@ public class LogicTest {
     private final List<Integer> gameResult = new ArrayList<>();
     private final Map<Integer, Integer> turnsTop = new HashMap<>();
 
-
-    void setUp(Logic logic) {
-
-        turnCount = 0;
-
-        fieldData = new FieldData();
-        fieldData.init();
-        this.logic = logic;
-        this.logic.setData(fieldData);
-
-
-        Main.getLog().setLevel(Level.WARNING);
+    static{
+        Main.getLog().setLevel(Level.SEVERE);
     }
+
+    void setLogic(Logic logic){
+        this.logic = logic;
+
+    }
+
+
 
 
     void makeShot() {
 
         for(int i = 0; i< RERUN_NUMBER; i++) {
-            setUp(this.logic);
+            setUp();
 
 
             while (fieldData.getCount_kills()<10) {
@@ -73,6 +72,24 @@ public class LogicTest {
 
         System.out.printf("Sum TOP10 shots       : %-10s\n" , sumKeys  );
         System.out.printf("Sum TOP10 appearances : %-10s\n" , sumValues  );
+
+
+    }
+
+    private void setUp() {
+
+        turnCount = 0;
+
+        fieldData = new FieldData();
+        fieldData.init();
+
+        showField();
+        System.out.println();
+        showShips();
+
+
+        logic.setData(fieldData);
+
 
 
     }
@@ -116,5 +133,52 @@ public class LogicTest {
 
     }
 
+
+    private void showShips(){
+        for(int l=1;l<Main.getFIELD_SIZE();l++){
+            for(int n=1;n<Main.getFIELD_SIZE();n++){
+                try{
+                    boolean factor = false;
+                    FieldCell cell = fieldData.getCells()[l][n];
+                    for(Ship ship : fieldData.getShips()){
+                        if(ship.hasCell(cell)) factor = true;
+                    }
+                    String symbol = factor? "*":"-";
+                    System.out.print(symbol);
+                }catch (NullPointerException ignored){}
+            }
+
+            System.out.println();
+        }
+    }
+
+    private void showField(int n){
+        for(FieldCell[] row : fieldData.getCells()){
+            try{
+            for(FieldCell cell : row){
+                String symbol = fieldData.isHit(cell)? "*":"-";
+                System.out.print(symbol);
+            }
+            }catch (NullPointerException ignored){}
+            System.out.println();
+        }
+
+    }
+
+    private void showField(){
+        for(int l=1;l<Main.getFIELD_SIZE();l++){
+            for(int n=1;n<Main.getFIELD_SIZE();n++){
+                try{
+                    boolean factor = false;
+                    FieldCell cell = fieldData.getCells()[l][n];
+                    if(fieldData.isHit(cell)) factor=true;
+                    String symbol = factor? "*":"-";
+                    System.out.print(symbol);
+                }catch (NullPointerException ignored){}
+            }
+
+            System.out.println();
+        }
+    }
 
 }

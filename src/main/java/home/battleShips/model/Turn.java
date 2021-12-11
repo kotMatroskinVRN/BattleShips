@@ -11,9 +11,10 @@ public class Turn {
     private FieldCell cell;
     private TurnStatus status ;
 
-    public Turn(FieldData fieldData){
-        randomTurn(fieldData);
-    }
+//    public Turn(FieldData fieldData){
+//        randomTurn(fieldData);
+////        fieldData.addTurn(this);
+//    }
 
     public Turn(FieldCell cell){
         this.cell = cell;
@@ -32,6 +33,7 @@ public class Turn {
     }
 
     public boolean isHit(){
+
         return status == TurnStatus.HIT || status == TurnStatus.KILL;
     }
     public boolean isKill() {
@@ -49,7 +51,8 @@ public class Turn {
 
         cell = fieldData.getCells()[letter][number];
 
-        if(!fieldData.addTurnIfAbsent(this) ){
+//        if(!fieldData.addTurnIfAbsent(this) ){
+        if(fieldData.isCellInTurns(cell) ){
             randomTurn(fieldData);
         }
 

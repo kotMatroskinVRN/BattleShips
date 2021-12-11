@@ -5,15 +5,12 @@ import org.junit.jupiter.api.Test;
 
 class UltimateTest {
 
-    private LogicTest logicTest ;
 
-
-    @BeforeEach
-    void setUp() {
-        logicTest = new LogicTest();
-        logicTest.setUp( LogicFactory.ULTIMATE.getDifficulty() );
-
-    }
+//    @BeforeEach
+//    void setUp() {
+//
+//
+//    }
 
     @Test
     void setFieldData() {
@@ -25,6 +22,8 @@ class UltimateTest {
 
     @Test
     void makeShot() {
+        LogicTest logicTest = new LogicTest();
+        logicTest.setLogic( LogicFactory.ULTIMATE.getDifficulty() );
         System.out.println(this.getClass().getName());
         try{ logicTest.makeShot();}
         catch (IndexOutOfBoundsException e){e.printStackTrace();}

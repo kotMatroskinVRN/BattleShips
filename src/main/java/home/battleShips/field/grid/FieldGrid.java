@@ -45,8 +45,6 @@ public class FieldGrid extends GridPane {
     }
 
     private void processPlayerShipKilled(Ship ship) {
-
-
     }
 
 
@@ -72,6 +70,7 @@ public class FieldGrid extends GridPane {
     }
 
     public void showKilledShip(Ship ship) {
+        System.out.println("Killed Ship : " + ship);
         for(FieldCell shipCell : ship.getShipCellList()){
             int l = shipCell.getLetter();
             int n = shipCell.getNumber();

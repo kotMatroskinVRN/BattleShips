@@ -74,7 +74,7 @@ public class Game {
         Turn turn = new Turn(cell);
         FieldData fieldData = playerField.getFieldData();
 
-        if ( fieldData.addTurnIfAbsent(turn) )  {
+        if ( fieldData.addTurn(turn) )  {
 
             cpuTurnAnimation.stopAnimation();
             controller.addPlayerTurnToList(turn);
@@ -115,6 +115,7 @@ public class Game {
 
         if(lastTurn.isHit()){
             if(lastTurn.isKill()){
+                System.out.println("Killing hit : "+lastTurn);
                 cpuField.showKilledShip(cpuField.getFieldData().getKilledShip(lastTurn.getCell()));
                 checkGameOver(  cpuField );
             }

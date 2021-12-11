@@ -43,7 +43,7 @@ public class Normal implements Logic {
             log.info("cpu is aiming....." + turn);
 
 
-            while(!fieldData.addTurnIfAbsent(turn)) {
+            while(!fieldData.addTurn(turn)) {
                 log.info( formatStack() );
                 turn = nextTurns.pop();
                 log.info("cpu is aiming....." + turn);

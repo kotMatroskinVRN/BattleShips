@@ -5,15 +5,7 @@ import org.junit.jupiter.api.Test;
 
 class HardTest {
 
-    private LogicTest logicTest ;
 
-
-    @BeforeEach
-    void setUp() {
-        logicTest = new LogicTest();
-        logicTest.setUp( LogicFactory.HARD.getDifficulty() );
-
-    }
 
     @Test
     void setFieldData() {
@@ -25,6 +17,8 @@ class HardTest {
 
     @Test
     void makeShot() {
+        LogicTest logicTest = new LogicTest();
+        logicTest.setLogic( LogicFactory.HARD.getDifficulty() );
         System.out.println(this.getClass().getName());
         logicTest.makeShot();
 

@@ -1,138 +1,133 @@
-INFO : cpu is shooting....
-INFO : cpu shot  Д10  MISS
-INFO : 1  Д10 
-INFO : cpu is shooting....
-INFO : cpu shot  К5  MISS
-INFO : 2  К5 
-INFO : cpu is shooting....
-INFO : cpu shot  А3  MISS
-INFO : 3  А3 
-INFO : cpu is shooting....
-INFO : cpu shot  В1  MISS
-INFO : 4  В1 
-INFO : cpu is shooting....
-INFO : cpu shot  И9  MISS
-INFO : 5  И9 
+INFO : 48  Е10 
 INFO : cpu is shooting....
 INFO : cpu shot  Г3  MISS
-INFO : 6  Г3 
+INFO : 49  Г3 
 INFO : cpu is shooting....
-INFO : cpu shot  Д2  MISS
-INFO : 7  Д2 
-INFO : cpu is shooting....
-INFO : cpu shot  А6  MISS
-INFO : 8  А6 
-INFO : cpu is shooting....
-INFO : cpu shot  Б2  MISS
-INFO : 9  Б2 
+INFO : cpu shot  Г4  MISS
+INFO : 50  Г4 
 INFO : cpu is shooting....
 INFO : cpu shot  В4  MISS
-INFO : 10  В4 
+INFO : 51  В4 
+INFO : cpu is shooting....
+INFO : cpu shot  Ж6  MISS
+INFO : 52  Ж6 
+INFO : cpu is shooting....
+INFO : cpu shot  И4  MISS
+INFO : 53  И4 
+INFO : cpu is shooting....
+INFO : cpu shot  К6  MISS
+INFO : 54  К6 
+INFO : cpu is shooting....
+INFO : cpu shot  В9  MISS
+INFO : 55  В9 
+INFO : cpu is shooting....
+INFO : cpu shot  Д10  MISS
+INFO : 56  Д10 
+INFO : cpu is shooting....
+INFO : Wrong L/N :111
+INFO : Wrong L/N :100
+INFO : cpu shot  К1  KILL
+INFO : 57  К1 
+INFO : cpu is shooting....
+INFO : cpu shot  Д9  MISS
+INFO : 58  Д9 
+INFO : cpu is shooting....
+INFO : cpu shot  В2  MISS
+INFO : 59  В2 
+INFO : cpu is shooting....
+INFO : Wrong L/N :111
+INFO : Wrong L/N :100
+INFO : cpu shot  К1  KILL
+INFO : 60  К1 
+INFO : cpu is shooting....
+INFO : cpu shot  Г3  MISS
+INFO : 61  Г3 
+INFO : cpu is shooting....
+INFO : cpu shot  З2  KILL
+INFO : 62  З2 
+INFO : cpu is shooting....
+INFO : cpu shot  Д4  KILL
+INFO : 63  Д4 
+INFO : cpu is shooting....
+INFO : cpu shot  И4  MISS
+INFO : 64  И4 
+INFO : cpu is shooting....
+INFO : cpu shot  В4  MISS
+INFO : 65  В4 
+INFO : cpu is shooting....
+INFO : cpu shot  Г2  MISS
+INFO : 66  Г2 
+INFO : cpu is shooting....
+INFO : cpu shot  В9  MISS
+INFO : 67  В9 
+INFO : cpu is shooting....
+INFO : cpu shot  К3  MISS
+INFO : 68  К3 
+INFO : cpu is shooting....
+INFO : cpu shot  К10  MISS
+INFO : 69  К10 
+INFO : cpu is shooting....
+INFO : Wrong L/N :111
+INFO : Wrong L/N :100
+INFO : cpu shot  К1  KILL
+INFO : 70  К1 
+INFO : cpu is shooting....
+INFO : cpu shot  К3  MISS
+INFO : 71  К3 
+INFO : cpu is shooting....
+INFO : cpu shot  Е10  MISS
+INFO : 72  Е10 
+INFO : cpu is shooting....
+INFO : cpu shot  К10  MISS
+INFO : 73  К10 
+INFO : cpu is shooting....
+INFO : cpu shot  Д6  KILL
+INFO : 74  Д6 
+INFO : cpu is shooting....
+INFO : cpu shot  З6  MISS
+INFO : 75  З6 
+INFO : cpu is shooting....
+INFO : cpu shot  Д9  MISS
+INFO : 76  Д9 
+INFO : cpu is shooting....
+INFO : cpu shot  Ж8  MISS
+INFO : 77  Ж8 
+INFO : cpu is shooting....
+INFO : Wrong L/N :03
+INFO : cpu shot  А3  KILL
+INFO : 78  А3 
+INFO : cpu is shooting....
+INFO : Wrong L/N :118
+INFO : cpu shot  К8  KILL
+INFO : 79  К8 
+INFO : cpu is shooting....
+INFO : cpu shot  И6  MISS
+INFO : 80  И6 
+INFO : cpu is shooting....
+INFO : cpu shot  В3  MISS
+INFO : 81  В3 
 INFO : cpu is shooting....
 INFO : cpu shot  З10  MISS
-INFO : 11  З10 
+INFO : 82  З10 
 INFO : cpu is shooting....
-INFO : cpu shot  К8  MISS
-INFO : 12  К8 
+INFO : cpu shot  К6  MISS
+INFO : 83  К6 
 INFO : cpu is shooting....
-INFO : cpu shot  З7  HIT
-INFO : 13  З7 
+INFO : cpu shot  К6  MISS
+INFO : 84  К6 
 INFO : cpu is shooting....
-INFO : NextTurn size : 4
-		next turns :  И7  Ж7  З8  З6 
-INFO : cpu is aiming..... З6 
-INFO : cpu shot  З6  MISS
-INFO : 14  З6 
+INFO : cpu shot  Ж6  MISS
+INFO : 85  Ж6 
 INFO : cpu is shooting....
-INFO : NextTurn size : 3
-		next turns :  И7  Ж7  З8 
-INFO : cpu is aiming..... З8 
-INFO : cpu shot  З8  MISS
-INFO : 15  З8 
+INFO : cpu shot  Ж4  MISS
+INFO : 86  Ж4 
 INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  И7  Ж7 
-INFO : cpu is aiming..... Ж7 
-INFO : cpu shot  Ж7  MISS
-INFO : 16  Ж7 
+INFO : cpu shot  К5  MISS
+INFO : 87  К5 
 INFO : cpu is shooting....
-INFO : NextTurn size : 1
-		next turns :  И7 
-INFO : cpu is aiming..... И7 
-INFO : cpu shot  И7  HIT
-INFO : 17  И7 
+INFO : Wrong L/N :118
+INFO : cpu shot  К8  KILL
+INFO : 88  К8 
 INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  К7  З7 
-INFO : cpu is aiming..... З7 
-INFO : NextTurn size : 1
-		next turns :  К7 
-INFO : cpu is aiming..... К7 
-INFO : Wrong L/N :117
-INFO : cpu shot  К7  KILL
-INFO : 18  К7 
-INFO : cpu is shooting....
-INFO : cpu shot  Е9  HIT
-INFO : 19  Е9 
-INFO : cpu is shooting....
-INFO : NextTurn size : 4
-		next turns :  Ж9  Д9  Е10  Е8 
-INFO : cpu is aiming..... Е8 
-INFO : cpu shot  Е8  MISS
-INFO : 20  Е8 
-INFO : cpu is shooting....
-INFO : NextTurn size : 3
-		next turns :  Ж9  Д9  Е10 
-INFO : cpu is aiming..... Е10 
-INFO : Wrong L/N :611
-INFO : cpu shot  Е10  KILL
-INFO : 21  Е10 
-INFO : cpu is shooting....
-INFO : cpu shot  Е1  MISS
-INFO : 22  Е1 
-INFO : cpu is shooting....
-INFO : cpu shot  Б5  HIT
-INFO : 23  Б5 
-INFO : cpu is shooting....
-INFO : NextTurn size : 4
-		next turns :  В5  А5  Б6  Б4 
-INFO : cpu is aiming..... Б4 
-INFO : cpu shot  Б4  MISS
-INFO : 24  Б4 
-INFO : cpu is shooting....
-INFO : NextTurn size : 3
-		next turns :  В5  А5  Б6 
-INFO : cpu is aiming..... Б6 
-INFO : cpu shot  Б6  MISS
-INFO : 25  Б6 
-INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  В5  А5 
-INFO : cpu is aiming..... А5 
-INFO : cpu shot  А5  MISS
-INFO : 26  А5 
-INFO : cpu is shooting....
-INFO : NextTurn size : 1
-		next turns :  В5 
-INFO : cpu is aiming..... В5 
-INFO : cpu shot  В5  HIT
-INFO : 27  В5 
-INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  Г5  Б5 
-INFO : cpu is aiming..... Б5 
-INFO : NextTurn size : 1
-		next turns :  Г5 
-INFO : cpu is aiming..... Г5 
-INFO : cpu shot  Г5  HIT
-INFO : 28  Г5 
-INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  Д5  В5 
-INFO : cpu is aiming..... В5 
-INFO : NextTurn size : 1
-		next turns :  Д5 
-INFO : cpu is aiming..... Д5 
-INFO : cpu shot  Д5  KILL
-INFO : 29  Д5 
-INFO : cpu is shooting....
+INFO : cpu shot  В10  MISS
+INFO : 89  В10 

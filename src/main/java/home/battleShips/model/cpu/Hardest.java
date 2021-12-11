@@ -6,6 +6,7 @@ import home.battleShips.model.Turn;
 import home.battleShips.utils.TurnSequenceParser;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Stack;
 
@@ -66,7 +67,7 @@ public class Hardest implements Logic {
             Turn turn = nextTurns.pop();
             log.info("cpu is aiming....." + turn);
 
-            while(!fieldData.addTurnIfAbsent(turn)) {
+            while(!fieldData.addTurn(turn)) {
                 log.info( formatStack() );
                 turn = nextTurns.pop();
                 log.info("cpu is aiming....." + turn);
@@ -83,10 +84,10 @@ public class Hardest implements Logic {
         boolean factor;
 
         turn = getRandomTurnFromPattern();
-        factor = fieldData.addTurnIfAbsent(turn);
+        factor = fieldData.addTurn(turn);
         while (!factor) {
             turn = getRandomTurnFromPattern();
-            factor = fieldData.addTurnIfAbsent(turn);
+            factor = fieldData.addTurn(turn);
 
         }
 

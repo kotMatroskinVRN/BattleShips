@@ -73,7 +73,7 @@ public class Hard implements Logic {
             Turn turn = nextTurns.pop();
             log.info("cpu is aiming....." + turn);
 
-            while(!fieldData.addTurnIfAbsent(turn)) {
+            while(!fieldData.addTurn(turn)) {
                 log.info( formatStack() );
                 turn = nextTurns.pop();
                 log.info("cpu is aiming....." + turn);
@@ -100,7 +100,7 @@ public class Hard implements Logic {
 
 
 
-            while (!fieldData.addTurnIfAbsent(turn)) {
+            while (!fieldData.addTurn(turn)) {
                 turnPattern.remove(turn);
 
                 element = (int) (Math.random() * (turnPattern.size()));
