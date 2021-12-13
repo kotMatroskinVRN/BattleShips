@@ -56,11 +56,11 @@ public enum TurnPattern {
         turnPattern.remove(turn);
 
 //        while(fieldData.isCellInTurns(turn.getCell())){
-            if(turnPattern.size()==0) return null;
-            element = (int) (Math.random() * (turnPattern.size()));
+//            if(turnPattern.size()==0) return null;
+//            element = (int) (Math.random() * (turnPattern.size()));
 //            System.out.println(element);
-            turn = turnPattern.get(element);
-            turnPattern.remove(turn);
+//            turn = turnPattern.get(element);
+//            turnPattern.remove(turn);
 //        }
 
         return turn;

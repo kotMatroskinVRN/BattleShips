@@ -11,19 +11,17 @@ public class Turn {
     private FieldCell cell;
     private TurnStatus status ;
 
-//    public Turn(FieldData fieldData){
-//        randomTurn(fieldData);
-////        fieldData.addTurn(this);
-//    }
 
     public Turn(FieldCell cell){
         this.cell = cell;
     }
 
     public void shoot(FieldData fieldData){
+        fieldData.addTurn(this);
+
         if(fieldData.isHit(cell)){
-            fieldData.addHit(cell);
             setStatus(TurnStatus.HIT);
+
         }
         if(fieldData.isShipKilled(cell)){
             killShip();
@@ -46,21 +44,6 @@ public class Turn {
         setStatus(TurnStatus.KILL);
 
     }
-
-    public void randomTurn(FieldData fieldData){
-        int letter = (int)( Math.random()*(FIELD_SIZE-1) ) +1;
-        int number = (int)( Math.random()*(FIELD_SIZE-1) ) +1;
-
-        cell = fieldData.getCells()[letter][number];
-
-//        if(!fieldData.addTurnIfAbsent(this) ){
-        if(fieldData.isCellInTurns(cell) ){
-            randomTurn(fieldData);
-        }
-
-    }
-
-
 
     public FieldCell getCell() {
         return cell;

@@ -1,133 +1,51 @@
-INFO : 48  Е10 
+WARNING : 96
+WARNING : 96
+WARNING : [ Ж6 ,  З6 ,  И6 ]
+INFO : cpu shot  З6  KILL
+INFO : 38  З6 
 INFO : cpu is shooting....
-INFO : cpu shot  Г3  MISS
-INFO : 49  Г3 
-INFO : cpu is shooting....
-INFO : cpu shot  Г4  MISS
-INFO : 50  Г4 
-INFO : cpu is shooting....
-INFO : cpu shot  В4  MISS
-INFO : 51  В4 
-INFO : cpu is shooting....
-INFO : cpu shot  Ж6  MISS
-INFO : 52  Ж6 
-INFO : cpu is shooting....
-INFO : cpu shot  И4  MISS
-INFO : 53  И4 
-INFO : cpu is shooting....
-INFO : cpu shot  К6  MISS
-INFO : 54  К6 
-INFO : cpu is shooting....
-INFO : cpu shot  В9  MISS
-INFO : 55  В9 
-INFO : cpu is shooting....
-INFO : cpu shot  Д10  MISS
-INFO : 56  Д10 
-INFO : cpu is shooting....
-INFO : Wrong L/N :111
-INFO : Wrong L/N :100
-INFO : cpu shot  К1  KILL
-INFO : 57  К1 
-INFO : cpu is shooting....
-INFO : cpu shot  Д9  MISS
-INFO : 58  Д9 
-INFO : cpu is shooting....
-INFO : cpu shot  В2  MISS
-INFO : 59  В2 
-INFO : cpu is shooting....
-INFO : Wrong L/N :111
-INFO : Wrong L/N :100
-INFO : cpu shot  К1  KILL
-INFO : 60  К1 
-INFO : cpu is shooting....
-INFO : cpu shot  Г3  MISS
-INFO : 61  Г3 
-INFO : cpu is shooting....
-INFO : cpu shot  З2  KILL
-INFO : 62  З2 
-INFO : cpu is shooting....
-INFO : cpu shot  Д4  KILL
-INFO : 63  Д4 
-INFO : cpu is shooting....
-INFO : cpu shot  И4  MISS
-INFO : 64  И4 
-INFO : cpu is shooting....
-INFO : cpu shot  В4  MISS
-INFO : 65  В4 
-INFO : cpu is shooting....
-INFO : cpu shot  Г2  MISS
-INFO : 66  Г2 
-INFO : cpu is shooting....
-INFO : cpu shot  В9  MISS
-INFO : 67  В9 
-INFO : cpu is shooting....
-INFO : cpu shot  К3  MISS
-INFO : 68  К3 
-INFO : cpu is shooting....
+WARNING : 97
 INFO : cpu shot  К10  MISS
-INFO : 69  К10 
+INFO : 39  К10 
+WARNING : 77
 INFO : cpu is shooting....
-INFO : Wrong L/N :111
-INFO : Wrong L/N :100
-INFO : cpu shot  К1  KILL
-INFO : 70  К1 
+WARNING : 98
+INFO : cpu shot  В1  MISS
+INFO : 40  В1 
+WARNING : 78
 INFO : cpu is shooting....
-INFO : cpu shot  К3  MISS
-INFO : 71  К3 
-INFO : cpu is shooting....
-INFO : cpu shot  Е10  MISS
-INFO : 72  Е10 
-INFO : cpu is shooting....
-INFO : cpu shot  К10  MISS
-INFO : 73  К10 
-INFO : cpu is shooting....
-INFO : cpu shot  Д6  KILL
-INFO : 74  Д6 
-INFO : cpu is shooting....
-INFO : cpu shot  З6  MISS
-INFO : 75  З6 
-INFO : cpu is shooting....
-INFO : cpu shot  Д9  MISS
-INFO : 76  Д9 
-INFO : cpu is shooting....
-INFO : cpu shot  Ж8  MISS
-INFO : 77  Ж8 
-INFO : cpu is shooting....
-INFO : Wrong L/N :03
-INFO : cpu shot  А3  KILL
-INFO : 78  А3 
-INFO : cpu is shooting....
-INFO : Wrong L/N :118
-INFO : cpu shot  К8  KILL
-INFO : 79  К8 
-INFO : cpu is shooting....
-INFO : cpu shot  И6  MISS
-INFO : 80  И6 
-INFO : cpu is shooting....
-INFO : cpu shot  В3  MISS
-INFO : 81  В3 
-INFO : cpu is shooting....
+WARNING : 99
 INFO : cpu shot  З10  MISS
-INFO : 82  З10 
+INFO : 41  З10 
+WARNING : 79
 INFO : cpu is shooting....
-INFO : cpu shot  К6  MISS
-INFO : 83  К6 
+WARNING : 100
+WARNING : [ Ж1 ,  Ж2 ]
+WARNING : [ Ж1 ,  Ж2 ]
+WARNING : 100
+WARNING : 100
+WARNING : 100
+WARNING : 100
+WARNING : 100
+WARNING : 100
+WARNING : 100
+WARNING : 100
+WARNING : 100
+WARNING : 100
+WARNING : 100
+WARNING : [ Ж1 ,  Ж2 ]
+INFO : Wrong L/N :70
+INFO : cpu shot  Ж1  KILL
+INFO : 42  Ж1 
 INFO : cpu is shooting....
-INFO : cpu shot  К6  MISS
-INFO : 84  К6 
-INFO : cpu is shooting....
-INFO : cpu shot  Ж6  MISS
-INFO : 85  Ж6 
-INFO : cpu is shooting....
-INFO : cpu shot  Ж4  MISS
-INFO : 86  Ж4 
-INFO : cpu is shooting....
-INFO : cpu shot  К5  MISS
-INFO : 87  К5 
-INFO : cpu is shooting....
-INFO : Wrong L/N :118
-INFO : cpu shot  К8  KILL
-INFO : 88  К8 
-INFO : cpu is shooting....
-INFO : cpu shot  В10  MISS
-INFO : 89  В10 
+WARNING : 101
+WARNING : [ А1 ]
+WARNING : [ А1 ]
+WARNING : 102
+WARNING : 103
+WARNING : 104
+WARNING : [ А1 ]
+INFO : Wrong L/N :01
+INFO : Wrong L/N :10
+INFO : cpu shot  А1  KILL
+INFO : 43  А1 

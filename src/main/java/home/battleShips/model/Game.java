@@ -74,7 +74,7 @@ public class Game {
         Turn turn = new Turn(cell);
         FieldData fieldData = playerField.getFieldData();
 
-        if ( fieldData.addTurn(turn) )  {
+        if (!fieldData.isCellInTurns(turn.getCell()) )  {
 
             cpuTurnAnimation.stopAnimation();
             controller.addPlayerTurnToList(turn);

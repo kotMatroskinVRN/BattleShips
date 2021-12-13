@@ -57,19 +57,13 @@ public class Hard implements Logic {
 
         if(nextTurns.empty())  {
             switchPattern();
-//            Turn turn = pattern.getTurn();
-//
-//            if(turn==null){
-//                switchPattern();
-//                turn = pattern.getTurn();
-//            }
-
             Turn turn = pattern.getTurn();
             while(fieldData.isCellInTurns(turn.getCell())){
                 switchPattern();
                 turn = pattern.getTurn();
 
             }
+
 
             proceedTurn(turn);
         }
@@ -79,7 +73,7 @@ public class Hard implements Logic {
             Turn turn = nextTurns.pop();
             log.info("cpu is aiming....." + turn);
 
-            while(!fieldData.addTurn(turn)) {
+            while(fieldData.isCellInTurns(turn.getCell())){
                 log.info( formatStack() );
                 turn = nextTurns.pop();
                 log.info("cpu is aiming....." + turn);
@@ -110,7 +104,7 @@ public class Hard implements Logic {
         lastTurn = turn;
 
         turn.shoot(fieldData);
-        fieldData.addTurn(turn);
+
         if(turn.isHit()){
 
             surroundHit(turn.getCell());
@@ -121,11 +115,6 @@ public class Hard implements Logic {
                 nextTurns.clear();
                 hitsToKill.clear();
 
-
-                if(fieldData.onlyTorpedoBoatsLeft()) {
-                    onlyTorpedoBoats = true;
-                }
-
             }
 
 
@@ -135,7 +124,9 @@ public class Hard implements Logic {
                     " %s %s" , turn.getCell() , turn.getStatus());
         log.info(info);
 
-
+        if(!onlyTorpedoBoats && fieldData.onlyTorpedoBoatsLeft()) {
+            onlyTorpedoBoats = true;
+        }
 
 
     }

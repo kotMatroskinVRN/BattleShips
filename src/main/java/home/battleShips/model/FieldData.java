@@ -31,17 +31,14 @@ public class FieldData {
 
 
 
-    public boolean addTurn(Turn turn){
+    public void addTurn(Turn turn){
         FieldCell cell = turn.getCell();
 
-
-        if(isCellInTurns(cell)) {
-            return false;
-        }
-
-        turns.add(turn.getCell());
+        turns.add(cell);
         Main.getLog().warning(String.valueOf(turns.size()));
-        return true;
+        if(isHit(cell)){
+            addHit(cell);
+        }
     }
 
     public boolean isHit(FieldCell cell){
@@ -65,6 +62,7 @@ public class FieldData {
                     if(isShipKilled(cell)){
                         killedShips.add(ship);
                         surroundShip(ship);
+                        System.out.println(killedShips);
                     }
                 }
             }

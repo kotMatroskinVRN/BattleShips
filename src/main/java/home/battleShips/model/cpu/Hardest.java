@@ -73,7 +73,7 @@ public class Hardest implements Logic {
             Turn turn = nextTurns.pop();
             log.info("cpu is aiming....." + turn);
 
-            while(!fieldData.addTurn(turn)) {
+            while(fieldData.isCellInTurns(turn.getCell())) {
                 log.info( formatStack() );
                 turn = nextTurns.pop();
                 log.info("cpu is aiming....." + turn);
