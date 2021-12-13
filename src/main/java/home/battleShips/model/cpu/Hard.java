@@ -1,7 +1,6 @@
 package home.battleShips.model.cpu;
 
 import home.battleShips.model.*;
-import home.battleShips.utils.TurnSequenceParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,28 +8,17 @@ import java.util.Stack;
 
 public class Hard implements Logic {
 
-    private final static List<Turn> FOURS, TWOS;
-
+    private final Stack<TurnPattern> patternStack = new Stack<>();
 
     private Turn lastTurn;
 
+    private TurnPattern pattern;
     private FieldData fieldData ;
 
-    private List<Turn>  turnPattern;
     private final List<FieldCell>  hitsToKill  = new ArrayList<>();
 
     private boolean onlyTorpedoBoats = false;
 
-
-    static {
-        TurnSequenceParser turnSequenceParser;
-        turnSequenceParser = new TurnSequenceParser("move_sequence/four.txt");
-        turnSequenceParser.parse();
-        FOURS = turnSequenceParser.getTurns();
-        turnSequenceParser = new TurnSequenceParser("move_sequence/two.txt");
-        turnSequenceParser.parse();
-        TWOS = turnSequenceParser.getTurns();
-    }
 
 
     @Override
@@ -38,10 +26,16 @@ public class Hard implements Logic {
 
         this.fieldData = fieldData;
 
+        patternStack.push(TurnPattern.RANDOM);
+        patternStack.push(TurnPattern.TWOS);
+        patternStack.push(TurnPattern.FOURS);
+
+        patternStack.forEach(TurnPattern::init);
+        System.out.println(patternStack);
+        pattern = patternStack.pop();
+        System.out.println(patternStack);
 
 
-
-        turnPattern = new ArrayList<>(FOURS);
 
 
     }
@@ -62,8 +56,20 @@ public class Hard implements Logic {
         log.info("cpu is shooting....");
 
         if(nextTurns.empty())  {
+            switchPattern();
+//            Turn turn = pattern.getTurn();
+//
+//            if(turn==null){
+//                switchPattern();
+//                turn = pattern.getTurn();
+//            }
 
-            Turn turn = getTurnFromPattern();
+            Turn turn = pattern.getTurn();
+            while(fieldData.isCellInTurns(turn.getCell())){
+                switchPattern();
+                turn = pattern.getTurn();
+
+            }
 
             proceedTurn(turn);
         }
@@ -83,41 +89,28 @@ public class Hard implements Logic {
         }
     }
 
+    private void switchPattern(){
+        if(!patternStack.empty()) {
+            if (pattern.isEmpty()) {
+                System.out.println("Swithed from : " + pattern.toString());
+                pattern = patternStack.pop();
+                System.out.println("Swithed to   : " + pattern.toString());
+                System.out.println(fieldData.getTurns().size());
 
-
-    private Turn getTurnFromPattern( ){
-
-        if(onlyTorpedoBoats) {
-//            System.out.println("do random turn");
-            return new Turn(fieldData); // random turn
-        }else {
-
-//            System.out.println(turnPattern);
-
-
-            int element = (int) (Math.random() * (turnPattern.size()));
-            Turn turn = turnPattern.get(element);
-
-
-
-            while (!fieldData.addTurn(turn)) {
-                turnPattern.remove(turn);
-
-                element = (int) (Math.random() * (turnPattern.size()));
-                turn = turnPattern.get(element);
             }
 
-            turnPattern.remove(turn);
-//            if(turnPattern==fours && turnPattern.size()==0) turnPattern = twos;
-            return turn;
+//            if (onlyTorpedoBoats) pattern = TurnPattern.RANDOM;
         }
     }
+
+
 
     private void proceedTurn(Turn turn){
 
         lastTurn = turn;
 
         turn.shoot(fieldData);
+        fieldData.addTurn(turn);
         if(turn.isHit()){
 
             surroundHit(turn.getCell());
@@ -127,6 +120,7 @@ public class Hard implements Logic {
             if(turn.isKill()){
                 nextTurns.clear();
                 hitsToKill.clear();
+
 
                 if(fieldData.onlyTorpedoBoatsLeft()) {
                     onlyTorpedoBoats = true;
@@ -141,11 +135,7 @@ public class Hard implements Logic {
                     " %s %s" , turn.getCell() , turn.getStatus());
         log.info(info);
 
-        if(fieldData.isCarrierKilled()) {
-//        if(FOURS.size()==0 && turnPattern==FOURS) {
-            turnPattern = new ArrayList<>(TWOS);
-//            System.out.println(turnPattern.size());
-        }
+
 
 
     }

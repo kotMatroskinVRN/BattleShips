@@ -1,6 +1,5 @@
 package home.battleShips.model.cpu;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class NormalTest {
@@ -19,7 +18,8 @@ class NormalTest {
         LogicTest logicTest = new LogicTest();
         logicTest.setLogic( LogicFactory.NORMAL.getDifficulty() );
         System.out.println(this.getClass().getName());
-        logicTest.makeShot();
+        try{ logicTest.makeShot();}
+        catch (IndexOutOfBoundsException e){e.printStackTrace();}
 
     }
 

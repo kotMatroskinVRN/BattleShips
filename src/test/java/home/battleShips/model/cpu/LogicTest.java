@@ -4,6 +4,8 @@ import home.battleShips.Main;
 import home.battleShips.model.FieldCell;
 import home.battleShips.model.FieldData;
 import home.battleShips.model.Ship;
+import home.battleShips.model.Turn;
+import home.battleShips.utils.StaticUtils;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -11,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class LogicTest {
 
-    private final int RERUN_NUMBER = 3;
+    private final int RERUN_NUMBER = 1000;
 
     private int turnCount ;
 
@@ -19,6 +21,7 @@ public class LogicTest {
     private Logic logic;
     private final List<Integer> gameResult = new ArrayList<>();
     private final Map<Integer, Integer> turnsTop = new HashMap<>();
+    private final Set<Turn> turns = new HashSet<>();
 
     static{
         Main.getLog().setLevel(Level.SEVERE);
@@ -83,12 +86,15 @@ public class LogicTest {
         fieldData = new FieldData();
         fieldData.init();
 
-        showField();
-        System.out.println();
-        showShips();
+//        showField();
+//        System.out.println();
+//        showShips();
 
+
+//        StaticUtils.pause(2000);
 
         logic.setData(fieldData);
+        turns.clear();
 
 
 
@@ -123,6 +129,13 @@ public class LogicTest {
 
     private void counterAction() {
         logic.makeShot();
+        Turn lastTurn = logic.getLastTurn();
+//        if(turns.contains(lastTurn)){
+        if(isTurnInTurns(lastTurn)){
+            System.out.println("repetitive turn");
+            System.out.println(lastTurn);
+        }
+        turns.add(lastTurn);
 //        Turn lastTurn =  logic.getLastTurn();
 //        System.out.printf("%-5s%-5s%s\n", turnCount , lastTurn.getCell() , lastTurn.getStatus().toString());
 
@@ -131,6 +144,15 @@ public class LogicTest {
 //
 //            }
 
+    }
+
+    private boolean isTurnInTurns(Turn lastTurn) {
+        for(Turn turn : turns){
+            if(turn.getCell().isSamePlace(lastTurn.getCell())){
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -152,18 +174,7 @@ public class LogicTest {
         }
     }
 
-    private void showField(int n){
-        for(FieldCell[] row : fieldData.getCells()){
-            try{
-            for(FieldCell cell : row){
-                String symbol = fieldData.isHit(cell)? "*":"-";
-                System.out.print(symbol);
-            }
-            }catch (NullPointerException ignored){}
-            System.out.println();
-        }
 
-    }
 
     private void showField(){
         for(int l=1;l<Main.getFIELD_SIZE();l++){

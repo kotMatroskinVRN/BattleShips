@@ -14,8 +14,8 @@ public class FieldData {
 
     private final FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
     private Ship[] ships ;
-    private final Set<Turn> turns = new HashSet<>();
-    private final List<Ship> killedShips = new ArrayList<>();
+    private final Set<FieldCell> turns = new HashSet<>();
+    private final Set<Ship> killedShips = new HashSet<>();
 
 
 
@@ -39,7 +39,7 @@ public class FieldData {
             return false;
         }
 
-        turns.add(turn);
+        turns.add(turn.getCell());
         Main.getLog().warning(String.valueOf(turns.size()));
         return true;
     }
@@ -57,20 +57,30 @@ public class FieldData {
 
     }
 
+    public void addHit(FieldCell cell){
+        if(isHit(cell)){
+            for(Ship ship : ships){
+                if( ship.hasCell(cell)){
+                    ship.addHit(cell);
+                    if(isShipKilled(cell)){
+                        killedShips.add(ship);
+                        surroundShip(ship);
+                    }
+                }
+            }
+        }
+    }
+
     public boolean isShipKilled(FieldCell cell){
         for(Ship ship : ships){
             if( ship.hasCell(cell) && ship.isKilled() ){
-                if(!killedShips.contains(ship)) {
-                    killedShips.add(ship);
-                    surroundShip(ship);
-                }
                 return true;
             }
         }
         return false;
     }
 
-    public Set<Turn> getTurns() {
+    public Set<FieldCell> getTurns() {
         return turns;
     }
 
@@ -92,7 +102,6 @@ public class FieldData {
 
     public boolean areBattleShipsKilled(){
         int battleShips = 0;
-
 
         for( Ship ship : killedShips){
             if(ship.getSize()==3) battleShips++;
@@ -150,12 +159,11 @@ public class FieldData {
 
 
     public boolean isCellInTurns(FieldCell cell){
-        int cellLetter = cell.getLetter();
-        int cellNumber = cell.getNumber();
-        for(Turn t: turns){
-            int letter = t.getCell().getLetter();
-            int number = t.getCell().getNumber();
-            if(letter==cellLetter && number==cellNumber) return true;
+
+        for(FieldCell t: turns){
+            if(t.isSamePlace(cell)) {
+                return true;
+            }
         }
         return false;
     }

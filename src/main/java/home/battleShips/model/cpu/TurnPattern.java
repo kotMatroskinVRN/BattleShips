@@ -1,7 +1,7 @@
 package home.battleShips.model.cpu;
 
 import home.battleShips.Main;
-import home.battleShips.model.FieldData;
+import home.battleShips.model.FieldCell;
 import home.battleShips.model.Turn;
 import home.battleShips.utils.TurnSequenceParser;
 
@@ -23,14 +23,14 @@ public enum TurnPattern {
             int letter = (int) (Math.random() * (Main.getFIELD_SIZE() - 1)) + 1;
             int number = (int) (Math.random() * (Main.getFIELD_SIZE() - 1)) + 1;
 
-            return new Turn(fieldData.getCells()[letter][number]);
+            return new Turn(new FieldCell(letter,number));
 
         }
     },
     ;
-    private List<Turn> initPattern;
+    private final List<Turn> initPattern;
     private List<Turn> turnPattern;
-    private static FieldData fieldData;
+//    private static FieldData fieldData;
 
     TurnPattern() {
         initPattern = new ArrayList<>();
@@ -55,13 +55,13 @@ public enum TurnPattern {
         Turn turn = turnPattern.get(element);
         turnPattern.remove(turn);
 
-        while(fieldData.isCellInTurns(turn.getCell())){
+//        while(fieldData.isCellInTurns(turn.getCell())){
             if(turnPattern.size()==0) return null;
             element = (int) (Math.random() * (turnPattern.size()));
 //            System.out.println(element);
             turn = turnPattern.get(element);
             turnPattern.remove(turn);
-        }
+//        }
 
         return turn;
     }
@@ -71,12 +71,16 @@ public enum TurnPattern {
     }
 
 
-    public static void setFieldData(FieldData data){
-        fieldData = data;
-    }
+//    public static void setFieldData(FieldData data){
+//        fieldData = data;
+//    }
+//
+//    public FieldData getFieldData(){
+//        return fieldData;
+//    }
 
-    public FieldData getFieldData(){
-        return fieldData;
-    }
 
+    public int getTurnPatternSize() {
+        return turnPattern.size();
+    }
 }

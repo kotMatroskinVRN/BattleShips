@@ -7,11 +7,13 @@ public class Normal implements Logic {
 
     private Turn lastTurn;
     private FieldData fieldData ;
+    private TurnPattern pattern;
 
 
     @Override
     public void setData(FieldData fieldData) {
         this.fieldData = fieldData;
+        pattern = TurnPattern.RANDOM;
     }
 
 //    @Override
@@ -31,7 +33,12 @@ public class Normal implements Logic {
 
         if(nextTurns.isEmpty())  {
             log.info(  "next turns : empty . Do random hit");
-            Turn turn = new Turn(fieldData); // random turn
+
+            Turn turn = pattern.getTurn(); // random turn
+            while(fieldData.isCellInTurns(turn.getCell())){
+                turn = pattern.getTurn(); // random turn
+
+            }
 
             proceedTurn(turn);
         }
@@ -60,6 +67,7 @@ public class Normal implements Logic {
         lastTurn = turn;
 
         turn.shoot(fieldData);
+        fieldData.addTurn(turn);
         if(turn.isHit()){
 
             surroundHit(turn.getCell());

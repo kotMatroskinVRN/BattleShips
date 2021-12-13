@@ -43,7 +43,7 @@ public class Ultimate implements Logic {
         this.fieldData = fieldData;
 //        turnPattern = new ArrayList<>(FOURS);
         patternSwitchedTimes = 0;
-        TurnPattern.setFieldData(fieldData);
+//        TurnPattern.setFieldData(fieldData);
         patternStack.push(TurnPattern.RANDOM);
         patternStack.push(TurnPattern.ULTIMATE_SECOND);
         patternStack.push(TurnPattern.ULTIMATE_FIRST);
@@ -99,10 +99,8 @@ public class Ultimate implements Logic {
         if(!patternStack.empty()) {
             if (pattern.isEmpty()) {
                 System.out.println("Swithed from : " + pattern.toString());
-                System.out.println(pattern.getFieldData());
                 pattern = patternStack.pop();
                 System.out.println("Swithed to   : " + pattern.toString());
-                System.out.println(pattern.getFieldData());
             }
 
 //            if (onlyTorpedoBoats) pattern = TurnPattern.RANDOM;

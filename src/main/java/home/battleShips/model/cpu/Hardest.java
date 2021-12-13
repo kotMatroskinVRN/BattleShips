@@ -12,36 +12,35 @@ import java.util.Stack;
 
 public class Hardest implements Logic {
 
-    private final static List<Turn> THREES;
-
+    private final Stack<TurnPattern> patternStack = new Stack<>();
 
     private Turn lastTurn;
 
+    private TurnPattern pattern;
     private FieldData fieldData ;
-    private List<Turn>  turnPattern;
+
     private final List<FieldCell>  hitsToKill  = new ArrayList<>();
 
     private boolean onlyTorpedoBoats = false;
 
-
-    static {
-        TurnSequenceParser turnSequenceParser;
-        turnSequenceParser = new TurnSequenceParser("move_sequence/threes.txt");
-        turnSequenceParser.parse();
-        THREES = turnSequenceParser.getTurns();
-//        turnSequenceParser = new TurnSequenceParser("move_sequence/four_three_center.txt");
-//        turnSequenceParser.parse();
-//        TWOS = turnSequenceParser.getTurns();
-
-
-    }
 
 
     @Override
     public void setData(FieldData fieldData) {
 
         this.fieldData = fieldData;
-        turnPattern = new ArrayList<>(THREES);
+
+        patternStack.push(TurnPattern.RANDOM);
+        patternStack.push(TurnPattern.THREES);
+
+        patternStack.forEach(TurnPattern::init);
+        System.out.println(patternStack);
+        pattern = patternStack.pop();
+        System.out.println(patternStack);
+
+
+
+
     }
 
 
@@ -56,8 +55,15 @@ public class Hardest implements Logic {
         log.info("cpu is shooting....");
 
         if(nextTurns.empty())  {
+            switchPattern();
+            Turn turn = pattern.getTurn();
 
-            Turn turn = getTurnFromPattern();
+            if(turn==null){
+                switchPattern();
+                turn = pattern.getTurn();
+            }
+
+
 
             proceedTurn(turn);
         }
@@ -77,46 +83,26 @@ public class Hardest implements Logic {
         }
     }
 
+    private void switchPattern(){
+        if(!patternStack.empty()) {
+            if (pattern.isEmpty()) {
+                System.out.println("Swithed from : " + pattern.toString());
+                pattern = patternStack.pop();
+                System.out.println("Swithed to   : " + pattern.toString());
+            }
 
-
-    private Turn getTurnFromPattern( ){
-        Turn turn;
-        boolean factor;
-
-        turn = getRandomTurnFromPattern();
-        factor = fieldData.addTurn(turn);
-        while (!factor) {
-            turn = getRandomTurnFromPattern();
-            factor = fieldData.addTurn(turn);
-
+//            if (onlyTorpedoBoats) pattern = TurnPattern.RANDOM;
         }
-
-        return turn;
-
     }
 
-    private Turn getRandomTurnFromPattern(){
-        whenFoursEmpty();
-        if(onlyTorpedoBoats) {
-            return new Turn(fieldData); // random turn
-        }
-        int element = (int) (Math.random() * (turnPattern.size()));
-        Turn turn = turnPattern.get(element);
-        turnPattern.remove(turn);
 
-        return turn;
-    }
-
-    private void whenFoursEmpty(){
-//        if(turnPattern.size()==0) turnPattern = new ArrayList<>(TWOS);
-        if(turnPattern.size()==0) onlyTorpedoBoats = true;
-    }
 
     private void proceedTurn(Turn turn){
 
         lastTurn = turn;
 
         turn.shoot(fieldData);
+        fieldData.addTurn(turn);
         if(turn.isHit()){
 
             surroundHit(turn.getCell());
@@ -127,9 +113,9 @@ public class Hardest implements Logic {
                 nextTurns.clear();
                 hitsToKill.clear();
 
-//                if(fieldData.areBattleShipsKilled()) {
-//                    onlyTorpedoBoats = true;
-//                }
+                if(fieldData.areBattleShipsKilled()) {
+                    onlyTorpedoBoats = true;
+                }
 
             }
 
@@ -137,10 +123,12 @@ public class Hardest implements Logic {
         }
 
         String info = String.format("cpu shot" +
-                    " %s %s" , turn.getCell() , turn.getStatus());
+                " %s %s" , turn.getCell() , turn.getStatus());
         log.info(info);
 
-
+        if(fieldData.isCarrierKilled()) {
+            pattern = patternStack.pop();
+        }
 
 
     }

@@ -22,10 +22,12 @@ public class Turn {
 
     public void shoot(FieldData fieldData){
         if(fieldData.isHit(cell)){
+            fieldData.addHit(cell);
             setStatus(TurnStatus.HIT);
         }
         if(fieldData.isShipKilled(cell)){
             killShip();
+
         }
         if(!isHit()) {
             setStatus(TurnStatus.MISS);

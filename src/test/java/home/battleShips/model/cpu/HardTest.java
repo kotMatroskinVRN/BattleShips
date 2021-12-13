@@ -1,6 +1,5 @@
 package home.battleShips.model.cpu;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class HardTest {

@@ -7,9 +7,12 @@ public class Easy implements Logic {
     private Turn lastTurn;
     private FieldData fieldData ;
 
+    private TurnPattern pattern;
+
     @Override
     public void setData(FieldData fieldData) {
         this.fieldData = fieldData;
+        pattern = TurnPattern.RANDOM;
     }
 
 //    @Override
@@ -20,7 +23,12 @@ public class Easy implements Logic {
     @Override
     public void makeShot() {
 
-        lastTurn = new Turn(fieldData);
+        Turn turn = pattern.getTurn(); // random turn
+        while(fieldData.isCellInTurns(turn.getCell())) {
+            turn = pattern.getTurn(); // random turn
+        }
+        fieldData.addTurn(turn);
+        lastTurn = turn;
 
         lastTurn.shoot(fieldData);
 
