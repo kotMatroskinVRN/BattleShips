@@ -79,7 +79,8 @@ public class Game {
             cpuTurnAnimation.stopAnimation();
             controller.addPlayerTurnToList(turn);
 
-            turn.shoot(fieldData);
+            fieldData.proceedTurn(turn);
+//            turn.shoot(fieldData);
             playerField.applyTurn(turn);
 
 

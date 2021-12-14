@@ -13,13 +13,11 @@ public class Normal implements Logic {
     @Override
     public void setData(FieldData fieldData) {
         this.fieldData = fieldData;
+        TurnPattern.setFieldData(fieldData);
         pattern = TurnPattern.RANDOM;
+        pattern.init();
     }
 
-//    @Override
-//    public FieldData getData(){
-//        return fieldData;
-//    }
 
     @Override
     public Turn getLastTurn(){
@@ -66,8 +64,8 @@ public class Normal implements Logic {
 
         lastTurn = turn;
 
-        turn.shoot(fieldData);
-        fieldData.addTurn(turn);
+
+        fieldData.proceedTurn(turn);
         if(turn.isHit()){
 
             surroundHit(turn.getCell());

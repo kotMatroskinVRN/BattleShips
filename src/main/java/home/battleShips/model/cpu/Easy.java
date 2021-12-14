@@ -12,13 +12,13 @@ public class Easy implements Logic {
     @Override
     public void setData(FieldData fieldData) {
         this.fieldData = fieldData;
+        TurnPattern.setFieldData(fieldData);
+
         pattern = TurnPattern.RANDOM;
+        pattern.init();
     }
 
-//    @Override
-//    public FieldData getData() {
-//        return null;
-//    }
+
 
     @Override
     public void makeShot() {
@@ -27,10 +27,10 @@ public class Easy implements Logic {
         while(fieldData.isCellInTurns(turn.getCell())) {
             turn = pattern.getTurn(); // random turn
         }
-        fieldData.addTurn(turn);
+        fieldData.proceedTurn(turn);
         lastTurn = turn;
 
-        lastTurn.shoot(fieldData);
+        fieldData.proceedTurn(turn);
 
     }
 

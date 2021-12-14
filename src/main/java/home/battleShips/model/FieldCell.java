@@ -3,6 +3,8 @@ package home.battleShips.model;
 
 import home.battleShips.Main;
 
+import java.util.Objects;
+
 public class FieldCell implements Comparable<FieldCell> {
 
     private final int number;
@@ -74,6 +76,19 @@ public class FieldCell implements Comparable<FieldCell> {
         if(letter == o.getLetter()) return 0;
 
         return  letter>o.getLetter()?1:0 ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FieldCell fieldCell = (FieldCell) o;
+        return number == fieldCell.number && letter == fieldCell.letter ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, letter);
     }
 
     @Override

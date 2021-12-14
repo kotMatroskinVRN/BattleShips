@@ -3,13 +3,15 @@ package home.battleShips.model;
 import home.battleShips.utils.StaticUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Ship{
 
     private final int size ;
-    private final List<FieldCell> shipCellList = new ArrayList<>();
-    private final List<FieldCell> hitCells     = new ArrayList<>();
+    private final Set<FieldCell> shipCellList = new HashSet<>();
+    private final Set<FieldCell> hitCells     = new HashSet<>();
 
     private boolean isVertical ;
 
@@ -51,11 +53,11 @@ public class Ship{
         return isVertical;
     }
 
-    public List<FieldCell> getShipCellList() {
+    public Set<FieldCell> getShipCellList() {
         return shipCellList;
     }
 
-    public List<FieldCell> getHitCells() {
+    public Set<FieldCell> getHitCells() {
         return hitCells;
     }
 

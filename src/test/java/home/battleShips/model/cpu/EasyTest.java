@@ -17,6 +17,7 @@ class EasyTest {
     void makeShot() {
         LogicTest logicTest = new LogicTest();
         logicTest.setLogic( LogicFactory.EASY.getDifficulty() );
+        System.out.println();
         System.out.println(this.getClass().getName());
         logicTest.makeShot();
 

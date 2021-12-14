@@ -37,6 +37,7 @@ class ShipTest {
 
     @Test
     void getShipCellList() {
+        System.out.println();
         assertEquals( 4 , ship41.getShipCellList().size() );
         assertEquals( 3 , ship31.getShipCellList().size() );
         assertEquals( 3 , ship32.getShipCellList().size() );

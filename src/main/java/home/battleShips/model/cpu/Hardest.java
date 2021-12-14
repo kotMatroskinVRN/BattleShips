@@ -3,10 +3,8 @@ package home.battleShips.model.cpu;
 import home.battleShips.model.FieldCell;
 import home.battleShips.model.FieldData;
 import home.battleShips.model.Turn;
-import home.battleShips.utils.TurnSequenceParser;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Stack;
 
@@ -29,17 +27,14 @@ public class Hardest implements Logic {
     public void setData(FieldData fieldData) {
 
         this.fieldData = fieldData;
+        TurnPattern.setFieldData(fieldData);
 
+        patternStack.clear();
         patternStack.push(TurnPattern.RANDOM);
         patternStack.push(TurnPattern.THREES);
 
         patternStack.forEach(TurnPattern::init);
-        System.out.println(patternStack);
         pattern = patternStack.pop();
-        System.out.println(patternStack);
-
-
-
 
     }
 
@@ -58,7 +53,7 @@ public class Hardest implements Logic {
             switchPattern();
             Turn turn = pattern.getTurn();
 
-            if(turn==null){
+            while(fieldData.isCellInTurns(turn.getCell())){
                 switchPattern();
                 turn = pattern.getTurn();
             }
@@ -86,12 +81,10 @@ public class Hardest implements Logic {
     private void switchPattern(){
         if(!patternStack.empty()) {
             if (pattern.isEmpty()) {
-                System.out.println("Swithed from : " + pattern.toString());
                 pattern = patternStack.pop();
-                System.out.println("Swithed to   : " + pattern.toString());
             }
 
-//            if (onlyTorpedoBoats) pattern = TurnPattern.RANDOM;
+            if (onlyTorpedoBoats && pattern!=TurnPattern.RANDOM) pattern = TurnPattern.RANDOM;
         }
     }
 
@@ -101,8 +94,8 @@ public class Hardest implements Logic {
 
         lastTurn = turn;
 
-        turn.shoot(fieldData);
-        fieldData.addTurn(turn);
+        fieldData.proceedTurn(turn);
+
         if(turn.isHit()){
 
             surroundHit(turn.getCell());
@@ -113,9 +106,7 @@ public class Hardest implements Logic {
                 nextTurns.clear();
                 hitsToKill.clear();
 
-                if(fieldData.areBattleShipsKilled()) {
-                    onlyTorpedoBoats = true;
-                }
+
 
             }
 
@@ -126,10 +117,9 @@ public class Hardest implements Logic {
                 " %s %s" , turn.getCell() , turn.getStatus());
         log.info(info);
 
-        if(fieldData.isCarrierKilled()) {
-            pattern = patternStack.pop();
+        if(!onlyTorpedoBoats && fieldData.areBattleShipsKilled()) {
+            onlyTorpedoBoats = true;
         }
-
 
     }
 

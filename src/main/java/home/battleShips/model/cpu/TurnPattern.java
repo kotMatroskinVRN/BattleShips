@@ -2,6 +2,7 @@ package home.battleShips.model.cpu;
 
 import home.battleShips.Main;
 import home.battleShips.model.FieldCell;
+import home.battleShips.model.FieldData;
 import home.battleShips.model.Turn;
 import home.battleShips.utils.TurnSequenceParser;
 
@@ -23,14 +24,15 @@ public enum TurnPattern {
             int letter = (int) (Math.random() * (Main.getFIELD_SIZE() - 1)) + 1;
             int number = (int) (Math.random() * (Main.getFIELD_SIZE() - 1)) + 1;
 
-            return new Turn(new FieldCell(letter,number));
+//            return new Turn(new FieldCell(letter,number));
+            return new Turn(fieldData.getCells()[letter][number]);
 
         }
     },
     ;
     private final List<Turn> initPattern;
     private List<Turn> turnPattern;
-//    private static FieldData fieldData;
+    private static FieldData fieldData;
 
     TurnPattern() {
         initPattern = new ArrayList<>();
@@ -45,23 +47,21 @@ public enum TurnPattern {
 
     public void init(){
         turnPattern = new ArrayList<>(initPattern);
+        for (Turn turn : turnPattern){
+            FieldCell cell = turn.getCell();
+            cell = fieldData.getCells()[cell.getLetter()][cell.getNumber()];
+            int turnNumber = turnPattern.indexOf(turn);
+            turnPattern.set(turnNumber, new Turn(cell));
+        }
     }
 
     public Turn getTurn(){
         if(turnPattern.size()==0) return null;
-//        System.out.println(this.name() + " " + turnPattern.size());
         int element = (int) (Math.random() * (turnPattern.size()));
-//        System.out.println(element);
         Turn turn = turnPattern.get(element);
         turnPattern.remove(turn);
 
-//        while(fieldData.isCellInTurns(turn.getCell())){
-//            if(turnPattern.size()==0) return null;
-//            element = (int) (Math.random() * (turnPattern.size()));
-//            System.out.println(element);
-//            turn = turnPattern.get(element);
-//            turnPattern.remove(turn);
-//        }
+
 
         return turn;
     }
@@ -71,10 +71,10 @@ public enum TurnPattern {
     }
 
 
-//    public static void setFieldData(FieldData data){
-//        fieldData = data;
-//    }
-//
+    public static void setFieldData(FieldData data){
+        fieldData = data;
+    }
+
 //    public FieldData getFieldData(){
 //        return fieldData;
 //    }

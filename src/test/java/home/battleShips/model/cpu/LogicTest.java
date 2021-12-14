@@ -5,7 +5,6 @@ import home.battleShips.model.FieldCell;
 import home.battleShips.model.FieldData;
 import home.battleShips.model.Ship;
 import home.battleShips.model.Turn;
-import home.battleShips.utils.StaticUtils;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -75,7 +74,7 @@ public class LogicTest {
 
         System.out.printf("Sum TOP10 shots       : %-10s\n" , sumKeys  );
         System.out.printf("Sum TOP10 appearances : %-10s\n" , sumValues  );
-
+        System.out.println();
 
     }
 

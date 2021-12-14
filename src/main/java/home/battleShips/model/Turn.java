@@ -16,21 +16,13 @@ public class Turn {
         this.cell = cell;
     }
 
-    public void shoot(FieldData fieldData){
-        fieldData.addTurn(this);
-
-        if(fieldData.isHit(cell)){
-            setStatus(TurnStatus.HIT);
-
-        }
-        if(fieldData.isShipKilled(cell)){
-            killShip();
-
-        }
-        if(!isHit()) {
-            setStatus(TurnStatus.MISS);
-        }
-    }
+//    public void shoot(FieldData fieldData){
+//        fieldData.proceedTurn(this);
+//
+//        if(!isHit()) {
+//            setStatus(TurnStatus.MISS);
+//        }
+//    }
 
     public boolean isHit(){
 

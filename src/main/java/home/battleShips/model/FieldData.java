@@ -2,9 +2,7 @@ package home.battleShips.model;
 
 import home.battleShips.Main;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -18,6 +16,9 @@ public class FieldData {
     private final Set<Ship> killedShips = new HashSet<>();
 
 
+    public FieldData() {
+
+    }
 
     public void init(){
 
@@ -25,20 +26,23 @@ public class FieldData {
 
         defaultFillArray();
         ships =  randomSetOfShips() ;
+//        seedFieldWithShips();
 
 
     }
 
 
 
-    public void addTurn(Turn turn){
+    public void proceedTurn(Turn turn){
         FieldCell cell = turn.getCell();
 
         turns.add(cell);
-        Main.getLog().warning(String.valueOf(turns.size()));
+        Main.getLog().warning("Turns made : " + turns.size());
         if(isHit(cell)){
-            addHit(cell);
+            addHit(turn);
         }
+
+        if( !turn.isHit()) turn.setStatus(TurnStatus.MISS);
     }
 
     public boolean isHit(FieldCell cell){
@@ -54,15 +58,18 @@ public class FieldData {
 
     }
 
-    public void addHit(FieldCell cell){
+    public void addHit(Turn turn){
+        FieldCell cell = turn.getCell();
         if(isHit(cell)){
             for(Ship ship : ships){
                 if( ship.hasCell(cell)){
                     ship.addHit(cell);
-                    if(isShipKilled(cell)){
+                    turn.setStatus(TurnStatus.HIT);
+                    if(ship.isKilled()){
                         killedShips.add(ship);
+                        turn.killShip();
                         surroundShip(ship);
-                        System.out.println(killedShips);
+//                        System.out.println("Killed Ships : " + killedShips.size());
                     }
                 }
             }
@@ -141,7 +148,7 @@ public class FieldData {
                             FieldCell cell = cells[letter][number];
                             cell.setStyle(CssId.MISS);
                             Turn turn = new Turn(cell);
-                            addTurn(turn);
+                            proceedTurn(turn);
                         }
                     } catch (NullPointerException  | ArrayIndexOutOfBoundsException ignored){}
 
@@ -171,6 +178,7 @@ public class FieldData {
     private void defaultFillArray() {
         for(char letter=1; letter<FIELD_SIZE  ;letter++ ){
             for(int number=1; number<FIELD_SIZE; number++){
+                cells[letter][number] = null;
                 FieldCell cell = new FieldCell(letter , number);
                 cells[letter][number] = cell;
 
@@ -206,6 +214,15 @@ public class FieldData {
 
 
         return rShips ;
+    }
+
+    private void seedFieldWithShips(){
+        for(Ship ship : ships){
+            for(FieldCell cell: ship.getShipCellList()){
+                cells[cell.getLetter()][cell.getNumber()] = cell;
+            }
+        }
+
     }
 
     private boolean checkShipsArray(Ship[] ships , int size){

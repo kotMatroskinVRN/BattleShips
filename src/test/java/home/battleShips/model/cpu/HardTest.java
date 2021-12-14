@@ -17,8 +17,9 @@ class HardTest {
     @Test
     void makeShot() {
         LogicTest logicTest = new LogicTest();
+        System.out.println();
         logicTest.setLogic( LogicFactory.HARD.getDifficulty() );
-        System.out.println(this.getClass().getName());
+//        System.out.println(this.getClass().getName());
         logicTest.makeShot();
 
     }

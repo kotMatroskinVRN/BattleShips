@@ -25,25 +25,18 @@ public class Hard implements Logic {
     public void setData(FieldData fieldData) {
 
         this.fieldData = fieldData;
+        TurnPattern.setFieldData(fieldData);
 
+        patternStack.clear();
         patternStack.push(TurnPattern.RANDOM);
         patternStack.push(TurnPattern.TWOS);
         patternStack.push(TurnPattern.FOURS);
 
         patternStack.forEach(TurnPattern::init);
-        System.out.println(patternStack);
         pattern = patternStack.pop();
-        System.out.println(patternStack);
-
-
-
 
     }
 
-//    @Override
-//    public FieldData getData(){
-//        return fieldData;
-//    }
 
     @Override
     public Turn getLastTurn(){
@@ -86,14 +79,11 @@ public class Hard implements Logic {
     private void switchPattern(){
         if(!patternStack.empty()) {
             if (pattern.isEmpty()) {
-                System.out.println("Swithed from : " + pattern.toString());
                 pattern = patternStack.pop();
-                System.out.println("Swithed to   : " + pattern.toString());
-                System.out.println(fieldData.getTurns().size());
 
             }
 
-//            if (onlyTorpedoBoats) pattern = TurnPattern.RANDOM;
+            if (onlyTorpedoBoats && pattern!=TurnPattern.RANDOM) pattern = TurnPattern.RANDOM;
         }
     }
 
@@ -103,7 +93,7 @@ public class Hard implements Logic {
 
         lastTurn = turn;
 
-        turn.shoot(fieldData);
+        fieldData.proceedTurn(turn);
 
         if(turn.isHit()){
 
