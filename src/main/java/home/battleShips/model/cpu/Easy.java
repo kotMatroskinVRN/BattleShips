@@ -27,7 +27,7 @@ public class Easy implements Logic {
         while(fieldData.isCellInTurns(turn.getCell())) {
             turn = pattern.getTurn(); // random turn
         }
-        fieldData.proceedTurn(turn);
+
         lastTurn = turn;
 
         fieldData.proceedTurn(turn);

@@ -16,6 +16,7 @@ public class Ultimate implements Logic {
 
     private TurnPattern pattern;
     private FieldData fieldData ;
+
     private final List<FieldCell>  hitsToKill  = new ArrayList<>();
 
     private boolean onlyTorpedoBoats = false;
@@ -59,8 +60,6 @@ public class Ultimate implements Logic {
 
             }
 
-
-
             proceedTurn(turn);
         }
 
@@ -85,7 +84,7 @@ public class Ultimate implements Logic {
                 pattern = patternStack.pop();
             }
 
-//            if (onlyTorpedoBoats) pattern = TurnPattern.RANDOM;
+            if (onlyTorpedoBoats && pattern!=TurnPattern.RANDOM) pattern = TurnPattern.RANDOM;
         }
     }
 
@@ -95,10 +94,9 @@ public class Ultimate implements Logic {
     private void proceedTurn(Turn turn){
 
         lastTurn = turn;
-
         fieldData.proceedTurn(turn);
-        if(turn.isHit()){
 
+        if(turn.isHit()){
             surroundHit(turn.getCell());
             hitsToKill.add(turn.getCell());
             getKillingSet();
@@ -108,8 +106,6 @@ public class Ultimate implements Logic {
                 hitsToKill.clear();
             }
         }
-
-
 
         String info = String.format("cpu shot" +
                     " %s %s" , turn.getCell() , turn.getStatus());

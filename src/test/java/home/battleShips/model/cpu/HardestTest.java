@@ -22,7 +22,6 @@ class HardestTest {
     void makeShot() {
         logicTest = new LogicTest();
         logicTest.setLogic( LogicFactory.HARDEST.getDifficulty() );
-        System.out.println();
         System.out.println(this.getClass().getName());
         try{ logicTest.makeShot();}
         catch (IndexOutOfBoundsException e){e.printStackTrace();}

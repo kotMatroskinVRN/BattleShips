@@ -40,12 +40,6 @@ public class Hardest implements Logic {
 
 
     @Override
-    public Turn getLastTurn(){
-        return lastTurn;
-    }
-
-
-    @Override
     public void makeShot() {
         log.info("cpu is shooting....");
 
@@ -57,8 +51,6 @@ public class Hardest implements Logic {
                 switchPattern();
                 turn = pattern.getTurn();
             }
-
-
 
             proceedTurn(turn);
         }
@@ -88,16 +80,18 @@ public class Hardest implements Logic {
         }
     }
 
+    @Override
+    public Turn getLastTurn(){
+        return lastTurn;
+    }
 
 
     private void proceedTurn(Turn turn){
 
         lastTurn = turn;
-
         fieldData.proceedTurn(turn);
 
         if(turn.isHit()){
-
             surroundHit(turn.getCell());
             hitsToKill.add(turn.getCell());
             getKillingSet();
@@ -105,12 +99,7 @@ public class Hardest implements Logic {
             if(turn.isKill()){
                 nextTurns.clear();
                 hitsToKill.clear();
-
-
-
             }
-
-
         }
 
         String info = String.format("cpu shot" +

@@ -27,6 +27,7 @@ public class LogicTest {
     }
 
     void setLogic(Logic logic){
+        System.out.println();
         this.logic = logic;
 
     }

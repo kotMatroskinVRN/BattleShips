@@ -39,12 +39,6 @@ public class Hard implements Logic {
 
 
     @Override
-    public Turn getLastTurn(){
-        return lastTurn;
-    }
-
-
-    @Override
     public void makeShot() {
         log.info("cpu is shooting....");
 
@@ -56,7 +50,6 @@ public class Hard implements Logic {
                 turn = pattern.getTurn();
 
             }
-
 
             proceedTurn(turn);
         }
@@ -76,11 +69,16 @@ public class Hard implements Logic {
         }
     }
 
+    @Override
+    public Turn getLastTurn(){
+        return lastTurn;
+    }
+
+
     private void switchPattern(){
         if(!patternStack.empty()) {
             if (pattern.isEmpty()) {
                 pattern = patternStack.pop();
-
             }
 
             if (onlyTorpedoBoats && pattern!=TurnPattern.RANDOM) pattern = TurnPattern.RANDOM;
@@ -92,11 +90,9 @@ public class Hard implements Logic {
     private void proceedTurn(Turn turn){
 
         lastTurn = turn;
-
         fieldData.proceedTurn(turn);
 
         if(turn.isHit()){
-
             surroundHit(turn.getCell());
             hitsToKill.add(turn.getCell());
             getKillingSet();
@@ -104,10 +100,7 @@ public class Hard implements Logic {
             if(turn.isKill()){
                 nextTurns.clear();
                 hitsToKill.clear();
-
             }
-
-
         }
 
         String info = String.format("cpu shot" +

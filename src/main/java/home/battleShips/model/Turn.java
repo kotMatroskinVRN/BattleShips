@@ -1,14 +1,9 @@
 package home.battleShips.model;
 
 
-import home.battleShips.Main;
-
-
 public class Turn {
 
-    private final int FIELD_SIZE = Main.getFIELD_SIZE();
-
-    private FieldCell cell;
+    private final FieldCell cell;
     private TurnStatus status ;
 
 
@@ -16,13 +11,6 @@ public class Turn {
         this.cell = cell;
     }
 
-//    public void shoot(FieldData fieldData){
-//        fieldData.proceedTurn(this);
-//
-//        if(!isHit()) {
-//            setStatus(TurnStatus.MISS);
-//        }
-//    }
 
     public boolean isHit(){
 

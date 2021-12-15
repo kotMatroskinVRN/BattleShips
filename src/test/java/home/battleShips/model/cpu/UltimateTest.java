@@ -24,7 +24,6 @@ class UltimateTest {
     void makeShot() {
         LogicTest logicTest = new LogicTest();
         logicTest.setLogic( LogicFactory.ULTIMATE.getDifficulty() );
-        System.out.println();
         System.out.println(this.getClass().getName());
         try{ logicTest.makeShot();}
         catch (IndexOutOfBoundsException e){e.printStackTrace();}

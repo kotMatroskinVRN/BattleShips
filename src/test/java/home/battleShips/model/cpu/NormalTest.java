@@ -17,7 +17,6 @@ class NormalTest {
     void makeShot() {
         LogicTest logicTest = new LogicTest();
         logicTest.setLogic( LogicFactory.NORMAL.getDifficulty() );
-        System.out.println();
         System.out.println(this.getClass().getName());
         try{ logicTest.makeShot();}
         catch (IndexOutOfBoundsException e){e.printStackTrace();}

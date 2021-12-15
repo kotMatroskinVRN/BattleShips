@@ -24,7 +24,6 @@ public enum TurnPattern {
             int letter = (int) (Math.random() * (Main.getFIELD_SIZE() - 1)) + 1;
             int number = (int) (Math.random() * (Main.getFIELD_SIZE() - 1)) + 1;
 
-//            return new Turn(new FieldCell(letter,number));
             return new Turn(fieldData.getCells()[letter][number]);
 
         }
@@ -61,8 +60,6 @@ public enum TurnPattern {
         Turn turn = turnPattern.get(element);
         turnPattern.remove(turn);
 
-
-
         return turn;
     }
 
@@ -75,12 +72,4 @@ public enum TurnPattern {
         fieldData = data;
     }
 
-//    public FieldData getFieldData(){
-//        return fieldData;
-//    }
-
-
-    public int getTurnPatternSize() {
-        return turnPattern.size();
-    }
 }
