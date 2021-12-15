@@ -24,7 +24,7 @@
    </center>
    <bottom>
        <AnchorPane prefHeight="30.0" BorderPane.alignment="CENTER">
-           <Button fx:id="newGame" layoutX="320.0" layoutY="4.0" mnemonicParsing="false" onAction="#newGame"
+           <Button fx:id="newGame" layoutX="320.0" layoutY="4.0" mnemonicParsing="false" onAction="#newGameModal"
                    text="Новая Игра">
               <font>
                   <Font name="System Bold" size="12.0"/>

@@ -7,15 +7,22 @@ import home.battleShips.model.Turn;
 import home.battleShips.model.cpu.LogicFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -38,14 +45,25 @@ public class Controller {
     @FXML
     private ListView<String> cpuTurns;
 
+    Parent modalRoot;
+    Stage modalStage ;
+
 
     @FXML
     private void initialize(){
         initDifficulty();
         initSkinChoice();
 
+        initModalNewGame();
+
 
     }
+
+    @FXML
+    public void newGameModal() {
+        modalStage.show();
+    }
+
 
     @FXML
     public void newGame() {
@@ -136,6 +154,29 @@ public class Controller {
         difficultyBox.setValue(LogicFactory.NORMAL);
         difficultyBox.setOnAction( (ae) -> newGame() );
         newGame();
+    }
+
+
+    private void initModalNewGame() {
+
+        try {
+
+        modalStage = new Stage();
+        String fxml = "NewGameModal.fxml";
+        FXMLLoader loader = new FXMLLoader();
+
+        modalRoot = loader.load( ClassLoader.getSystemResourceAsStream(fxml) );
+
+        modalStage.setResizable(false);
+        modalStage.setTitle("Новая игра");
+        modalStage.setScene(new Scene(modalRoot));
+        modalStage.initModality(Modality.WINDOW_MODAL);
+        modalStage.initOwner( root.getScene().getWindow());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
