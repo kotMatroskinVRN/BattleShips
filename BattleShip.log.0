@@ -1,167 +1,89 @@
-WARNING : Turns made : 83
-WARNING : Turns made : 84
-WARNING : Turns made : 84
-WARNING : Turns made : 84
-WARNING : Turns made : 84
-WARNING : Turns made : 84
-WARNING : Turns made : 84
-WARNING : Turns made : 84
-WARNING : Turns made : 84
-WARNING : Turns made : 84
-WARNING : Turns made : 84
-INFO : Wrong L/N :07
-INFO : cpu shot  А7  KILL
-INFO : 46  А7 
-INFO : cpu is shooting....
-WARNING : Turns made : 85
-INFO : cpu shot  А4  MISS
-INFO : 47  А4 
-WARNING : Turns made : 97
-WARNING : [ З10 ]
-WARNING : [ З10 ]
-WARNING : Turns made : 97
-WARNING : Turns made : 97
-WARNING : Turns made : 97
-WARNING : Turns made : 98
-WARNING : Turns made : 98
-WARNING : Turns made : 99
-WARNING : [ К8 ]
-WARNING : [ К8 ]
-WARNING : Turns made : 99
-WARNING : Turns made : 99
-WARNING : Turns made : 99
-WARNING : Turns made : 99
-WARNING : Turns made : 99
-WARNING : Turns made : 1
-INFO : cpu is shooting....
-WARNING : Turns made : 1
-INFO : cpu shot  И1  MISS
-INFO : 1  И1 
-WARNING : Turns made : 2
-INFO : cpu is shooting....
-WARNING : Turns made : 2
-INFO : cpu shot  К3  MISS
-INFO : 2  К3 
-WARNING : Turns made : 3
-INFO : cpu is shooting....
-WARNING : Turns made : 3
-INFO : cpu shot  Д2  MISS
-INFO : 3  Д2 
-WARNING : Turns made : 4
-INFO : cpu is shooting....
-WARNING : Turns made : 4
-INFO : cpu shot  З2  MISS
-INFO : 4  З2 
-WARNING : Turns made : 5
-INFO : cpu is shooting....
-WARNING : Turns made : 5
-WARNING : [ Е5 ,  Е4 ,  Е3 ]
-WARNING : [ Е5 ,  Е4 ,  Е3 ]
-INFO : cpu shot  Е4  HIT
-INFO : 5  Е4 
-INFO : cpu is shooting....
-INFO : NextTurn size : 4
-		next turns :  Ж4  Д4  Е5  Е3 
-INFO : cpu is aiming..... Е3 
-WARNING : Turns made : 6
-WARNING : [ Е5 ,  Е4 ,  Е3 ]
-WARNING : [ Е5 ,  Е4 ,  Е3 ]
-INFO : cpu shot  Е3  HIT
-INFO : 6  Е3 
+INFO : cpu is aiming..... Ж6 
+WARNING : Turns made : 73
+INFO : cpu shot  Ж6  MISS
+INFO : 38  Ж6 
+WARNING : Turns made : 74
+WARNING : [ З9 ]
+WARNING : [ З9 ]
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 76
+WARNING : Turns made : 76
+WARNING : Turns made : 76
+WARNING : Turns made : 76
+WARNING : Turns made : 76
+WARNING : Turns made : 76
+WARNING : Turns made : 77
 INFO : cpu is shooting....
 INFO : NextTurn size : 3
-		next turns :  Е5  Е4  Е2 
-INFO : cpu is aiming..... Е2 
-WARNING : Turns made : 7
-INFO : cpu shot  Е2  MISS
-INFO : 7  Е2 
-WARNING : Turns made : 6
-INFO : cpu is shooting....
+		next turns :  З7  Е7  Ж8 
+INFO : cpu is aiming..... Ж8 
 INFO : NextTurn size : 2
-		next turns :  Е5  Е4 
-INFO : cpu is aiming..... Е4 
+		next turns :  З7  Е7 
+INFO : cpu is aiming..... Е7 
 INFO : NextTurn size : 1
-		next turns :  Е5 
-INFO : cpu is aiming..... Е5 
-WARNING : Turns made : 8
-WARNING : [ Е5 ,  Е4 ,  Е3 ]
-WARNING : [ Е5 ,  Е4 ,  Е3 ]
-WARNING : Turns made : 9
-WARNING : Turns made : 10
-WARNING : Turns made : 11
-WARNING : Turns made : 12
-WARNING : Turns made : 13
-WARNING : Turns made : 14
-WARNING : Turns made : 15
-WARNING : Turns made : 16
-WARNING : Turns made : 16
-WARNING : Turns made : 16
-WARNING : Turns made : 17
-WARNING : Turns made : 17
-WARNING : Turns made : 17
-WARNING : Turns made : 17
-WARNING : Turns made : 17
-WARNING : Turns made : 17
-WARNING : Turns made : 17
-WARNING : Turns made : 18
-WARNING : Turns made : 18
-WARNING : Turns made : 18
-INFO : cpu shot  Е5  KILL
-INFO : 8  Е5 
+		next turns :  З7 
+INFO : cpu is aiming..... З7 
+WARNING : Turns made : 74
+WARNING : [ Ж7 ,  З7 ]
+WARNING : [ Ж7 ,  З7 ]
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+WARNING : Turns made : 75
+INFO : cpu shot  З7  KILL
+INFO : 39  З7 
 INFO : cpu is shooting....
-WARNING : Turns made : 19
-INFO : cpu shot  Д8  MISS
-INFO : 9  Д8 
-WARNING : Turns made : 7
+WARNING : Turns made : 76
+INFO : cpu shot  А2  MISS
+INFO : 40  А2 
+WARNING : Turns made : 78
+WARNING : [ Е10 ]
+WARNING : [ Е10 ]
+WARNING : Turns made : 79
+WARNING : Turns made : 80
+WARNING : Turns made : 80
+WARNING : Turns made : 80
+WARNING : Turns made : 80
+WARNING : Turns made : 81
 INFO : cpu is shooting....
-WARNING : Turns made : 20
-INFO : cpu shot  Б5  MISS
-INFO : 10  Б5 
-WARNING : Turns made : 8
+WARNING : Turns made : 77
+INFO : cpu shot  И9  MISS
+INFO : 41  И9 
+WARNING : Turns made : 82
 INFO : cpu is shooting....
-WARNING : Turns made : 21
-INFO : cpu shot  К6  MISS
-INFO : 11  К6 
-WARNING : Turns made : 9
-WARNING : [ Г5 ,  Г8 ,  Г7 ,  Г6 ]
-WARNING : [ Г5 ,  Г8 ,  Г7 ,  Г6 ]
-WARNING : Turns made : 10
-WARNING : [ Г5 ,  Г8 ,  Г7 ,  Г6 ]
-WARNING : [ Г5 ,  Г8 ,  Г7 ,  Г6 ]
-WARNING : Turns made : 11
+WARNING : Turns made : 78
+WARNING : [ А1 ]
+WARNING : [ А1 ]
+WARNING : Turns made : 78
+WARNING : Turns made : 79
+WARNING : Turns made : 79
+INFO : Wrong L/N :01
+INFO : Wrong L/N :10
+INFO : cpu shot  А1  KILL
+INFO : 42  А1 
 INFO : cpu is shooting....
-WARNING : Turns made : 22
-INFO : cpu shot  Ж9  MISS
-INFO : 12  Ж9 
-WARNING : Turns made : 12
-WARNING : [ Г5 ,  Г8 ,  Г7 ,  Г6 ]
-WARNING : [ Г5 ,  Г8 ,  Г7 ,  Г6 ]
-WARNING : Turns made : 13
-WARNING : [ Г5 ,  Г8 ,  Г7 ,  Г6 ]
-WARNING : [ Г5 ,  Г8 ,  Г7 ,  Г6 ]
-WARNING : Turns made : 14
-WARNING : Turns made : 15
-WARNING : Turns made : 16
-WARNING : Turns made : 16
-WARNING : Turns made : 17
-WARNING : Turns made : 18
-WARNING : Turns made : 19
-WARNING : Turns made : 20
-WARNING : Turns made : 21
-WARNING : Turns made : 21
-WARNING : Turns made : 22
-WARNING : Turns made : 22
-WARNING : Turns made : 23
-WARNING : Turns made : 24
-WARNING : Turns made : 24
-WARNING : Turns made : 24
-WARNING : Turns made : 24
-WARNING : Turns made : 24
-WARNING : Turns made : 24
-WARNING : Turns made : 24
-WARNING : Turns made : 24
-WARNING : Turns made : 24
-WARNING : Turns made : 24
-WARNING : Turns made : 24
-WARNING : Turns made : 24
-WARNING : Turns made : 24
+WARNING : Turns made : 80
+INFO : cpu shot  К8  MISS
+INFO : 43  К8 
+WARNING : Turns made : 83
+WARNING : [ Б9 ]
+WARNING : [ Б9 ]
+WARNING : Turns made : 84
+WARNING : Turns made : 85
+WARNING : Turns made : 86
+WARNING : Turns made : 86
+WARNING : Turns made : 87
+WARNING : Turns made : 87
+WARNING : Turns made : 87
+WARNING : Turns made : 87

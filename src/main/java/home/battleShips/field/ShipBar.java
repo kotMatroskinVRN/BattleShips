@@ -1,6 +1,9 @@
 package home.battleShips.field;
 
+import home.battleShips.model.ShipClass;
 import javafx.scene.layout.FlowPane;
+
+import java.util.EnumSet;
 
 public class ShipBar extends FlowPane {
 
@@ -23,31 +26,22 @@ public class ShipBar extends FlowPane {
 
     }
 
-    public void killCarrier(){
-        if(player) ships[0].setKilled();
-        else ships[ships.length-1-0].setKilled();
-    }
-
-    public void killBattleShip(){
-        if(player) ships[1].setKilled();
-        else ships[ships.length-1-1].setKilled();
-    }
-
-    public void killDestroer(){
-        if(player) ships[2].setKilled();
-        else ships[ships.length-1-2].setKilled();
-    }
-
-    public void killTorpedoBoat(){
-        if(player) ships[3].setKilled();
-        else ships[ships.length-1-3].setKilled();
-    }
-
     public void init(){
         for(Ship ship : ships){
             ship.init();
         }
         getChildren().addAll(ships);
+    }
+
+    public void killShips(EnumSet<ShipClass> set){
+        for(ShipClass entry : set){
+            if(player) {
+                ships[4-entry.getSize()].setKilled();
+            }
+            else {
+                ships[entry.getSize()-1].setKilled();
+            }
+        }
     }
 
 }

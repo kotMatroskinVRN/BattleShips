@@ -2,6 +2,7 @@ package home.battleShips.model;
 
 import home.battleShips.Main;
 
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -98,63 +99,44 @@ public class FieldData {
         return ships;
     }
 
-    public boolean isCarrierKilled(){
-        for( Ship ship : killedShips ){
-            if(ship.getSize()==4) return true;
+    public EnumSet<ShipClass> killedClasses(){
+        EnumSet<ShipClass> result = EnumSet.noneOf(ShipClass.class);
+        for(ShipClass entry : EnumSet.allOf(ShipClass.class)){
+            int kills = 0;
+            for( Ship ship : killedShips ){
+                if(ship.getSize()==entry.getSize()) {
+                    kills++;
+                }
+            }
+            if(kills==5-entry.getSize()){
+                result.add(entry);
+            }
         }
-        return false;
+        return result;
+    }
+
+    public boolean isCarrierKilled(){
+        return killedClasses().contains(ShipClass.CARRIER);
     }
 
     public boolean areBattleshipsKilled(){
-        int ships = 0;
-
-        for( Ship ship : killedShips){
-            if(ship.getSize()==3) ships++;
-        }
-
-        return ships == 2 ;
+        return killedClasses().contains(ShipClass.BATTLESHIP);
     }
 
     public boolean areDestroyersKilled(){
-        int ships = 0;
-
-        for( Ship ship : killedShips){
-            if(ship.getSize()==2) ships++;
-        }
-
-        return ships == 3 ;
+        return killedClasses().contains(ShipClass.DESTROYER);
     }
 
     public boolean areTorpedoBoatsKilled(){
-        int ships = 0;
-
-        for( Ship ship : killedShips){
-            if(ship.getSize()==1) ships++;
-        }
-
-        return ships == 4 ;
+        return killedClasses().contains(ShipClass.TORPEDOBOAT);
     }
 
     public boolean areBattleShipsAndCarrierKilled(){
-        int battleShips = 0;
-
-        for( Ship ship : killedShips){
-            if(ship.getSize()==3) battleShips++;
-        }
-
-        return battleShips == 2 && isCarrierKilled();
+        return isCarrierKilled() && areBattleshipsKilled();
     }
 
     public boolean onlyTorpedoBoatsLeft(){
-        int battleShips = 0;
-        int destroyers  = 0;
-
-        for( Ship ship : killedShips){
-            if(ship.getSize()==3) battleShips++;
-            if(ship.getSize()==2) destroyers++;
-        }
-
-        return battleShips == 2 && destroyers == 3 && isCarrierKilled();
+        return isCarrierKilled() && areBattleshipsKilled() && areDestroyersKilled();
     }
 
     public Ship getKilledShip(FieldCell cell){

@@ -3,7 +3,6 @@ package home.battleShips.model;
 import home.battleShips.Controller;
 import home.battleShips.Main;
 import home.battleShips.field.CpuTurnAnimation;
-import home.battleShips.field.ShipBar;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.cpu.Logic;
 import home.battleShips.model.cpu.LogicFactory;
@@ -91,7 +90,7 @@ public class Game {
 
                 if(turn.isKill()){
 
-                    updateKilledShipsBar(controller.getPlayerShipsLeft() , playerField.getFieldData());
+                    controller.getPlayerShipsLeft().killShips(playerField.getFieldData().killedClasses());
 
                     playerField.showKilledShip(fieldData.getKilledShip(turn.getCell()));
                     playerField.update();
@@ -105,13 +104,6 @@ public class Game {
 
     }
 
-    private void updateKilledShipsBar(ShipBar shipBar , FieldData fieldData) {
-        if(fieldData.isCarrierKilled()) shipBar.killCarrier();
-        if(fieldData.areBattleshipsKilled()) shipBar.killBattleShip();
-        if(fieldData.areDestroyersKilled()) shipBar.killDestroer();
-        if(fieldData.areTorpedoBoatsKilled()) shipBar.killTorpedoBoat();
-
-    }
 
     private void counterAction() {
 
@@ -126,8 +118,8 @@ public class Game {
 
         if(lastTurn.isHit()){
             if(lastTurn.isKill()){
-                updateKilledShipsBar(controller.getCpuShipsLeft() , cpuField.getFieldData());
                 System.out.println("Killing hit : "+lastTurn);
+                controller.getCpuShipsLeft().killShips(cpuField.getFieldData().killedClasses());
                 cpuField.showKilledShip(cpuField.getFieldData().getKilledShip(lastTurn.getCell()));
                 checkGameOver(  cpuField );
             }
