@@ -28,7 +28,7 @@ public class FieldData {
         defaultFillArray();
         ships =  randomSetOfShips() ;
 //        seedFieldWithShips();
-
+        turns.clear();
 
     }
 
