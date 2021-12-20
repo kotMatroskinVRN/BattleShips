@@ -3,6 +3,7 @@ package home.battleShips.model;
 import home.battleShips.Controller;
 import home.battleShips.Main;
 import home.battleShips.field.CpuTurnAnimation;
+import home.battleShips.field.ShipBar;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.cpu.Logic;
 import home.battleShips.model.cpu.LogicFactory;
@@ -21,7 +22,7 @@ public class Game {
 
     private final FieldGrid playerField;
     private final FieldGrid cpuField;
-    private final  Controller controller;
+    private final Controller controller;
 
     private Logic aiLogic ;
 
@@ -80,7 +81,6 @@ public class Game {
             controller.addPlayerTurnToList(turn);
 
             fieldData.proceedTurn(turn);
-//            turn.shoot(fieldData);
             playerField.applyTurn(turn);
 
 
@@ -91,6 +91,8 @@ public class Game {
 
                 if(turn.isKill()){
 
+                    updateKilledShipsBar(controller.getPlayerShipsLeft() , playerField.getFieldData());
+
                     playerField.showKilledShip(fieldData.getKilledShip(turn.getCell()));
                     playerField.update();
                     checkGameOver(playerField);
@@ -100,6 +102,14 @@ public class Game {
                 counterAction();
             }
         }
+
+    }
+
+    private void updateKilledShipsBar(ShipBar shipBar , FieldData fieldData) {
+        if(fieldData.isCarrierKilled()) shipBar.killCarrier();
+        if(fieldData.areBattleshipsKilled()) shipBar.killBattleShip();
+        if(fieldData.areDestroyersKilled()) shipBar.killDestroer();
+        if(fieldData.areTorpedoBoatsKilled()) shipBar.killTorpedoBoat();
 
     }
 
@@ -116,6 +126,7 @@ public class Game {
 
         if(lastTurn.isHit()){
             if(lastTurn.isKill()){
+                updateKilledShipsBar(controller.getCpuShipsLeft() , cpuField.getFieldData());
                 System.out.println("Killing hit : "+lastTurn);
                 cpuField.showKilledShip(cpuField.getFieldData().getKilledShip(lastTurn.getCell()));
                 checkGameOver(  cpuField );

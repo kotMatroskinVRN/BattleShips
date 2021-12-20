@@ -1,28 +1,21 @@
 package home.battleShips;
 
-import home.battleShips.field.Media;
-import home.battleShips.field.Skin;
+import home.battleShips.field.*;
 import home.battleShips.model.Game;
 import home.battleShips.model.Turn;
 import home.battleShips.model.cpu.LogicFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -44,43 +37,35 @@ public class Controller {
     private ListView<String> playerTurns;
     @FXML
     private ListView<String> cpuTurns;
+    @FXML
+    private SplitPane shipsLeft;
 
-    Parent modalRoot;
-    Stage modalStage ;
-
+    private  ShipBar playerShipsLeft ;
+    private  ShipBar    cpuShipsLeft ;
 
     @FXML
     private void initialize(){
         initDifficulty();
         initSkinChoice();
 
-        initModalNewGame();
-
 
     }
+
+
 
     @FXML
     public void newGameModal() {
-        modalStage.show();
+
+        ModalNewGame modalNewGame = new ModalNewGame();
+        modalNewGame.initModalNewGame(root);
+        modalNewGame.getOkButton().setOnAction( (ae)->{
+            newGame();
+            modalNewGame.closeWindow(ae);
+        });
+        modalNewGame.showWindow();
     }
 
 
-    @FXML
-    public void newGame() {
-
-        Game game = new Game(this);
-        game.setDifficulty(difficultyBox.getValue());
-
-        playerPane.setCenter(    game.getPlayerField());
-        computerPane.setCenter(  game.getCpuField()   );
-
-        playerPane.setBottom(null);
-        computerPane.setBottom(null);
-
-        playerTurns.setItems( FXCollections.observableArrayList() );
-        cpuTurns.setItems( FXCollections.observableArrayList() );
-
-    }
 
     public void showVictory() {
 
@@ -107,7 +92,32 @@ public class Controller {
         cpuTurns.scrollTo(list.size());
     }
 
+    public ShipBar getPlayerShipsLeft() {
+        return playerShipsLeft;
+    }
 
+    public ShipBar getCpuShipsLeft() {
+        return cpuShipsLeft;
+    }
+
+    private void newGame() {
+
+        Game game = new Game(this);
+        game.setDifficulty(difficultyBox.getValue());
+
+        playerPane.setCenter(    game.getPlayerField());
+        computerPane.setCenter(  game.getCpuField()   );
+
+        playerPane.setBottom(null);
+        computerPane.setBottom(null);
+
+        playerTurns.setItems( FXCollections.observableArrayList() );
+        cpuTurns.setItems( FXCollections.observableArrayList() );
+
+        initShipsLeft();
+
+
+    }
 
 
     private MediaView getMediaView(Media fieldPicture) {
@@ -156,27 +166,21 @@ public class Controller {
         newGame();
     }
 
+    private void initShipsLeft() {
 
-    private void initModalNewGame() {
+        playerShipsLeft = new ShipBar(true);
+           cpuShipsLeft = new ShipBar(false);
 
-        try {
+        playerShipsLeft.init();
+        playerShipsLeft.setId("shipsPanePlayer");
 
-        modalStage = new Stage();
-        String fxml = "NewGameModal.fxml";
-        FXMLLoader loader = new FXMLLoader();
+        cpuShipsLeft.init();
+        cpuShipsLeft.setId("shipsPaneCPU");
 
-        modalRoot = loader.load( ClassLoader.getSystemResourceAsStream(fxml) );
-
-        modalStage.setResizable(false);
-        modalStage.setTitle("Новая игра");
-        modalStage.setScene(new Scene(modalRoot));
-        modalStage.initModality(Modality.WINDOW_MODAL);
-        modalStage.initOwner( root.getScene().getWindow());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        shipsLeft.getItems().clear();
+        shipsLeft.getItems().addAll(playerShipsLeft,cpuShipsLeft);
+        ((BorderPane)root).setTop(shipsLeft);
     }
+
 
 }

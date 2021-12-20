@@ -6,12 +6,34 @@ FieldGrid .label{
     -fx-font-weight:bold;
 }
 
+FieldGrid .button{
+    -fx-pref-width:  30px;
+    -fx-pref-height: 30px;
+    -fx-max-height: 30;
+    -fx-max-width:  30;
+    -fx-background-size: 100% 100%;
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
 BorderPane .label{
     -fx-alignment: center;
     -fx-max-width: Infinity;
     -fx-font-weight:bold;
 }
 
+#shipsPanePlayer{
+    -fx-hgap: 10;
+    -fx-padding: 0 20 0 0 ;
+    -fx-alignment: center-right;
+}
+
+#shipsPaneCPU{
+    -fx-hgap: 10;
+    -fx-padding: 0 0 0 40 ;
+    -fx-alignment: center-left;
+}
 
 .list-cell{
     -fx-alignment: center-left;
@@ -22,16 +44,18 @@ BorderPane .label{
   -fx-padding: 0 ;
 }
 
-FieldGrid .button{
-    -fx-pref-width:  30px;
-    -fx-pref-height: 30px;
-    -fx-max-height: 30;
-    -fx-max-width: 30;
+
+Ship .button{
+    -fx-pref-width:  25px;
+    -fx-pref-height: 25px;
+    -fx-max-height: 25;
+    -fx-max-width:  25;
     -fx-background-size: 100% 100%;
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
+
 
 ListView {
     -fx-background-color: transparent;

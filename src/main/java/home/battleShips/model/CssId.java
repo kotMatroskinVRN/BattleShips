@@ -1,5 +1,7 @@
 package home.battleShips.model;
 
+import java.util.EnumSet;
+
 public enum CssId {
     SEA(){},
     MISS(){},
@@ -33,6 +35,15 @@ public enum CssId {
 
     public CssId getKilled() {
         return afterKill;
+    }
+
+    public static CssId getID(String string){
+        for (CssId id : EnumSet.allOf(CssId.class)){
+            if(string.equals(id.toString())){
+                return id;
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) {

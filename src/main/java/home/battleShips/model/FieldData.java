@@ -105,7 +105,37 @@ public class FieldData {
         return false;
     }
 
-    public boolean areBattleShipsKilled(){
+    public boolean areBattleshipsKilled(){
+        int ships = 0;
+
+        for( Ship ship : killedShips){
+            if(ship.getSize()==3) ships++;
+        }
+
+        return ships == 2 ;
+    }
+
+    public boolean areDestroyersKilled(){
+        int ships = 0;
+
+        for( Ship ship : killedShips){
+            if(ship.getSize()==2) ships++;
+        }
+
+        return ships == 3 ;
+    }
+
+    public boolean areTorpedoBoatsKilled(){
+        int ships = 0;
+
+        for( Ship ship : killedShips){
+            if(ship.getSize()==1) ships++;
+        }
+
+        return ships == 4 ;
+    }
+
+    public boolean areBattleShipsAndCarrierKilled(){
         int battleShips = 0;
 
         for( Ship ship : killedShips){

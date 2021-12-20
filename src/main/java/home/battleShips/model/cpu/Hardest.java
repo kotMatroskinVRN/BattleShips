@@ -106,7 +106,7 @@ public class Hardest implements Logic {
                 " %s %s" , turn.getCell() , turn.getStatus());
         log.info(info);
 
-        if(!onlyTorpedoBoats && fieldData.areBattleShipsKilled()) {
+        if(!onlyTorpedoBoats && fieldData.areBattleShipsAndCarrierKilled()) {
             onlyTorpedoBoats = true;
         }
 
