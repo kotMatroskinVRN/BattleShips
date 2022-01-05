@@ -1,6 +1,9 @@
 package home.battleShips.field.grid;
 
+import home.battleShips.Language;
 import home.battleShips.Main;
+import home.battleShips.Translatable;
+import home.battleShips.Translator;
 import home.battleShips.model.*;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -8,18 +11,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class FieldGrid extends GridPane {
+public class FieldGrid extends GridPane implements Translatable {
 
     private final int FIELD_SIZE = Main.getFIELD_SIZE();
     private final FieldData fieldData;
     private final Button[][] buttons = new Button[Main.getFIELD_SIZE()][Main.getFIELD_SIZE()];
+    private Language language;
 
     private boolean isPlayerField;
 
-    public FieldGrid(){
+
+    public FieldGrid(Language language){
         super();
+        this.language = language;
         fieldData = new FieldData();
         setAlignment(Pos.CENTER);
+
+        Translator.addSource(this);
     }
 
     public void setPlayerField(boolean isPlayerField){
@@ -121,8 +129,9 @@ public class FieldGrid extends GridPane {
 
     private void setLetters(){
         for(int l=1;l<FIELD_SIZE;l++){
-            String letter = fieldData.getCells()[l][1].covertLetter();
-            Node label = new Label(letter);
+            String letter = "letter." + l;
+            Label label = new Label();
+            label.textProperty().bind(language.getResourceFactory().getStringBinding(letter));
             setConstraints(label , l, 0);
             getChildren().add(label);
         }
@@ -156,5 +165,9 @@ public class FieldGrid extends GridPane {
     }
 
 
-
+    @Override
+    public void updateText(Language language) {
+        this.language = language;
+        setLetters();
+    }
 }

@@ -1,17 +1,18 @@
 package home.battleShips;
 
-import home.battleShips.field.*;
-import home.battleShips.model.Game;
+import home.battleShips.field.Media;
+import home.battleShips.field.ModalNewGame;
+import home.battleShips.field.ShipBar;
+import home.battleShips.field.Skin;
 import home.battleShips.model.Turn;
 import home.battleShips.model.cpu.LogicFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -19,9 +20,10 @@ import javafx.scene.media.MediaView;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
-public class Controller {
+public class Controller implements Initializable , Translatable {
 
     @FXML
     Parent root;
@@ -30,34 +32,86 @@ public class Controller {
     @FXML
     private BorderPane computerPane;
     @FXML
-    private ChoiceBox<Skin> skinBox;
+    private ComboBox<Skin> skinBox;
     @FXML
-    private ChoiceBox<LogicFactory> difficultyBox;
+    private ComboBox<LogicFactory> difficultyBox;
     @FXML
     private ListView<String> playerTurns;
     @FXML
     private ListView<String> cpuTurns;
     @FXML
     private SplitPane shipsLeft;
+    @FXML
+    private Button newGameModal;
 
     private  ShipBar playerShipsLeft ;
     private  ShipBar    cpuShipsLeft ;
+    private ResourceBundle resourceBundle ;
+    private Language language ;
 
-    @FXML
-    private void initialize(){
+    private URL url;
+
+    private boolean firstRun = true;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+        this.resourceBundle = resourceBundle;
+        language = Language.getByResourceBundle(resourceBundle);
+
+        if(firstRun){
+            Translator.addSource(this);
+//            ObservableList<Skin> skins = FXCollections.observableArrayList(Skin.values());
+//            skinBox.setItems(skins);
+//            ObservableList<LogicFactory> logics = FXCollections.observableArrayList(LogicFactory.values());
+//            difficultyBox.setItems(logics);
+
+            skinBox.getItems().setAll(Skin.values());
+            difficultyBox.getItems().setAll(LogicFactory.values());
+        }
+
+
         initDifficulty();
         initSkinChoice();
 
 
+
+
+
+        if(firstRun){
+
+            newGame();
+        }
+
+        this.url = url;
+
+
+        root.setOnKeyPressed(ae -> keyProcess(ae));
+        firstRun = false;
     }
 
+
+
+
+    private void keyProcess(KeyEvent ae)  {
+//        if(ae.isShiftDown() && ae.isControlDown()){
+        if( ae.isControlDown()){
+            if(language==Language.ENGLISH) language=Language.RUSSIAN;
+            else language = Language.ENGLISH;
+
+            Translator.updateText(language);
+
+        }
+    }
 
 
     @FXML
     public void newGameModal() {
 
         ModalNewGame modalNewGame = new ModalNewGame();
-        modalNewGame.initModalNewGame(root);
+
+        modalNewGame.initModalNewGame(root,language);
         modalNewGame.getOkButton().setOnAction( (ae)->{
             newGame();
             modalNewGame.closeWindow(ae);
@@ -71,13 +125,17 @@ public class Controller {
 
         MediaView mediaView = getMediaView(Media.VICTORY);
         playerPane.setCenter( mediaView);
-        playerPane.setBottom(new Label("Победа : " + playerTurns.getItems().size()));
+        playerPane.setBottom(
+                new Label(language.getValue("victory") + " : " + playerTurns.getItems().size())
+        );
     }
 
     public void showDefeat(){
         MediaView mediaView = getMediaView(Media.LOSS);
         computerPane.setCenter(mediaView);
-        computerPane.setBottom(new Label("Поражение : " + cpuTurns.getItems().size()));
+        computerPane.setBottom(
+                new Label(language.getValue("defeat") + " : " + cpuTurns.getItems().size())
+        );
     }
 
     public void addPlayerTurnToList(Turn turn) {
@@ -100,9 +158,18 @@ public class Controller {
         return cpuShipsLeft;
     }
 
+//    public ResourceBundle getResourceBundle(){
+//        return resourceBundle;
+//    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
     private void newGame() {
 
         Game game = new Game(this);
+        System.out.println( difficultyBox.getValue());
         game.setDifficulty(difficultyBox.getValue());
 
         playerPane.setCenter(    game.getPlayerField());
@@ -153,17 +220,23 @@ public class Controller {
     }
 
     private void initSkinChoice(){
-        skinBox.getItems().addAll(Skin.values());
-        skinBox.setValue(Skin.DEFAULT);
+
+        Skin.updateDescription(resourceBundle);
+        skinBox.setValue(skinBox.getItems().get(0));
         skinBox.setOnAction( (ae) -> setCSS(skinBox.getValue()));
     }
 
     private void initDifficulty() {
 
-        difficultyBox.getItems().addAll(LogicFactory.values());
-        difficultyBox.setValue(LogicFactory.NORMAL);
+        LogicFactory.updateDescription(resourceBundle);
+
+
+
+//        difficultyBox.setValue(LogicFactory.NORMAL);
+        difficultyBox.setValue(difficultyBox.getItems().get(1));
+
         difficultyBox.setOnAction( (ae) -> newGame() );
-        newGame();
+
     }
 
     private void initShipsLeft() {
@@ -183,4 +256,17 @@ public class Controller {
     }
 
 
+    @Override
+    public void updateText(Language language) {
+
+//        newGameModal.textProperty().bind(language.getResourceFactory().getStringBinding("button.newGame"));
+        newGameModal.setText(language.getValue("button.newGame"));
+
+        LogicFactory.updateDescription(resourceBundle);
+        Skin.updateDescription(resourceBundle);
+
+        skinBox.getItems().setAll(Skin.values());
+        difficultyBox.getItems().setAll(LogicFactory.values());
+
+    }
 }

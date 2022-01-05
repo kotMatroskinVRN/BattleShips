@@ -1,5 +1,6 @@
 package home.battleShips.field;
 
+import home.battleShips.Language;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -10,48 +11,65 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+
 
 
 public class ModalNewGame {
+
+    private final int WIDTH  = 350;
+    private final int HEIGHT = 150;
 
     private final Button okButton ;
     private final Stage window;
 
     public ModalNewGame() {
         window = new Stage();
-        okButton = new Button("Да");
+        okButton = new Button();
     }
 
-    public void initModalNewGame(Parent parent) {
+    public void initModalNewGame(Parent parent , Language language) {
 
         final BorderPane pane = new BorderPane();
         final FlowPane bottomPane = new FlowPane();
 
-        final Scene scene = new Scene( pane, 300 ,150 );
+        final Scene scene = new Scene( pane, WIDTH ,HEIGHT );
+
+        Window parentWindow = parent.getScene().getWindow();
+        double centerX = parentWindow.getX();
+        double centerY = parentWindow.getY();
+        double parentWidth   = parentWindow.getWidth();
+        double parentHeight  = parentWindow.getHeight();
 
         window.initModality(Modality.WINDOW_MODAL);
-        window.initOwner(parent.getScene().getWindow());
+        window.initOwner(parentWindow);
         window.setResizable(false);
-        window.setTitle("Новая игра");
+        window.setTitle(language.getValue("newGame.title"));
+        window.setX(centerX+(parentWidth-WIDTH)/2);
+        window.setY(centerY+(parentHeight-HEIGHT)/2);
+
         window.setScene(scene);
 
+        okButton.setText(language.getValue("newGame.ok"));
         okButton.setDefaultButton(true);
 
 
-        Button cancelButton = new Button("Нет");
+        Button cancelButton = new Button(language.getValue("newGame.cancel"));
         cancelButton.setCancelButton(true);
         cancelButton.setOnAction( (this::closeWindow));
 
         bottomPane.setAlignment(Pos.BASELINE_RIGHT);
         bottomPane.getChildren().addAll(okButton,cancelButton);
 
-        final String test = "Начать новую игру?\nДанные этой игры будут утеряны";
+        final String test = language.getValue("newGame.message");
         final Label label = new Label(test);
 
         pane.setBottom(bottomPane);
         pane.setCenter(label);
         pane.getStylesheets().add("style/modal_new_game.css");
         pane.applyCss();
+
+
 
     }
 

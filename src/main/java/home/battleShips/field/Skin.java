@@ -1,16 +1,18 @@
 package home.battleShips.field;
 
 import java.net.URL;
+import java.util.EnumSet;
+import java.util.ResourceBundle;
 
 public enum Skin {
-    DEFAULT("Основной"){},
-    YURA("Юра"){
+    DEFAULT("skin.default"){},
+    YURA("skin.yura"){
         @Override
         public URL getFileName() {
             return getCSS("style/Yura.css");
         }
     },
-    PAPER("Бумага"){
+    PAPER("skin.paper"){
         @Override
         public URL getFileName() {
             return getCSS("style/paper.css");
@@ -18,10 +20,11 @@ public enum Skin {
     },
     ;
 
-    private final String description;
+    private String description;
+    private String key;
 
-    Skin(String description){
-        this.description = description;
+    Skin(String name){
+        key = name;
     }
 
     public URL getFileName() {
@@ -32,9 +35,16 @@ public enum Skin {
         return ClassLoader.getSystemResource("style/main.css");
     }
 
+    public static void updateDescription(ResourceBundle resourceBundle){
+        for(Skin skin : EnumSet.allOf(Skin.class)){
+//            final String description = skin.description;
+            skin.description = resourceBundle.getString(skin.key);
+        }
+    }
+
     @Override
     public String toString() {
-        return this.description;
+        return description;
     }
 
     URL getCSS(String fileName){

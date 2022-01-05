@@ -1,11 +1,10 @@
 package home.battleShips.model;
 
 import home.battleShips.Controller;
+import home.battleShips.Game;
 import home.battleShips.field.grid.FieldGrid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
 

@@ -51,7 +51,7 @@ public class FieldData {
         for(Ship ship : ships){
             if( ship.hasCell(cell)){
                 ship.addHit(cell);
-                Main.getLog().warning(ship.getShipCellList().toString());
+                Main.getLog().info(ship.getShipCellList().toString());
                 return true;
             }
         }

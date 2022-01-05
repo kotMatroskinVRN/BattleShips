@@ -1,9 +1,12 @@
-package home.battleShips.model;
+package home.battleShips;
 
 import home.battleShips.Controller;
 import home.battleShips.Main;
 import home.battleShips.field.CpuTurnAnimation;
 import home.battleShips.field.grid.FieldGrid;
+import home.battleShips.model.FieldCell;
+import home.battleShips.model.FieldData;
+import home.battleShips.model.Turn;
 import home.battleShips.model.cpu.Logic;
 import home.battleShips.model.cpu.LogicFactory;
 import javafx.application.Platform;
@@ -33,8 +36,8 @@ public class Game {
 
         turnCount = 1;
 
-        playerField = new FieldGrid();
-        cpuField    = new FieldGrid();
+        playerField = new FieldGrid(controller.getLanguage());
+        cpuField    = new FieldGrid(controller.getLanguage());
 
         playerField.init();
            cpuField.init();
