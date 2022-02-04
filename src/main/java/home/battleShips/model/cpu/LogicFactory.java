@@ -57,6 +57,15 @@ public enum LogicFactory {
             logicFactory.description = resourceBundle.getString(logicFactory.key);
         }
     }
+
+    public static LogicFactory getLogic(String description ){
+
+        for(LogicFactory logicFactory : EnumSet.allOf(LogicFactory.class)){
+            if(description.equals(logicFactory.description)) return logicFactory;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return description;

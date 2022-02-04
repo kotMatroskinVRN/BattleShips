@@ -16,6 +16,7 @@ public class FieldGrid extends GridPane implements Translatable {
     private final int FIELD_SIZE = Main.getFIELD_SIZE();
     private final FieldData fieldData;
     private final Button[][] buttons = new Button[Main.getFIELD_SIZE()][Main.getFIELD_SIZE()];
+    private final Label[] letters = new Label[10];
     private Language language;
 
     private boolean isPlayerField;
@@ -28,6 +29,12 @@ public class FieldGrid extends GridPane implements Translatable {
         setAlignment(Pos.CENTER);
 
         Translator.addSource(this);
+
+        for(int l=0;l<FIELD_SIZE-1;l++){
+            letters[l] = new Label();
+            add(letters[l],l+1,0);
+        }
+
     }
 
     public void setPlayerField(boolean isPlayerField){
@@ -128,20 +135,34 @@ public class FieldGrid extends GridPane implements Translatable {
 
 
     private void setLetters(){
+//        Label blank = new Label(" ");
         for(int l=1;l<FIELD_SIZE;l++){
-            String letter = "letter." + l;
-            Label label = new Label();
-            label.textProperty().bind(language.getResourceFactory().getStringBinding(letter));
-            setConstraints(label , l, 0);
-            getChildren().add(label);
+            String letter = "letter." + l ;
+            Label label = letters[l-1];
+            label.setText(language.getValue(letter));
+
         }
     }
+
+    private void removeLetters(){
+
+        for(int l=1;l<FIELD_SIZE;l++){
+
+
+        }
+
+    }
+
     private void setNumbers(){
+
         for(int n=1;n<FIELD_SIZE;n++){
             int number = fieldData.getCells()[1][n].getNumber();
             Node label = new Label(String.valueOf(number));
+
             setConstraints(label , 0, n );
+
             getChildren().add(label);
+
         }
     }
 

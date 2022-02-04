@@ -1,5 +1,7 @@
 package home.battleShips.field;
 
+import home.battleShips.model.cpu.LogicFactory;
+
 import java.net.URL;
 import java.util.EnumSet;
 import java.util.ResourceBundle;
@@ -40,6 +42,14 @@ public enum Skin {
 //            final String description = skin.description;
             skin.description = resourceBundle.getString(skin.key);
         }
+    }
+
+    public static Skin getSkin(String description){
+
+        for(Skin skin : EnumSet.allOf(Skin.class)){
+            if(description.equals(skin.description)) return skin;
+        }
+        return null;
     }
 
     @Override

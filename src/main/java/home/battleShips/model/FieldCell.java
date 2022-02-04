@@ -1,16 +1,21 @@
 package home.battleShips.model;
 
 
+import home.battleShips.Language;
 import home.battleShips.Main;
+import home.battleShips.Translatable;
+import home.battleShips.Translator;
 
 import java.util.Objects;
 
-public class FieldCell implements Comparable<FieldCell> {
+public class FieldCell implements Comparable<FieldCell>  {
 
     private final int number;
     private final int letter;
 
     private CssId cssId ;
+
+    private static Language language;
 
     public FieldCell(int letter, int number) {
         if(letter<1||letter> Main.getFIELD_SIZE()-1||
@@ -22,6 +27,8 @@ public class FieldCell implements Comparable<FieldCell> {
         this.number = number;
 
         setStyle(CssId.SEA);
+
+//        Translator.addSource(this);
     }
 
     public void setDeckStyle(int s , int deck ){
@@ -71,6 +78,10 @@ public class FieldCell implements Comparable<FieldCell> {
         return String.valueOf(result);
     }
 
+//    public String covertLetter(){
+//        return language.getValue( "letter." + letter );
+//    }
+
     @Override
     public int compareTo(FieldCell o) {
         if(letter == o.getLetter()) return 0;
@@ -95,4 +106,13 @@ public class FieldCell implements Comparable<FieldCell> {
     public String toString() {
         return " " + covertLetter() + number + " ";
     }
+
+    public static void setLanguage(Language language) {
+        FieldCell.language = language;
+    }
+
+//    @Override
+//    public void updateText(Language language) {
+//        setLanguage(language);
+//    }
 }

@@ -66,6 +66,15 @@ ListView {
     -fx-pref-height: 50px;
 }
 
+TurnListView {
+    -fx-background-color: transparent;
+    -fx-font-family: monospace ;
+    -fx-font-weight:bold;
+    -fx-padding: 0;
+    -fx-pref-width:  50px;
+    -fx-pref-height: 50px;
+}
+
 /* remove horizontal scroll bar */
 .list-view .scroll-bar:horizontal .increment-arrow,
 .list-view .scroll-bar:horizontal .decrement-arrow,

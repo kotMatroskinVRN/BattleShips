@@ -1,5 +1,6 @@
 package home.battleShips;
 
+import home.battleShips.model.FieldCell;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,6 +43,8 @@ public class Main extends Application {
 
         Main.args = args;
 
+
+
         launch(args);
     }
 
@@ -57,7 +60,7 @@ public class Main extends Application {
 //        content = loader.load( ClassLoader.getSystemResourceAsStream(fxml) );
         stage = primaryStage;
         content = loadFXML(Language.RUSSIAN);
-
+        FieldCell.setLanguage(Language.RUSSIAN);
 
 
         scene = new Scene(content);

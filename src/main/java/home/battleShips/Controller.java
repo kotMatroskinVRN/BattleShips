@@ -1,8 +1,6 @@
 package home.battleShips;
 
-import home.battleShips.field.Media;
-import home.battleShips.field.ModalNewGame;
-import home.battleShips.field.ShipBar;
+import home.battleShips.field.*;
 import home.battleShips.field.Skin;
 import home.battleShips.model.Turn;
 import home.battleShips.model.cpu.LogicFactory;
@@ -36,9 +34,9 @@ public class Controller implements Initializable , Translatable {
     @FXML
     private ComboBox<LogicFactory> difficultyBox;
     @FXML
-    private ListView<String> playerTurns;
+    private TurnListView playerTurns;
     @FXML
-    private ListView<String> cpuTurns;
+    private TurnListView cpuTurns;
     @FXML
     private SplitPane shipsLeft;
     @FXML
@@ -53,6 +51,15 @@ public class Controller implements Initializable , Translatable {
 
     private boolean firstRun = true;
 
+    private Skin currentSkin;
+    private LogicFactory currentLogic;
+
+    private ObservableList<Skin> skins;
+    private ObservableList<LogicFactory> logics;
+
+//    private List<Turn> realPlayerTurns;
+//    private List<Turn> realComputerTurns;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -61,14 +68,28 @@ public class Controller implements Initializable , Translatable {
         language = Language.getByResourceBundle(resourceBundle);
 
         if(firstRun){
-            Translator.addSource(this);
-//            ObservableList<Skin> skins = FXCollections.observableArrayList(Skin.values());
-//            skinBox.setItems(skins);
-//            ObservableList<LogicFactory> logics = FXCollections.observableArrayList(LogicFactory.values());
-//            difficultyBox.setItems(logics);
 
-            skinBox.getItems().setAll(Skin.values());
-            difficultyBox.getItems().setAll(LogicFactory.values());
+            currentLogic = LogicFactory.NORMAL;
+            currentSkin  = Skin.DEFAULT;
+
+            Translator.addSource(this);
+            skins = FXCollections.observableArrayList(Skin.values());
+            skinBox.setItems(skins);
+            logics = FXCollections.observableArrayList(LogicFactory.values());
+            difficultyBox.setItems(logics);
+
+            playerTurns = new TurnListView(language);
+            cpuTurns    = new TurnListView(language);
+
+//            BorderPane borderPane = (BorderPane) root;
+//            borderPane.setLeft(playerTurns);
+//            borderPane.setRight(cpuTurns);
+
+//            realPlayerTurns   = new ArrayList<>();
+//            realComputerTurns = new ArrayList<>();
+
+//            skinBox.getItems().setAll(Skin.values());
+//            difficultyBox.getItems().setAll(LogicFactory.values());
         }
 
 
@@ -97,8 +118,12 @@ public class Controller implements Initializable , Translatable {
     private void keyProcess(KeyEvent ae)  {
 //        if(ae.isShiftDown() && ae.isControlDown()){
         if( ae.isControlDown()){
+
             if(language==Language.ENGLISH) language=Language.RUSSIAN;
             else language = Language.ENGLISH;
+
+            playerTurns.setLanguage(language);
+            cpuTurns.setLanguage(language);
 
             Translator.updateText(language);
 
@@ -139,15 +164,11 @@ public class Controller implements Initializable , Translatable {
     }
 
     public void addPlayerTurnToList(Turn turn) {
-        ObservableList<String> list = playerTurns.getItems();
-        list.add(turn.getCell().toString());
-        playerTurns.scrollTo(list.size());
+        playerTurns.addTurn(turn);
     }
 
     public void addCpuTurnToList(Turn turn) {
-        ObservableList<String> list = cpuTurns.getItems();
-        list.add(turn.getCell().toString());
-        cpuTurns.scrollTo(list.size());
+        cpuTurns.addTurn(turn);
     }
 
     public ShipBar getPlayerShipsLeft() {
@@ -170,7 +191,8 @@ public class Controller implements Initializable , Translatable {
 
         Game game = new Game(this);
         System.out.println( difficultyBox.getValue());
-        game.setDifficulty(difficultyBox.getValue());
+        currentLogic = LogicFactory.getLogic(difficultyBox.getValue().toString());
+        game.setDifficulty(currentLogic);
 
         playerPane.setCenter(    game.getPlayerField());
         computerPane.setCenter(  game.getCpuField()   );
@@ -178,8 +200,10 @@ public class Controller implements Initializable , Translatable {
         playerPane.setBottom(null);
         computerPane.setBottom(null);
 
-        playerTurns.setItems( FXCollections.observableArrayList() );
-        cpuTurns.setItems( FXCollections.observableArrayList() );
+        playerTurns = new TurnListView(language);
+        cpuTurns    = new TurnListView(language);
+
+
 
         initShipsLeft();
 
@@ -201,11 +225,12 @@ public class Controller implements Initializable , Translatable {
         return mediaView;
     }
 
-    private void setCSS(Skin skin){
+    private void setCSS(){
+        currentSkin = Skin.getSkin(skinBox.getValue().toString());
         Parent parent = root;
         parent.getStylesheets().clear();
         parent.getStylesheets().add(Skin.getMainCSS().toString());
-        parent.getStylesheets().add(skin.getFileName().toString());
+        parent.getStylesheets().add(currentSkin.getFileName().toString());
     }
 
     private void setRandomCSS(){
@@ -222,19 +247,16 @@ public class Controller implements Initializable , Translatable {
     private void initSkinChoice(){
 
         Skin.updateDescription(resourceBundle);
-        skinBox.setValue(skinBox.getItems().get(0));
-        skinBox.setOnAction( (ae) -> setCSS(skinBox.getValue()));
+
+        skinBox.setValue(currentSkin);
+        skinBox.setOnAction( (ae) ->   setCSS() );
     }
 
     private void initDifficulty() {
 
         LogicFactory.updateDescription(resourceBundle);
 
-
-
-//        difficultyBox.setValue(LogicFactory.NORMAL);
-        difficultyBox.setValue(difficultyBox.getItems().get(1));
-
+        difficultyBox.setValue(currentLogic);
         difficultyBox.setOnAction( (ae) -> newGame() );
 
     }
@@ -259,14 +281,36 @@ public class Controller implements Initializable , Translatable {
     @Override
     public void updateText(Language language) {
 
-//        newGameModal.textProperty().bind(language.getResourceFactory().getStringBinding("button.newGame"));
         newGameModal.setText(language.getValue("button.newGame"));
+
+        resourceBundle = language.getResourceBoundle();
 
         LogicFactory.updateDescription(resourceBundle);
         Skin.updateDescription(resourceBundle);
 
-        skinBox.getItems().setAll(Skin.values());
-        difficultyBox.getItems().setAll(LogicFactory.values());
+        skinBox.setOnAction(null);
+        skins.setAll(Skin.values());
+        skinBox.setValue(currentSkin);
+        skinBox.setOnAction( (ae) -> setCSS() );
+
+        difficultyBox.setOnAction(null);
+        logics.setAll(LogicFactory.values());
+        difficultyBox.setValue(currentLogic);
+        difficultyBox.setOnAction( (ae) -> newGame() );
+
+        Label label;
+
+        label = (Label) playerPane.getBottom();
+        if(label!=null) {
+            label.setText(language.getValue("victory") + " : " + playerTurns.getItems().size());
+        }
+
+        label = (Label) computerPane.getBottom();
+        if(label!=null) {
+            label.setText(language.getValue("defeat") + " : " + playerTurns.getItems().size());
+        }
+
+
 
     }
 }
