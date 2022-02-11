@@ -1,21 +1,32 @@
 WARNING : Turns made : 1
+INFO : [ А1 ]
+INFO : [ А1 ]
+WARNING : Turns made : 2
+WARNING : Turns made : 3
+WARNING : Turns made : 4
+WARNING : Turns made : 5
+INFO : [ В3 ,  Г3 ]
+INFO : [ В3 ,  Г3 ]
+WARNING : Turns made : 6
 INFO : cpu is shooting....
 INFO : next turns : empty . Do random hit
 WARNING : Turns made : 1
-INFO : cpu shot  З8  MISS
-INFO : 1  З8 
-WARNING : Turns made : 2
-INFO : cpu is shooting....
-INFO : next turns : empty . Do random hit
-WARNING : Turns made : 2
-INFO : [ Д2 ,  Е2 ]
-INFO : [ Д2 ,  Е2 ]
-INFO : cpu shot  Д2  HIT
-INFO : 2  Д2 
-INFO : cpu is shooting....
-INFO : NextTurn size : 4
-		next turns :  Е2  Г2  Д3  Д1 
-INFO : cpu is aiming..... Д1 
-WARNING : Turns made : 3
-INFO : cpu shot  Д1  MISS
-INFO : 3  Д1 
+INFO : cpu shot  Ж9  MISS
+INFO : 1  Ж9 
+WARNING : Turns made : 7
+INFO : [ В3 ,  Г3 ]
+INFO : [ В3 ,  Г3 ]
+WARNING : Turns made : 7
+WARNING : Turns made : 8
+WARNING : Turns made : 9
+WARNING : Turns made : 9
+WARNING : Turns made : 10
+WARNING : Turns made : 11
+WARNING : Turns made : 12
+WARNING : Turns made : 12
+WARNING : Turns made : 12
+WARNING : Turns made : 12
+WARNING : Turns made : 12
+WARNING : Turns made : 13
+WARNING : Turns made : 14
+WARNING : Turns made : 15

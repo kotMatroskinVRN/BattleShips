@@ -14,30 +14,20 @@ import java.util.List;
 
 public class TurnListView extends ListView<String> implements Translatable {
 
-    List<Turn> turns ;
-    ObservableList<String> data ;
+    private final List<Turn> turns ;
+    private final ObservableList<String> data ;
 
-    Language language;
+    private Language language;
 
     public TurnListView(){
         super();
+        this.language = Language.values()[0];
         Translator.addSource(this);
         turns = new ArrayList<>();
         data  = FXCollections.observableArrayList();
-        data.add("New");
         setItems(data);
-    }
 
-    public TurnListView(Language language){
-        super();
-        Translator.addSource(this);
-        turns = FXCollections.observableArrayList();
-        data  = FXCollections.observableArrayList();
-        data.add("New");
-        setItems(data);
-        this.language = language;
     }
-
 
     public void setLanguage(Language language){
         this.language = language;
@@ -65,5 +55,8 @@ public class TurnListView extends ListView<String> implements Translatable {
     }
 
 
-//    private void
+
+    public void clearTurns(){
+        turns.clear();
+    }
 }
