@@ -4,6 +4,8 @@ import home.battleShips.model.CssId;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
+import java.util.Objects;
+
 public class Ship extends HBox {
 
     private final int size;
@@ -40,7 +42,7 @@ public class Ship extends HBox {
 
     public void setKilled(){
         for(Button button : buttons){
-            CssId id = CssId.getID(button.getId()).getKilled();
+            CssId id = Objects.requireNonNull(CssId.getID(button.getId())).getKilled();
             button.setId(id.toString());
             button.applyCss();
         }

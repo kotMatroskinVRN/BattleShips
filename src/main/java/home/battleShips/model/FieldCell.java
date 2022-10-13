@@ -3,8 +3,6 @@ package home.battleShips.model;
 
 import home.battleShips.Language;
 import home.battleShips.Main;
-import home.battleShips.Translatable;
-import home.battleShips.Translator;
 
 import java.util.Objects;
 
@@ -28,7 +26,6 @@ public class FieldCell implements Comparable<FieldCell>  {
 
         setStyle(CssId.SEA);
 
-//        Translator.addSource(this);
     }
 
     public void setDeckStyle(int s , int deck ){

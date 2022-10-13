@@ -11,12 +11,10 @@ public enum Language {
     ENGLISH("en"){},
     ;
 
-    private String language;
-    private ResourceBundle resourceBundle;
-    private ObservableResourceFactory resourceFactory = new ObservableResourceFactory();
+    private final ResourceBundle resourceBundle;
+    private final ObservableResourceFactory resourceFactory = new ObservableResourceFactory();
 
     Language(String language){
-        this.language = language;
         resourceBundle = ResourceBundle.getBundle("Locale", new Locale(language));
         resourceFactory.setResources(resourceBundle);
     }

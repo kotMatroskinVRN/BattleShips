@@ -70,7 +70,6 @@ public class FieldData {
                         killedShips.add(ship);
                         turn.killShip();
                         surroundShip(ship);
-//                        System.out.println("Killed Ships : " + killedShips.size());
                     }
                 }
             }

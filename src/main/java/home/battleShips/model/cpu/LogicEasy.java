@@ -3,7 +3,7 @@ package home.battleShips.model.cpu;
 import home.battleShips.model.FieldData;
 import home.battleShips.model.Turn;
 
-public class Easy implements Logic {
+public class LogicEasy implements Logic {
     private Turn lastTurn;
     private FieldData fieldData ;
 

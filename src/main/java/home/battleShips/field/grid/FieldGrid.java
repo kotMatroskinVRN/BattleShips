@@ -59,10 +59,6 @@ public class FieldGrid extends GridPane implements Translatable {
         }
     }
 
-    private void processPlayerShipKilled(Ship ship) {
-    }
-
-
     public FieldData getFieldData() {
         return fieldData;
     }
@@ -144,14 +140,7 @@ public class FieldGrid extends GridPane implements Translatable {
         }
     }
 
-    private void removeLetters(){
 
-        for(int l=1;l<FIELD_SIZE;l++){
-
-
-        }
-
-    }
 
     private void setNumbers(){
 

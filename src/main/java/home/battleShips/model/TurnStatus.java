@@ -6,7 +6,7 @@ public enum TurnStatus {
     KILL(CssId.HIT),
     ;
 
-    private CssId picture;
+    private final CssId picture;
 
     TurnStatus(CssId picture ){
         this.picture = picture;

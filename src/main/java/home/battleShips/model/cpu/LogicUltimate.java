@@ -1,12 +1,14 @@
 package home.battleShips.model.cpu;
 
-import home.battleShips.model.*;
+import home.battleShips.model.FieldCell;
+import home.battleShips.model.FieldData;
+import home.battleShips.model.Turn;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class Hard implements Logic {
+public class LogicUltimate implements Logic {
 
     private final Stack<TurnPattern> patternStack = new Stack<>();
 
@@ -20,7 +22,6 @@ public class Hard implements Logic {
     private boolean onlyTorpedoBoats = false;
 
 
-
     @Override
     public void setData(FieldData fieldData) {
 
@@ -29,12 +30,19 @@ public class Hard implements Logic {
 
         patternStack.clear();
         patternStack.push(TurnPattern.RANDOM);
-        patternStack.push(TurnPattern.TWOS);
-        patternStack.push(TurnPattern.FOURS);
+        patternStack.push(TurnPattern.ULTIMATE_SECOND);
+        patternStack.push(TurnPattern.ULTIMATE_FIRST);
 
         patternStack.forEach(TurnPattern::init);
         pattern = patternStack.pop();
 
+    }
+
+
+
+    @Override
+    public Turn getLastTurn(){
+        return lastTurn;
     }
 
 
@@ -45,6 +53,7 @@ public class Hard implements Logic {
         if(nextTurns.empty())  {
             switchPattern();
             Turn turn = pattern.getTurn();
+
             while(fieldData.isCellInTurns(turn.getCell())){
                 switchPattern();
                 turn = pattern.getTurn();
@@ -59,7 +68,7 @@ public class Hard implements Logic {
             Turn turn = nextTurns.pop();
             log.info("cpu is aiming....." + turn);
 
-            while(fieldData.isCellInTurns(turn.getCell())){
+            while(fieldData.isCellInTurns(turn.getCell())) {
                 log.info( formatStack() );
                 turn = nextTurns.pop();
                 log.info("cpu is aiming....." + turn);
@@ -68,12 +77,6 @@ public class Hard implements Logic {
             proceedTurn(turn);
         }
     }
-
-    @Override
-    public Turn getLastTurn(){
-        return lastTurn;
-    }
-
 
     private void switchPattern(){
         if(!patternStack.empty()) {
@@ -84,6 +87,7 @@ public class Hard implements Logic {
             if (onlyTorpedoBoats && pattern!=TurnPattern.RANDOM) pattern = TurnPattern.RANDOM;
         }
     }
+
 
 
 
@@ -107,7 +111,7 @@ public class Hard implements Logic {
                     " %s %s" , turn.getCell() , turn.getStatus());
         log.info(info);
 
-        if(!onlyTorpedoBoats && fieldData.onlyTorpedoBoatsLeft()) {
+        if(!onlyTorpedoBoats && fieldData.areBattleShipsAndCarrierKilled()) {
             onlyTorpedoBoats = true;
         }
 

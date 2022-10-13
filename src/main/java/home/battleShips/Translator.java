@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Translator {
 
-    private static  List<Translatable> items = new ArrayList<>(
+    private static final List<Translatable> items = new ArrayList<>(
 
     );
 

@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class TurnSequenceParser {
 
     private final int FIELD_SIZE = Main.getFIELD_SIZE();
 
-    private List<Turn> turns = new ArrayList<>();
+    private final List<Turn> turns = new ArrayList<>();
     private String content;
 
     public TurnSequenceParser() {
@@ -31,14 +32,12 @@ public class TurnSequenceParser {
 
     public void parse(){
 
-        try{
-            InputStream is = ClassLoader.getSystemResourceAsStream(content) ;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is , "UTF-8") );
+        try(InputStream is = ClassLoader.getSystemResourceAsStream(content);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is , StandardCharsets.UTF_8) ))   {
 
             String line = reader.readLine();
             while(line != null){
                 line = line.trim();
-//                System.out.println(line);
                 if(!line.equals("")) {
                     int letter = StaticUtils.getNumberFromChar(line.split(" ")[0]);
                     int number = Integer.parseInt(line.split(" ")[1]);

@@ -1,7 +1,5 @@
 package home.battleShips.model.cpu;
 
-import home.battleShips.field.Skin;
-
 import java.util.EnumSet;
 import java.util.ResourceBundle;
 
@@ -9,31 +7,31 @@ public enum LogicFactory {
     EASY("difficulty.easy"){
         @Override
         public Logic getDifficulty() {
-            return new Easy();
+            return new LogicEasy();
         }
     },
     NORMAL("difficulty.normal"){
         @Override
         public Logic getDifficulty() {
-            return new Normal();
+            return new LogicNormal();
         }
     },
     HARD("difficulty.hard"){
         @Override
         public Logic getDifficulty() {
-            return new Hard();
+            return new LogicHard();
         }
     },
     ULTIMATE("difficulty.ultimate"){
         @Override
         public Logic getDifficulty() {
-            return new Ultimate();
+            return new LogicUltimate();
         }
     },
     HARDEST("difficulty.hardest"){
         @Override
         public Logic getDifficulty() {
-            return new Hardest();
+            return new LogicHardest();
         }
     },
     ;

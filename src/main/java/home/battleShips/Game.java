@@ -1,7 +1,5 @@
 package home.battleShips;
 
-import home.battleShips.Controller;
-import home.battleShips.Main;
 import home.battleShips.field.CpuTurnAnimation;
 import home.battleShips.field.grid.FieldGrid;
 import home.battleShips.model.FieldCell;
@@ -72,7 +70,7 @@ public class Game {
 
 
 
-    public void turn( FieldCell cell) {
+    public void makeTurn(FieldCell cell) {
 
         Turn turn = new Turn(cell);
         FieldData fieldData = playerField.getFieldData();
@@ -87,9 +85,6 @@ public class Game {
 
 
             if(turn.isHit()){
-
-                //action then hit
-
 
                 if(turn.isKill()){
 
@@ -117,7 +112,6 @@ public class Game {
         controller.addCpuTurnToList(lastTurn);
         cpuField.applyTurn(lastTurn);
 
-        //pause();
 
         if(lastTurn.isHit()){
             if(lastTurn.isKill()){
@@ -135,13 +129,6 @@ public class Game {
 
     }
 
-    private void pause() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void checkGameOver(FieldGrid fieldGrid) {
 
@@ -169,7 +156,7 @@ public class Game {
         for(int l=1;l<FIELD_SIZE;l++){
             for(int n=1;n<FIELD_SIZE;n++){
                 FieldCell cell = playerField.getFieldData().getCells()[l][n];
-                playerField.getButton(cell).onMouseClickedProperty().set( ae -> turn( cell ) );
+                playerField.getButton(cell).onMouseClickedProperty().set( ae -> makeTurn( cell ) );
                 playerField.getButton(cell).getStyleClass().add("player");
             }
         }

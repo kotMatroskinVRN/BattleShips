@@ -1,14 +1,12 @@
 package home.battleShips.model.cpu;
 
-import home.battleShips.model.FieldCell;
-import home.battleShips.model.FieldData;
-import home.battleShips.model.Turn;
+import home.battleShips.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class Hardest implements Logic {
+public class LogicHard implements Logic {
 
     private final Stack<TurnPattern> patternStack = new Stack<>();
 
@@ -31,7 +29,8 @@ public class Hardest implements Logic {
 
         patternStack.clear();
         patternStack.push(TurnPattern.RANDOM);
-        patternStack.push(TurnPattern.THREES);
+        patternStack.push(TurnPattern.TWOS);
+        patternStack.push(TurnPattern.FOURS);
 
         patternStack.forEach(TurnPattern::init);
         pattern = patternStack.pop();
@@ -46,10 +45,10 @@ public class Hardest implements Logic {
         if(nextTurns.empty())  {
             switchPattern();
             Turn turn = pattern.getTurn();
-
             while(fieldData.isCellInTurns(turn.getCell())){
                 switchPattern();
                 turn = pattern.getTurn();
+
             }
 
             proceedTurn(turn);
@@ -60,7 +59,7 @@ public class Hardest implements Logic {
             Turn turn = nextTurns.pop();
             log.info("cpu is aiming....." + turn);
 
-            while(fieldData.isCellInTurns(turn.getCell())) {
+            while(fieldData.isCellInTurns(turn.getCell())){
                 log.info( formatStack() );
                 turn = nextTurns.pop();
                 log.info("cpu is aiming....." + turn);
@@ -69,6 +68,12 @@ public class Hardest implements Logic {
             proceedTurn(turn);
         }
     }
+
+    @Override
+    public Turn getLastTurn(){
+        return lastTurn;
+    }
+
 
     private void switchPattern(){
         if(!patternStack.empty()) {
@@ -80,10 +85,6 @@ public class Hardest implements Logic {
         }
     }
 
-    @Override
-    public Turn getLastTurn(){
-        return lastTurn;
-    }
 
 
     private void proceedTurn(Turn turn){
@@ -103,12 +104,13 @@ public class Hardest implements Logic {
         }
 
         String info = String.format("cpu shot" +
-                " %s %s" , turn.getCell() , turn.getStatus());
+                    " %s %s" , turn.getCell() , turn.getStatus());
         log.info(info);
 
-        if(!onlyTorpedoBoats && fieldData.areBattleShipsAndCarrierKilled()) {
+        if(!onlyTorpedoBoats && fieldData.onlyTorpedoBoatsLeft()) {
             onlyTorpedoBoats = true;
         }
+
 
     }
 

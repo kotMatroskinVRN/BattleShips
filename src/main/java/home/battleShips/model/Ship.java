@@ -1,10 +1,6 @@
 package home.battleShips.model;
 
-import home.battleShips.utils.StaticUtils;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Ship{

@@ -37,6 +37,7 @@ public class TurnListView extends ListView<String> implements Translatable {
         turns.add(turn);
         updateText(language);
         System.out.println(data);
+        scrollTo(data.size());
     }
 
 
@@ -52,6 +53,7 @@ public class TurnListView extends ListView<String> implements Translatable {
             data.add(string);
         }
         setItems(data);
+
     }
 
 

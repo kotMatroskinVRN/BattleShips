@@ -23,7 +23,7 @@ public enum Skin {
     ;
 
     private String description;
-    private String key;
+    private final String key;
 
     Skin(String name){
         key = name;

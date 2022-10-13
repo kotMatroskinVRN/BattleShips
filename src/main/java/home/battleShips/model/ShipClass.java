@@ -8,7 +8,7 @@ public enum ShipClass {
     TORPEDOBOAT(1){},
     ;
 
-    private int size;
+    private final int size;
 
     ShipClass(int size) {
         this.size = size;

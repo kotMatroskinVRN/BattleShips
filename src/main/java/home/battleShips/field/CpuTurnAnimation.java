@@ -12,7 +12,7 @@ public class CpuTurnAnimation {
     private final Duration DURATION = Duration.seconds(2);
     private final int CYCLE_COUNT    = 16;
 
-    private List<FadeTransition> ANIMATED_CELLS = new ArrayList<>();
+    private final List<FadeTransition> ANIMATED_CELLS = new ArrayList<>();
 
     public void fadeAnimation(Button button){
         FadeTransition animation = new FadeTransition( DURATION );

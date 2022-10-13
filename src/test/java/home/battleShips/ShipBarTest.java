@@ -1,5 +1,6 @@
-package home.battleShips.field;
+package home.battleShips;
 
+import home.battleShips.field.ShipBar;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;

@@ -122,6 +122,3 @@ public class Main extends Application implements Translatable {
 }
 
 
-//TODO
-// Do graphics using CSS
-// in Code and FXML only markUp!!!!

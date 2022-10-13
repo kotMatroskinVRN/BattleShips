@@ -3,7 +3,7 @@ package home.battleShips.model.cpu;
 import home.battleShips.model.*;
 
 
-public class Normal implements Logic {
+public class LogicNormal implements Logic {
 
     private Turn lastTurn;
     private FieldData fieldData ;

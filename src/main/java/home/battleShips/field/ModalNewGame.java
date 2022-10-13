@@ -17,9 +17,6 @@ import javafx.stage.Window;
 
 public class ModalNewGame {
 
-    private final int WIDTH  = 350;
-    private final int HEIGHT = 150;
-
     private final Button okButton ;
     private final Stage window;
 
@@ -30,10 +27,12 @@ public class ModalNewGame {
 
     public void initModalNewGame(Parent parent , Language language) {
 
-        final BorderPane pane = new BorderPane();
-        final FlowPane bottomPane = new FlowPane();
+        BorderPane pane = new BorderPane();
+        FlowPane bottomPane = new FlowPane();
 
-        final Scene scene = new Scene( pane, WIDTH ,HEIGHT );
+        int WIDTH = 350;
+        int HEIGHT = 150;
+        Scene scene = new Scene( pane, WIDTH, HEIGHT);
 
         Window parentWindow = parent.getScene().getWindow();
         double centerX = parentWindow.getX();
@@ -45,8 +44,8 @@ public class ModalNewGame {
         window.initOwner(parentWindow);
         window.setResizable(false);
         window.setTitle(language.getValue("newGame.title"));
-        window.setX(centerX+(parentWidth-WIDTH)/2);
-        window.setY(centerY+(parentHeight-HEIGHT)/2);
+        window.setX(centerX+(parentWidth- WIDTH)/2);
+        window.setY(centerY+(parentHeight- HEIGHT)/2);
 
         window.setScene(scene);
 
@@ -61,8 +60,8 @@ public class ModalNewGame {
         bottomPane.setAlignment(Pos.BASELINE_RIGHT);
         bottomPane.getChildren().addAll(okButton,cancelButton);
 
-        final String test = language.getValue("newGame.message");
-        final Label label = new Label(test);
+        String test = language.getValue("newGame.message");
+        Label label = new Label(test);
 
         pane.setBottom(bottomPane);
         pane.setCenter(label);

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class Ultimate implements Logic {
+public class LogicHardest implements Logic {
 
     private final Stack<TurnPattern> patternStack = new Stack<>();
 
@@ -22,6 +22,7 @@ public class Ultimate implements Logic {
     private boolean onlyTorpedoBoats = false;
 
 
+
     @Override
     public void setData(FieldData fieldData) {
 
@@ -30,19 +31,11 @@ public class Ultimate implements Logic {
 
         patternStack.clear();
         patternStack.push(TurnPattern.RANDOM);
-        patternStack.push(TurnPattern.ULTIMATE_SECOND);
-        patternStack.push(TurnPattern.ULTIMATE_FIRST);
+        patternStack.push(TurnPattern.THREES);
 
         patternStack.forEach(TurnPattern::init);
         pattern = patternStack.pop();
 
-    }
-
-
-
-    @Override
-    public Turn getLastTurn(){
-        return lastTurn;
     }
 
 
@@ -57,7 +50,6 @@ public class Ultimate implements Logic {
             while(fieldData.isCellInTurns(turn.getCell())){
                 switchPattern();
                 turn = pattern.getTurn();
-
             }
 
             proceedTurn(turn);
@@ -88,7 +80,10 @@ public class Ultimate implements Logic {
         }
     }
 
-
+    @Override
+    public Turn getLastTurn(){
+        return lastTurn;
+    }
 
 
     private void proceedTurn(Turn turn){
@@ -108,13 +103,12 @@ public class Ultimate implements Logic {
         }
 
         String info = String.format("cpu shot" +
-                    " %s %s" , turn.getCell() , turn.getStatus());
+                " %s %s" , turn.getCell() , turn.getStatus());
         log.info(info);
 
         if(!onlyTorpedoBoats && fieldData.areBattleShipsAndCarrierKilled()) {
             onlyTorpedoBoats = true;
         }
-
 
     }
 
