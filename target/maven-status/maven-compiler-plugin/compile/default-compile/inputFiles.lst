@@ -12,10 +12,12 @@ C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cp
 C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\utils\FileResourcesUtils.java
 C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\LogicUltimate.java
 C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\Controller.java
+C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\NextTurnsStack.java
 C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\CssId.java
 C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\Turn.java
 C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\Translator.java
 C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\Ship.java
+C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\ShipKiller.java
 C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\FieldData.java
 C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\cpu\LogicHard.java
 C:\Users\Andrey\IdeaProjects\BattleShips\src\main\java\home\battleShips\model\TurnStatus.java

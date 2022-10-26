@@ -67,7 +67,7 @@ public class Controller implements Initializable , Translatable {
 
         if(firstRun){
 
-            currentLogic = LogicFactory.NORMAL;
+            currentLogic = LogicFactory.HARD;
             currentSkin  = Skin.DEFAULT;
 
             Translator.addSource(this);

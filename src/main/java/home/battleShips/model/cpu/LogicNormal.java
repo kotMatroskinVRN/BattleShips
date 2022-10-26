@@ -3,11 +3,13 @@ package home.battleShips.model.cpu;
 import home.battleShips.model.*;
 
 
+
 public class LogicNormal implements Logic {
 
     private Turn lastTurn;
     private FieldData fieldData ;
     private TurnPattern pattern;
+    private final NextTurnsStack nextTurns = new NextTurnsStack();
 
 
     @Override
@@ -29,34 +31,32 @@ public class LogicNormal implements Logic {
     public void makeShot() {
         log.info("cpu is shooting....");
 
+        Turn turn = chooseTurn();
+        proceedTurn(turn);
+
+    }
+
+    private Turn chooseTurn(){
+        Turn turn;
         if(nextTurns.isEmpty())  {
             log.info(  "next turns : empty . Do random hit");
 
-            Turn turn = pattern.getTurn(); // random turn
-            while(fieldData.isCellInTurns(turn.getCell())){
-                turn = pattern.getTurn(); // random turn
-
+            do {
+                turn = pattern.getTurn();
             }
+            while (fieldData.isCellInTurns(turn.getCell()));
 
-            proceedTurn(turn);
         }
 
         else {
-            log.info( formatStack() );
 
-            Turn turn = nextTurns.pop();
-            log.info("cpu is aiming....." + turn);
-
-
-            while(fieldData.isCellInTurns(turn.getCell())) {
-                log.info( formatStack() );
+            do {
                 turn = nextTurns.pop();
-                log.info("cpu is aiming....." + turn);
             }
+            while (fieldData.isCellInTurns(turn.getCell()));
 
-            proceedTurn(turn);
         }
-
+        return turn;
     }
 
 
@@ -64,11 +64,10 @@ public class LogicNormal implements Logic {
 
         lastTurn = turn;
 
-
         fieldData.proceedTurn(turn);
         if(turn.isHit()){
 
-            surroundHit(turn.getCell());
+            nextTurns.surroundHit(turn.getCell());
 
             if(turn.isKill()){
                 nextTurns.clear();
@@ -81,6 +80,8 @@ public class LogicNormal implements Logic {
         log.info(info);
 
     }
+
+
 
 
 

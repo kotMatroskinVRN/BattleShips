@@ -9,17 +9,14 @@ import java.util.Stack;
 public class LogicHard implements Logic {
 
     private final Stack<TurnPattern> patternStack = new Stack<>();
+    private final ShipKiller shipKiller = new ShipKiller();
 
     private Turn lastTurn;
 
     private TurnPattern pattern;
     private FieldData fieldData ;
 
-    private final List<FieldCell>  hitsToKill  = new ArrayList<>();
-
     private boolean onlyTorpedoBoats = false;
-
-
 
     @Override
     public void setData(FieldData fieldData) {
@@ -42,7 +39,7 @@ public class LogicHard implements Logic {
     public void makeShot() {
         log.info("cpu is shooting....");
 
-        if(nextTurns.empty())  {
+        if(shipKiller.isEmpty())  {
             switchPattern();
             Turn turn = pattern.getTurn();
             while(fieldData.isCellInTurns(turn.getCell())){
@@ -55,14 +52,10 @@ public class LogicHard implements Logic {
         }
 
         else {
-            log.info( this.formatStack() );
-            Turn turn = nextTurns.pop();
-            log.info("cpu is aiming....." + turn);
+            Turn turn = shipKiller.getNextTurn();
 
             while(fieldData.isCellInTurns(turn.getCell())){
-                log.info( formatStack() );
-                turn = nextTurns.pop();
-                log.info("cpu is aiming....." + turn);
+                turn = shipKiller.getNextTurn();
             }
 
             proceedTurn(turn);
@@ -93,13 +86,12 @@ public class LogicHard implements Logic {
         fieldData.proceedTurn(turn);
 
         if(turn.isHit()){
-            surroundHit(turn.getCell());
-            hitsToKill.add(turn.getCell());
-            getKillingSet();
+            shipKiller.surroundHit(turn.getCell());
+            shipKiller.addHit(turn.getCell());
+            shipKiller.updateKillingStack();
 
             if(turn.isKill()){
-                nextTurns.clear();
-                hitsToKill.clear();
+                shipKiller.clear();
             }
         }
 
@@ -114,30 +106,7 @@ public class LogicHard implements Logic {
 
     }
 
-    private void getKillingSet(){
 
-        if(hitsToKill.size()>1){
-            Stack<Turn> result = new Stack<>();
-            int letter = hitsToKill.get(0).getLetter();
-            int number = hitsToKill.get(0).getNumber();
-            if(number==hitsToKill.get(1).getNumber()){
-                for (Turn turn : nextTurns){
-                    if(turn.getCell().getNumber()==number){
-                        result.push(turn);
-                    }
-                }
-            }
-            if(letter==hitsToKill.get(1).getLetter()){
-                for (Turn turn : nextTurns){
-                    if(turn.getCell().getLetter()==letter){
-                        result.push(turn);
-                    }
-                }
-            }
-            nextTurns.clear();
-            nextTurns.addAll(result);
-        }
-    }
 
 
 }
