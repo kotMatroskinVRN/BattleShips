@@ -5,6 +5,7 @@ import home.battleShips.Translatable;
 import home.battleShips.Translator;
 import home.battleShips.model.FieldCell;
 import home.battleShips.model.Turn;
+import home.battleShips.utils.BattleShipsLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -20,6 +21,7 @@ public class TurnListView extends ListView<String> implements Translatable {
     private Language language;
 
     public TurnListView(){
+
         super();
         this.language = Language.values()[0];
         Translator.addSource(this);
@@ -36,7 +38,7 @@ public class TurnListView extends ListView<String> implements Translatable {
     public void addTurn(Turn turn){
         turns.add(turn);
         updateText(language);
-        System.out.println(data);
+        BattleShipsLogger.getLogger().printVerbose(data.toString());
         scrollTo(data.size());
     }
 

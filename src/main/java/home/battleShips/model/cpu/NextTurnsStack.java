@@ -1,23 +1,22 @@
 package home.battleShips.model.cpu;
 
-import home.battleShips.Main;
 import home.battleShips.model.FieldCell;
 import home.battleShips.model.Turn;
+import home.battleShips.utils.BattleShipsLogger;
 
 import java.util.List;
 import java.util.Stack;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class NextTurnsStack {
 
-    private final Logger LOG = Main.getLog();
+    private final BattleShipsLogger LOG = BattleShipsLogger.getLogger();
     private final Stack<Turn> nextTurns =  new Stack<>();
 
     public Turn pop() {
-        LOG.info( toString() );
+        LOG.printInfo( toString() );
         Turn turn = nextTurns.pop();
-        LOG.info("cpu is aiming....." + turn);
+        LOG.printInfo("cpu is aiming....." + turn);
         return turn;
     }
 
@@ -65,7 +64,7 @@ public class NextTurnsStack {
             try {
                 result.append( turn.toString() );
             }catch (NullPointerException npe){
-                LOG.severe("turn has no cell" + turn.hashCode());
+                LOG.printError("turn has no cell" + turn.hashCode());
                 npe.printStackTrace();
 
             }
@@ -99,7 +98,7 @@ public class NextTurnsStack {
             nextTurns.push( new Turn(cell) );
         }catch (NullPointerException | ArrayIndexOutOfBoundsException e){
             String string = "Wrong L/N :" + letter + number;
-            LOG.info(string);
+            LOG.printInfo(string);
         }
     }
 

@@ -4,6 +4,7 @@ import home.battleShips.field.*;
 import home.battleShips.field.Skin;
 import home.battleShips.model.Turn;
 import home.battleShips.model.cpu.LogicFactory;
+import home.battleShips.utils.BattleShipsLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -196,7 +197,7 @@ public class Controller implements Initializable , Translatable {
     private void newGame() {
 
         Game game = new Game(this);
-        System.out.println( difficultyBox.getValue());
+        BattleShipsLogger.getLogger().printVerbose( difficultyBox.getValue().toString());
         currentLogic = LogicFactory.getLogic(difficultyBox.getValue().toString());
         assert currentLogic != null;
         game.setDifficulty(currentLogic);

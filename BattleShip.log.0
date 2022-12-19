@@ -1,133 +1,19 @@
-INFO : [ А6 ,  Б6 ,  В6 ]
-WARNING : Turns made : 36
-INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  И7  К8 
-INFO : NextTurn size : 2
-		next turns :  И7  К8 
-INFO : cpu is aiming..... К8 
-INFO : cpu is aiming..... К8 
-WARNING : Turns made : 38
-INFO : cpu shot  К8  MISS
-INFO : 15  К8 
-WARNING : Turns made : 37
-INFO : [ А6 ,  Б6 ,  В6 ]
-INFO : [ А6 ,  Б6 ,  В6 ]
-WARNING : Turns made : 38
-INFO : [ А6 ,  Б6 ,  В6 ]
-INFO : [ А6 ,  Б6 ,  В6 ]
-WARNING : Turns made : 38
-WARNING : Turns made : 38
-WARNING : Turns made : 39
-WARNING : Turns made : 39
-WARNING : Turns made : 39
-WARNING : Turns made : 39
-WARNING : Turns made : 39
-WARNING : Turns made : 39
-WARNING : Turns made : 40
-WARNING : Turns made : 40
-WARNING : Turns made : 40
-WARNING : Turns made : 40
-WARNING : Turns made : 40
-WARNING : Turns made : 40
-WARNING : Turns made : 41
-WARNING : Turns made : 42
-WARNING : Turns made : 43
-WARNING : Turns made : 44
-INFO : [ И3 ,  К3 ]
-INFO : [ И3 ,  К3 ]
-WARNING : Turns made : 45
-INFO : cpu is shooting....
-INFO : NextTurn size : 1
-		next turns :  И7 
-INFO : NextTurn size : 1
-		next turns :  И7 
-INFO : cpu is aiming..... И7 
-INFO : cpu is aiming..... И7 
-WARNING : Turns made : 39
-INFO : [ Ж7 ,  З7 ,  И7 ,  К7 ]
-INFO : [ Ж7 ,  З7 ,  И7 ,  К7 ]
-INFO : cpu shot  И7  HIT
-INFO : 16  И7 
-INFO : cpu is shooting....
-INFO : NextTurn size : 2
-		next turns :  К7  З7 
-INFO : NextTurn size : 2
-		next turns :  К7  З7 
-INFO : cpu is aiming..... З7 
-INFO : cpu is aiming..... З7 
-WARNING : Turns made : 40
-INFO : [ Ж7 ,  З7 ,  И7 ,  К7 ]
-INFO : [ Ж7 ,  З7 ,  И7 ,  К7 ]
-INFO : cpu shot  З7  HIT
-INFO : 17  З7 
-INFO : cpu is shooting....
-INFO : NextTurn size : 3
-		next turns :  К7  И7  Ж7 
-INFO : NextTurn size : 3
-		next turns :  К7  И7  Ж7 
-INFO : cpu is aiming..... Ж7 
-INFO : cpu is aiming..... Ж7 
-WARNING : Turns made : 41
-INFO : [ Ж7 ,  З7 ,  И7 ,  К7 ]
-INFO : [ Ж7 ,  З7 ,  И7 ,  К7 ]
-WARNING : Turns made : 42
-WARNING : Turns made : 42
-WARNING : Turns made : 43
-WARNING : Turns made : 43
-WARNING : Turns made : 44
-WARNING : Turns made : 45
-WARNING : Turns made : 46
-WARNING : Turns made : 46
-WARNING : Turns made : 46
-WARNING : Turns made : 46
-WARNING : Turns made : 46
-WARNING : Turns made : 47
-WARNING : Turns made : 48
-WARNING : Turns made : 48
-WARNING : Turns made : 48
-WARNING : Turns made : 48
-WARNING : Turns made : 48
-WARNING : Turns made : 48
-WARNING : Turns made : 48
-WARNING : Turns made : 48
-WARNING : Turns made : 48
-WARNING : Turns made : 48
-WARNING : Turns made : 48
-INFO : cpu shot  Ж7  KILL
-INFO : 18  Ж7 
-INFO : cpu is shooting....
-WARNING : Turns made : 49
-INFO : cpu shot  К3  MISS
-INFO : 19  К3 
-WARNING : Turns made : 46
-INFO : cpu is shooting....
-WARNING : Turns made : 50
-INFO : [ Ж5 ,  З5 ,  И5 ]
-INFO : [ Ж5 ,  З5 ,  И5 ]
-INFO : cpu shot  З5  HIT
-INFO : 20  З5 
-INFO : cpu is shooting....
-INFO : NextTurn size : 4
-		next turns :  И5  Ж5  З6  З4 
-INFO : NextTurn size : 4
-		next turns :  И5  Ж5  З6  З4 
-INFO : cpu is aiming..... З4 
-INFO : cpu is aiming..... З4 
-WARNING : Turns made : 51
-INFO : cpu shot  З4  MISS
-INFO : 21  З4 
-WARNING : Turns made : 47
-INFO : [ И3 ,  К3 ]
-INFO : [ И3 ,  К3 ]
-WARNING : Turns made : 48
-WARNING : Turns made : 49
-WARNING : Turns made : 50
-WARNING : Turns made : 51
-WARNING : Turns made : 52
-WARNING : Turns made : 52
-WARNING : Turns made : 52
-WARNING : Turns made : 52
-WARNING : Turns made : 52
-WARNING : Turns made : 52
-WARNING : Turns made : 52
+[33mWARNING : Turns made : 77[0m
+[33mWARNING : Turns made : 78[0m
+[33mWARNING : Turns made : 90[0m
+[33mWARNING : Turns made : 79[0m
+[33mWARNING : Turns made : 80[0m
+[33mWARNING : Turns made : 80[0m
+[33mWARNING : Turns made : 80[0m
+[33mWARNING : Turns made : 80[0m
+[33mWARNING : Turns made : 80[0m
+[33mWARNING : Turns made : 80[0m
+[33mWARNING : Turns made : 80[0m
+[33mWARNING : Turns made : 81[0m
+[33mWARNING : Turns made : 82[0m
+[33mWARNING : Turns made : 91[0m
+[33mWARNING : Turns made : 91[0m
+[33mWARNING : Turns made : 91[0m
+[33mWARNING : Turns made : 91[0m
+[33mWARNING : Turns made : 92[0m
+[33mWARNING : Turns made : 92[0m

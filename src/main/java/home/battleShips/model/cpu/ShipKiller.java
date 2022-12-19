@@ -1,16 +1,15 @@
 package home.battleShips.model.cpu;
 
-import home.battleShips.Main;
 import home.battleShips.model.FieldCell;
 import home.battleShips.model.Turn;
+import home.battleShips.utils.BattleShipsLogger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class ShipKiller {
 
-    private final Logger LOG = Main.getLog();
+    private final BattleShipsLogger LOG = BattleShipsLogger.getLogger();
 
     private final NextTurnsStack nextTurns =  new NextTurnsStack();
     private final List<FieldCell> hits = new ArrayList<>();
@@ -28,9 +27,9 @@ public class ShipKiller {
     }
 
     public Turn getNextTurn(){
-        LOG.info( nextTurns.toString() );
+        LOG.printInfo( nextTurns.toString() );
         Turn turn = nextTurns.pop();
-        LOG.info("cpu is aiming....." + turn);
+        LOG.printInfo("cpu is aiming....." + turn);
         return turn;
     }
 

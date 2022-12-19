@@ -1,11 +1,8 @@
 package home.battleShips.model.cpu;
 
-import home.battleShips.model.FieldCell;
 import home.battleShips.model.FieldData;
 import home.battleShips.model.Turn;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 public class LogicHardest implements Logic {
@@ -38,7 +35,7 @@ public class LogicHardest implements Logic {
 
     @Override
     public void makeShot() {
-        log.info("cpu is shooting....");
+        logger.printInfo("cpu is shooting....");
 
         if(shipKiller.isEmpty())  {
             switchPattern();
@@ -96,7 +93,7 @@ public class LogicHardest implements Logic {
 
         String info = String.format("cpu shot" +
                 " %s %s" , turn.getCell() , turn.getStatus());
-        log.info(info);
+        logger.printInfo(info);
 
         if(!onlyTorpedoBoats && fieldData.areBattleShipsAndCarrierKilled()) {
             onlyTorpedoBoats = true;

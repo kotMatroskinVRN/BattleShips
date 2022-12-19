@@ -7,17 +7,17 @@ import home.battleShips.model.FieldData;
 import home.battleShips.model.Turn;
 import home.battleShips.model.cpu.Logic;
 import home.battleShips.model.cpu.LogicFactory;
+import home.battleShips.utils.BattleShipsLogger;
 import javafx.application.Platform;
 
 import java.util.Date;
-import java.util.logging.Logger;
 
 public class Game {
 
     private final int FIELD_SIZE = Main.getFIELD_SIZE() ;
     private final CpuTurnAnimation cpuTurnAnimation;
 
-    private final Logger log = Main.getLog();
+    private final BattleShipsLogger log = BattleShipsLogger.getLogger();
 
 
     private final FieldGrid playerField;
@@ -42,7 +42,7 @@ public class Game {
 
         cpuField.showShips();
 
-        System.out.println(new Date());
+        log.printVerbose(new Date().toString());
 
         setListeners();
         playerField.setPlayerField(true);
@@ -107,7 +107,7 @@ public class Game {
 
         aiLogic.makeShot();
         Turn lastTurn =  aiLogic.getLastTurn();
-        log.info(turnCount++ + " " + lastTurn);
+        log.printInfo(turnCount++ + " " + lastTurn);
         cpuTurnAnimation.fadeAnimation( cpuField.getButton(lastTurn.getCell()) );
         controller.addCpuTurnToList(lastTurn);
         cpuField.applyTurn(lastTurn);
@@ -115,7 +115,7 @@ public class Game {
 
         if(lastTurn.isHit()){
             if(lastTurn.isKill()){
-                System.out.println("Killing hit : "+lastTurn);
+                log.printVerbose("Killing hit" , lastTurn.toString());
                 controller.getCpuShipsLeft().killShips(cpuField.getFieldData().killedClasses());
                 cpuField.showKilledShip(cpuField.getFieldData().getKilledShip(lastTurn.getCell()));
                 checkGameOver(  cpuField );

@@ -29,7 +29,7 @@ public class LogicNormal implements Logic {
 
     @Override
     public void makeShot() {
-        log.info("cpu is shooting....");
+        logger.printInfo("cpu is shooting....");
 
         Turn turn = chooseTurn();
         proceedTurn(turn);
@@ -39,7 +39,7 @@ public class LogicNormal implements Logic {
     private Turn chooseTurn(){
         Turn turn;
         if(nextTurns.isEmpty())  {
-            log.info(  "next turns : empty . Do random hit");
+            logger.printInfo(  "next turns : empty . Do random hit");
 
             do {
                 turn = pattern.getTurn();
@@ -77,7 +77,7 @@ public class LogicNormal implements Logic {
 
         String info = String.format("cpu shot" +
                 " %s %s" , turn.getCell() , turn.getStatus());
-        log.info(info);
+        logger.printInfo(info);
 
     }
 

@@ -25,7 +25,7 @@ public class FileResourcesUtils {
             // get paths from src/main/resources/json
             List<Path> result = app.getPathsFromResourceJAR("images");
             for (Path path : result) {
-                System.out.println("Path : " + path);
+                BattleShipsLogger.getLogger().printVerbose("Path : " + path);
 
                 String filePathInJAR = path.toString();
                 // Windows will returns /json/file1.json, cut the first /
@@ -34,7 +34,7 @@ public class FileResourcesUtils {
                     filePathInJAR = filePathInJAR.substring(1, filePathInJAR.length());
                 }
 
-                System.out.println("filePathInJAR : " + filePathInJAR);
+                BattleShipsLogger.getLogger().printVerbose("filePathInJAR : " + filePathInJAR);
 
                 // read a file from resource folder
                 InputStream is = app.getFileFromResourceAsStream(filePathInJAR);

@@ -1,6 +1,7 @@
 package home.battleShips.model;
 
 import home.battleShips.Main;
+import home.battleShips.utils.BattleShipsLogger;
 
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import java.util.Set;
 public class FieldData {
 
     private final int FIELD_SIZE = Main.getFIELD_SIZE();
+    private final BattleShipsLogger LOGGER = BattleShipsLogger.getLogger();
 
     private final FieldCell[][] cells = new FieldCell[FIELD_SIZE][FIELD_SIZE];
     private Ship[] ships ;
@@ -38,7 +40,7 @@ public class FieldData {
         FieldCell cell = turn.getCell();
 
         turns.add(cell);
-        Main.getLog().warning("Turns made : " + turns.size());
+        LOGGER.printVerbose("Turns made : " + turns.size());
         if(isHit(cell)){
             addHit(turn);
         }
@@ -51,7 +53,7 @@ public class FieldData {
         for(Ship ship : ships){
             if( ship.hasCell(cell)){
                 ship.addHit(cell);
-                Main.getLog().info(ship.getShipCellList().toString());
+                LOGGER.printInfo(ship.getShipCellList().toString());
                 return true;
             }
         }

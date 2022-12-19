@@ -1,7 +1,5 @@
 package home.battleShips.field;
 
-import home.battleShips.model.cpu.LogicFactory;
-
 import java.net.URL;
 import java.util.EnumSet;
 import java.util.ResourceBundle;

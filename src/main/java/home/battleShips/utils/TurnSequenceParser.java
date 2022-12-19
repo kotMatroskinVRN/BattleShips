@@ -51,7 +51,8 @@ public class TurnSequenceParser {
                 line = reader.readLine();
             }
         }
-        catch (IOException e) { System.out.printf("%s  - %s\n" , content , "resource not found"  );
+        catch (IOException e) {
+            BattleShipsLogger.getLogger().printError( content , "resource not found"  );
             System.exit(1);
             }
 

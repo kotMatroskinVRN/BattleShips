@@ -1,6 +1,7 @@
 package home.battleShips;
 
 import home.battleShips.model.FieldCell;
+import home.battleShips.utils.BattleShipsLogger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,8 +13,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 public class Main extends Application implements Translatable {
 
@@ -21,28 +20,31 @@ public class Main extends Application implements Translatable {
     private final static String FXML = "MainWindow.fxml";
 
     private static String[] args;
-    private final static Logger log = Logger.getLogger(ClassLoader.class.getName());
 
     private static Stage stage;
 
 
     public static void main(String[] args) {
-
-
-        try {
-            LogManager.getLogManager().readConfiguration(
-                    ClassLoader.getSystemResourceAsStream("logging.properties"));
-
-        } catch (IOException e) {
-            System.err.println("Could not setup logger configuration: " + e);
-        }
-
-
         Main.args = args;
 
+        BattleShipsLogger logger = BattleShipsLogger.getLogger();
 
+        if(args.length>0){
+            parseCommandLine();
+        }
 
         launch(args);
+    }
+
+    private static void parseCommandLine() {
+        for(String arg : args){
+            switch (arg){
+                case "-v" :
+                    BattleShipsLogger.getLogger().enableVerbose();
+                    break;
+
+            }
+        }
     }
 
     @Override
@@ -80,9 +82,7 @@ public class Main extends Application implements Translatable {
 
 
 
-    public static Logger getLog(){
-        return log;
-    }
+
 
     public static int getFIELD_SIZE() {
         return FIELD_SIZE;

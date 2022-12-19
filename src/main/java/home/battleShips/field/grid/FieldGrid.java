@@ -5,6 +5,7 @@ import home.battleShips.Main;
 import home.battleShips.Translatable;
 import home.battleShips.Translator;
 import home.battleShips.model.*;
+import home.battleShips.utils.BattleShipsLogger;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -81,7 +82,7 @@ public class FieldGrid extends GridPane implements Translatable {
     }
 
     public void showKilledShip(Ship ship) {
-        System.out.println("Killed Ship : " + ship);
+        BattleShipsLogger.getLogger().printVerbose("Killed Ship : " + ship);
         for(FieldCell shipCell : ship.getShipCellList()){
             int l = shipCell.getLetter();
             int n = shipCell.getNumber();

@@ -22,9 +22,7 @@ public class LogicTest {
     private final Map<Integer, Integer> turnsTop = new HashMap<>();
     private final Set<Turn> turns = new HashSet<>();
 
-    static{
-        Main.getLog().setLevel(Level.SEVERE);
-    }
+
 
     void setLogic(Logic logic){
         System.out.println();

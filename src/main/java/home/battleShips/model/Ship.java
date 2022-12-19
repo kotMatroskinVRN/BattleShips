@@ -1,5 +1,7 @@
 package home.battleShips.model;
 
+import home.battleShips.utils.BattleShipsLogger;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +17,8 @@ public class Ship{
     public Ship( int s , int li , int ni , char d ){
 
         if(s<1){
-            System.out.printf("Ship %2d %c%d position is out of range of size \n" , s , li , ni );
+            String message = String.format("Ship %2d %c%d position is out of range of size \n" , s , li , ni );
+            BattleShipsLogger.getLogger().printWarning(message);
         }
 
         // split to 2 sections : start position and end position
